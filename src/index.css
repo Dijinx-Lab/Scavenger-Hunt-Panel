@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Helvetica Now Display', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:invalid {
+  color: rgba(156, 163, 175, 1);
+}
+#min::-webkit-inner-spin-button, 
+#min::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+#max::-webkit-inner-spin-button, 
+#max::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
