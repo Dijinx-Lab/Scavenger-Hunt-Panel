@@ -1,20 +1,35 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import ApexCharts from 'apexcharts';
 
 const LineChart = () => {
+  const [isMedium, setisMedium] = useState(window.innerWidth < 1280);
   useEffect(() => {
+    const handleResize = () => {
+      setisMedium(window.innerWidth < 1280);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  const chartWidth = isMedium ? 7 * 100 : 8 * 100; // Set chart width based on isMedium condition
+
+  useEffect(() => {
+  
     const chartConfig = {
       series: [
         {
           name: 'Sales',
-          data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-          
+          data: [50, 40, 300, 320, 500, 350, 200, 230, 500,200,400,300],
+
         },
       ],
       chart: {
         type: 'line',
-        width:"100%",
+        width: chartWidth,
         height: 240,
         toolbar: {
           show: false,
@@ -49,7 +64,19 @@ const LineChart = () => {
             fontWeight: 400,
           },
         },
-        categories: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        categories: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'],
       },
       yaxis: {
         labels: {
@@ -62,13 +89,13 @@ const LineChart = () => {
         },
       },
       grid: {
-       
+
         show: true,
         borderColor: '#dddddd',
-        strokeDashArray: 5,
+        strokeDashArray: 1,
         xaxis: {
           lines: {
-            show: true,
+            show: false,
           },
         },
         padding: {
@@ -78,7 +105,7 @@ const LineChart = () => {
       },
       fill: {
         colors: ['#F44336', '#E91E63', '#9C27B0'],
-        opacity: 0.8,
+        opacity: 1,
       },
       tooltip: {
         theme: 'dark',
@@ -94,26 +121,30 @@ const LineChart = () => {
   }, []);
 
   return (
-    <div className="bg-sh-cream w-[85%] xl:w-[45%] md:mt-10 md:ml-20 relative flex flex-col rounded-xl  text-gray-700 shadow-md">
-      <div className="mx-4 mt-4 flex flex-col gap-4 overflow-hidden bg-transparent text-gray-700 md:flex-row md:items-center">
-       
+    <div className="bg-sh-cream  w-[85%] lg:w-[41.5%] xl:w-[44%] overflow-x-auto overflow-y-hidden md:mt-10 xl:ml-[5%] ml-[8%] relative flex flex-col rounded-xl  text-gray-700 shadow-md">
+      <div className="mx-4 mt-4 flex flex-col gap-4  bg-transparent text-gray-700 md:flex-row md:items-center">
+
         <div className='flex justify-between w-full '>
-          <p className="flex items-start justify-start text-left  text-xl font-bold   text-sh-graph-black ">
+          <p className="flex items-start justify-start text-left   xl:text-xl text-lg font-bold   text-sh-graph-black ">
             Challenges Completed
           </p>
+
+
+          {/* <div className='fixed top-[40.5%] ml-[26%]'>  */}
           
-      
-        <div className='flex items-end justify-between '>  </div></div>
-      <select className="border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none bg-gray-300 focus:border-none">
-        <option value="daily">Daily</option>
-        <option value="monthly">Monthly</option>
-        <option value="yearly">Yearly</option>
-      </select>
-    
+          
+        <select className="border text-black border-gray-300 rounded-sm px-2 py-2 focus:outline-none bg-gray-300 focus:border-none">
+          <option value="daily">Daily</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+        {/* </div> */}
+        </div>
       </div>
-      <div className="pt-6 px-2 pb-0">
-        <div id="line-chart"></div>
+      <div className="pt-6 px-2    pb-0">
+        <div className="overflow-x-auto overflow-y-hidden"  id="line-chart"></div>
       </div>
+      <div className="mt-5"></div>
     </div>
   );
 };

@@ -1,16 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'Helvetica Now Display';
+  src: url('../src/fonts/HelveticaNowDisplay-Medium.ttf') format('truetype'); /* Adjust the path and filename as needed */
+  /* You can include additional font styles here if you have different font weights or styles */
 
-body {
-  font-family: 'Helvetica Now Display', sans-serif;
 }
+@font-face {
+  font-family: 'Helvetica Now Display ExtraBold';
+  src: url('../src/fonts/HelveticaNowDisplay-ExtraBold.ttf') format('truetype');
+  /* Adjust the font weight if needed */
+ 
+}
+body {
+  font-family:  'Helvetica Now Display';
+
+}
+.font-HelveticaNowDisplay-ExtraBold {
+  font-family: 'Helvetica Now Display ExtraBold';
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+#email:-webkit-autofill {
+  border: 1px solid rgb(107 114 128 / var(--tw-border-opacity))  !important;
+  -webkit-text-fill-color: #000000 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #F1EDE7 inset !important;
+  box-shadow: 0 0 0px 1000px #F1EDE7 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+#password:-webkit-autofill {
+  border: 1px solid rgb(107 114 128 / var(--tw-border-opacity))  !important;
+  -webkit-text-fill-color: #000000 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #F1EDE7 inset !important;
+  box-shadow: 0 0 0px 1000px #F1EDE7 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
 :invalid {
   color: rgba(156, 163, 175, 1);
 }
@@ -23,4 +52,18 @@ code {
 #max::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+::-webkit-scrollbar {
+  width: 12px;
+  height: 9px;
+  padding-bottom: 10px;
+  background-color: #E5E5E5;
+  
+  /* Width of the entire scrollbar */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #BDBDBD;
+  /* Color of the scroll thumb */
+  border-radius: 6px;
+  /* Roundness of the scroll thumb */
 }

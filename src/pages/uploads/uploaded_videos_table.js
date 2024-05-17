@@ -21,7 +21,9 @@ const UploadedVideosTable = ({ currentPage, recordsPerPage }) => {
       const endIndex = startIndex + recordsPerPage;
       const currentData = tableData.slice(startIndex, endIndex);
 
-
+      while (currentData.length < 10) {
+        currentData.push({ name: '', id: '', email: '', empty: true });
+      }
       const [passwordIdx, setPasswordIdx] = useState(0);
       const [isPassword, setIsPassword] = useState("");
   const [passwordShowLoading, setPasswordShowLoading] = useState(false);
@@ -34,23 +36,23 @@ const UploadedVideosTable = ({ currentPage, recordsPerPage }) => {
         setIsPassword(false);
       };
     return (
-      <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream shadow-md rounded-xl bg-clip-border">
+      <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream rounded-sm ">
         <table className="w-full text-left table-auto min-w-max">
           <thead>
-            <tr>
+          <tr className='text-sh-graph-black text-opacity-80'>
               <th className="p-4 border border-gray-300 bg-sh-cream">
-                <p className=" block font-sans text-base  font-medium leading-none text-sh-graph-black">
+                <p className=" block text-base  font-medium leading-none text-sh-graph-black">
                   Name
                 </p>
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
-                <p className="block font-sans text-base  font-medium leading-none text-sh-graph-black ">
+                <p className="block text-base  font-medium leading-none text-sh-graph-black ">
                 File Name
                 </p>
               </th>
              
               <th className="p-4 border border-gray-300 bg-sh-cream">
-                <p className="block font-sans text-base  font-medium leading-none text-sh-graph-black ">
+                <p className="block text-base  font-medium leading-none text-sh-graph-black ">
                   Comment
                 </p>
               </th>
@@ -59,20 +61,20 @@ const UploadedVideosTable = ({ currentPage, recordsPerPage }) => {
           </thead>
           <tbody>
           {currentData.map((row, index) => (
-            <tr key={index}>
-              <td className="p-4 border border-gray-300">
-                <p   onClick={openInfoPopup} className="cursor-pointer block font-sans text-base font-normal leading-normal sh-graph-black">
+            <tr key={index} className='text-opacity-50 text-black'>
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[40%]`}>
+                <p   onClick={openInfoPopup} className="cursor-pointer block text-base font-normal leading-normal sh-graph-black">
                   {row.name}
                 </p>
               </td>
-              <td className="p-4 border border-gray-300">
-                <p className="block font-sans text-base font-normal leading-normal sh-graph-black">
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+                <p className="block  text-base font-normal leading-normal sh-graph-black">
                   {row.fileName}
                 </p>
               </td>
             
-              <td className="p-4 border border-gray-300">
-                <p className="block font-sans text-base font-normal leading-normal sh-graph-black">
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+                <p className="block text-base font-normal leading-normal sh-graph-black">
                   {row.comment}
                 </p>
               </td>
@@ -131,11 +133,11 @@ const UploadedVideosTable = ({ currentPage, recordsPerPage }) => {
                </div>
             </div>
         )}
-          <tr className="border-b-0">
+          {/* <tr className="border-b-0">
                     <td className="md:py-8 py-5 border-r border-gray-300 w-[100px]"></td>
                     <td className="md:py-8 py-5 border-r border-gray-300"></td>
                     <td className="md:py-8 py-5  border-gray-300"></td>
-                  </tr>
+                  </tr> */}
           </tbody>
         </table>
       </div>

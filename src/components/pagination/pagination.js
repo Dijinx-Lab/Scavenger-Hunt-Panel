@@ -119,7 +119,7 @@ const Pagination = ({ totalRecords, recordsPerPage, currentPage, onPageChange })
     buttons.push(
       <button
         key="prev"
-        className={`lg:mr-3 mr-1  lg:max-h-[40px]  lg:max-w-[40px] relative h-9 lg:h-12  w-9 lg:w-12  select-none rounded-[40px] border border-sh-blue text-gray-900 text-center align-middle font-sans text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue shadow-none`}
+        className={`lg:mr-3 mr-1  lg:max-h-[40px]  lg:max-w-[40px] relative h-9 lg:h-12  w-9 lg:w-12  select-none rounded-[40px] border border-sh-blue text-gray-900 text-center align-middle  text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue shadow-none`}
         type="button"
         onClick={() => handlePageClick(currentPage - 1)}
         disabled={currentPage === 1}
@@ -135,7 +135,7 @@ const Pagination = ({ totalRecords, recordsPerPage, currentPage, onPageChange })
           key={i}
           className={`relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg ${
             currentPage === i ? 'border-2 text-base font-semibold border-sh-blue text-white bg-sh-blue' : ' text-base font-semibold  text-gray-900'
-          } text-center align-middle font-sans text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue`}
+          } text-center align-middle  text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue`}
           type="button"
           onClick={() => handlePageClick(i)}
         >
@@ -150,7 +150,7 @@ const Pagination = ({ totalRecords, recordsPerPage, currentPage, onPageChange })
     // Add last 3 pages after ellipsis if totalPages - currentPage > 6
     if (endPage < totalPages) {
       buttons.push(
-        <span key="ellipsis" className="relative w-8 max-w-[32px] select-none rounded-lg text-gray-900 text-center align-middle font-sans text-xs font-medium uppercase">
+        <span key="ellipsis" className="relative w-8 max-w-[32px] select-none rounded-lg text-gray-900 text-center align-middle  text-xs font-medium uppercase">
           {ellipsis}
         </span>
       );
@@ -164,7 +164,7 @@ const Pagination = ({ totalRecords, recordsPerPage, currentPage, onPageChange })
             key={i}
             className={`relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg ${
               currentPage === i ? ' text-base font-semibold border-sh-blue text-white bg-sh-blue' : ' text-base font-semibold  text-gray-900'
-            } text-center align-middle font-sans text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue`}
+            } text-center align-middle  text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue`}
             type="button"
             onClick={() => handlePageClick(i)}
           >
@@ -179,7 +179,7 @@ const Pagination = ({ totalRecords, recordsPerPage, currentPage, onPageChange })
       buttons.push(
         <button
           key="next"
-          className={`ml-3 lg:mr-3 mr-1  relative h-9 lg:h-12  w-9 lg:w-12 lg:max-h-[40px]  lg:max-w-[40px] select-none rounded-[40px] border border-sh-blue text-gray-900 text-center align-middle font-sans text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue shadow-none`}
+          className={`ml-3 lg:mr-3 mr-1  relative h-9 lg:h-12  w-9 lg:w-12 lg:max-h-[40px]  lg:max-w-[40px] select-none rounded-[40px] border border-sh-blue text-gray-900 text-center align-middle  text-sm font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-sh-blue shadow-none`}
           type="button"
           onClick={() => handlePageClick(currentPage + 1)}
           disabled={currentPage === totalPages}

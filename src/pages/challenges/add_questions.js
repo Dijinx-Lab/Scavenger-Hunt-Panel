@@ -26,19 +26,19 @@ function AddQuestions() {
             <PlainNavbar />
 
             <div className="w-full ">
-                <div className="md:mt-20 md:ml-20 mt-16 ml-10 flex items-start justify-start">
+                <div className="md:mt-20 xl:ml-[5%] ml-[8%] mt-16 flex items-start justify-start">
                     <span className="text-sa-maroon text-left font-bold text-2xl md:text-4xl">
                         Challenges
                     </span>
                 </div>
-                <div className="md:mt-4 md:ml-20 mt-5 ml-10 flex items-start justify-start">
+                <div className="md:mt-4 xl:ml-[5%] ml-[8%] mt-5 flex items-start justify-start">
                     <span className="text-sa-maroon text-left  text-lg md:text-xl">
                         Here you can easily manage challenges.
                     </span>
                 </div>
                 
-<div className="mt-10 mb-10 md:ml-20 w-[80%] rounded-[20px] h-[51rem] lg:h-[49rem] xl:h-[38rem] bg-sh-cream">
-    <div className="flex items-start justify-start pt-5 ml-10 font-bold text-xl">
+<div className="mt-10 mb-10 xl:ml-[5%] ml-[8%] w-[80%] rounded-[20px] h-[51rem] lg:h-[49rem] xl:h-[38rem] bg-sh-cream">
+    <div className="text-sh-graph-black flex items-start justify-start pt-5 ml-10 font-bold text-xl">
         Add New Question
     </div>
 
@@ -86,7 +86,7 @@ function AddQuestions() {
     </button></div>
 <div className=" flex-col order-1 xl:order-2">
     <button onClick={goToQuestionType} class="text-sm lg:text-base   w-full mb-5 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90  text-white bg-sh-blue focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md  px-5 py-5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-        ADD QUESTION
+        NEXT
     </button></div>
 </div>
 </div>

@@ -17,18 +17,18 @@ function WordJumble() {
             <PlainNavbar />
 
             <div className="w-full ">
-                <div className="md:mt-20 md:ml-20 mt-16 ml-10 flex items-start justify-start">
+                <div className="md:mt-20 xl:ml-[5%] ml-[8%] mt-16 flex items-start justify-start">
                     <span className="text-sa-maroon text-left font-bold text-2xl md:text-4xl">
                         Challenges
                     </span>
                 </div>
-                <div className="md:mt-4 md:ml-20 mt-5 ml-10 flex items-start justify-start">
+                <div className="md:mt-4 xl:ml-[5%] ml-[8%] mt-5  flex items-start justify-start">
                     <span className="text-sa-maroon text-left  text-lg md:text-xl">
                         Here you can easily manage challenges.
                     </span>
                 </div>
-                <div className="  mt-10 mb-10  md:ml-20  w-[80%] rounded-[20px] h-[33rem] lg:h-[34rem] xl:h-[28rem]  bg-sh-cream">
-                    <div className="flex items-start justify-start pt-5 ml-10 font-bold text-xl"> Add New Question</div>
+                <div className="  mt-10 mb-10  xl:ml-[5%] ml-[8%]  w-[80%] rounded-[20px] h-[33rem] lg:h-[34rem] xl:h-[28rem]  bg-sh-cream">
+                    <div className="flex items-start justify-start pt-5 ml-10 font-bold text-xl text-sh-graph-black"> Add New Question</div>
 
 
                     <div className="text-left md:ml-[25%] mt-10 lg:text-xl text-lg text-black">Answer</div>

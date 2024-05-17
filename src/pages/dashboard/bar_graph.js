@@ -2,18 +2,21 @@ import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
 
 const BarChart = () => {
+  
   useEffect(() => {
+  
     const chartConfig = {
       series: [
         {
           name: 'Sales',
-          data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+          data: [50, 40, 300, 320, 500, 350, 200, 230, 500,400,200,100],
         },
       ],
+      
       chart: {
         type: 'bar',
         height: 240,
-        width:"100%",
+        width: 7* 100,
         toolbar: {
           show: false,
         },
@@ -27,36 +30,29 @@ const BarChart = () => {
       colors: ['#0C4DA2'],
       plotOptions: {
         bar: {
-          columnWidth: '20%',
-          borderRadius: 2,
+          columnWidth: '10%',
+          borderRadius: 3,
         },
       },
       xaxis: {
-        axisTicks: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          style: {
-            colors: '#616161',
-            fontSize: '12px',
-            fontFamily: 'inherit',
-            fontWeight: 400,
-          },
-        },
+        type: 'category', // Specify x-axis as category type
         categories: [
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec',
+          'Jn',
+          'Fb',
+          'Mc',
+          'Ap',
+          'My',
+          'Jn',
+          'Ju',
+          'Au',
+          'Sp',
+          'Oc',
+          'Nv',
+          'Dc',
         ],
+        scrollbar: {
+          enabled: true, // Enable scrollbar for x-axis
+        },
       },
       yaxis: {
         labels: {
@@ -71,10 +67,10 @@ const BarChart = () => {
       grid: {
         show: true,
         borderColor: '#dddddd',
-        strokeDashArray: 5,
+        strokeDashArray: 1,
         xaxis: {
           lines: {
-            show: true,
+            show: false,
           },
         },
         padding: {
@@ -83,7 +79,7 @@ const BarChart = () => {
         },
       },
       fill: {
-        opacity: 0.8,
+        opacity: 1,
       },
       tooltip: {
         theme: 'dark',
@@ -99,19 +95,18 @@ const BarChart = () => {
   }, []);
 
   return (
-    <div className="xl:mx-10 ml-20 mt-10 w-[85%] xl:w-[45%]  relative flex flex-col rounded-xl bg-sh-cream shadow-md">
-      <div className="mx-4 mt-4 flex flex-col gap-4 overflow-hidden bg-transparent md:flex-row md:items-center">
-       
-      <div>
-          <h6 className="block  text-xl font-bold leading-relaxed tracking-normal text-sh-graph-black ">
+    <div className="mx-[3%] md:ml-[8%] lg:ml-5 xl:ml-10   mt-10    w-[85%] lg:w-[41.5%] xl:w-[44%] relative flex flex-col rounded-xl bg-sh-cream shadow-md">
+      <div className="mx-4 mt-4 flex flex-col gap-4 bg-transparent md:flex-row md:items-center">
+        <div>
+          <h6 className="block xl:text-xl text-lg font-bold leading-relaxed tracking-normal text-sh-graph-black">
             Teams Joined
           </h6>
-          
         </div>
       </div>
       <div className="pt-6 px-2 pb-0">
-        <div id="bar-chart"></div>
+        <div className='overflow-x-auto overflow-y-hidden' id="bar-chart"></div>
       </div>
+      <div className='mt-5'></div>
     </div>
   );
 };
