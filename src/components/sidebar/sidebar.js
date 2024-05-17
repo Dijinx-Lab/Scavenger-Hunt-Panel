@@ -101,16 +101,16 @@ function Sidebar() {
               </span>
             )}
             <div className="ml-8 flex justify-start items-start md:mt-9 mb-8 ">
-            <img src={SidebarLogo} alt="Books" className="w-16 h-16 " />
+            <img src={SidebarLogo} alt="Books" className="w-14 h-14 " />
 
               </div>
             <div className="ml-8 flex justify-start items-start ">
 
-              <p className="text-black font-[800] text-xl md:text-3xl">
+              <p className="text-black  font-HelveticaNowDisplay-ExtraBold text-xl md:text-2xl">
                 General
               </p>
             </div>
-            <div className="mx-4 mb-10 opacity-20"></div>
+            <div className="mx-4 mb-8 opacity-20"></div>
             
             <div
               className="hover:text-gray-300 hover:scale-105 transition-all duration-300 ease-in-out flex hover:opacity-80 px-8 pt-5 border-b-10 hover:cursor-pointer"

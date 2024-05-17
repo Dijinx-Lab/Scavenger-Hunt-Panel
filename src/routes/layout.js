@@ -30,6 +30,8 @@ import Slider from "../pages/challenges/slider";
 //   return <ChangePassword />;
 // }
 function Layout() {
+  const adminToken = localStorage.getItem('adminToken') || sessionStorage.getItem('adminToken');
+
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -82,7 +84,9 @@ function Layout() {
        
 
             <Routes>
-              <Route path="/" element={<Login />} />
+            {/* <Route path="/" element={<Navigate to={adminToken ? '/dashboard' : '/login'} />} /> */}
+            <Route path="/" element={<Login />} />
+
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/challenges" element={<Challenges />} />
               <Route path="/teams" element={<Teams />} />
