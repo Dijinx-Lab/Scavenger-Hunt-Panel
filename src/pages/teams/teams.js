@@ -14,6 +14,7 @@ function Teams() {
  
   const { currentPage: accountsPage, recordsPerPage: accountsPerPage, handlePageChange: handleAccountsPageChange } = UsePagination(1, 10);
   const { currentPage: teamsPage, recordsPerPage: teamsPerPage, handlePageChange: handleTeamsPageChange } = UsePagination(1, 10);
+  const uploadImgUrl="https://dk9gc53q2aga2.cloudfront.net/assets/Teams_Logo_For_Dashboard.svg";
 
   return (
     <div className="flex overflow-x-hidden">
@@ -36,7 +37,7 @@ function Teams() {
         <div class="w-full mx-40 mb-10 xl:ml-[5%] ml-[8%]  md:mt-10 mt-10 grid md:grid-cols-1  lg:grid-cols-1 xl:grid-cols-[34%,54%] gap-2"  >
           <div className="bg-sh-cream h-[26rem]    w-[84%] xl:w-[100%] rounded-[20px]">
             <div className='flex'>
-              <img src={TeamLogo} className='w-40 h-40 lg:w-48 lg:h-48 mt-[-20px] lg:mt-[-28px]' />
+              <img src={uploadImgUrl} className='w-40 h-40 lg:w-48 lg:h-48 mt-[-20px] lg:mt-[-28px]' />
               <div className="text-sh-graph-black">
                 <span className='flex mt-5 lg:text-2xl text-xl font-bold ml-[-10px]'>TEAMS</span>
                 <span className='flex mt-5 lg:text-2xl text-xl font-bold ml-[-10px]'>308</span>

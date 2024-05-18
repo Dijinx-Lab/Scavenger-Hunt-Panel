@@ -67,3 +67,7 @@ code {
   border-radius: 6px;
   /* Roundness of the scroll thumb */
 }
+
+.svgicon {
+  fill: #3F6AC9 !important;
+}
