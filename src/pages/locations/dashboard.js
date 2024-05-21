@@ -36,7 +36,7 @@ function LocationDashboard() {
                 <div className='mt-8 mb-10 xl:ml-[5%] ml-[8%] w-[84%] xl:w-[90%]  h-auto rounded-[20px] bg-sh-cream  '>
                     <div className='flex justify-between'>
                         <span className='text-left flex items-start justify-start ml-8 pt-8 text-xl lg:text-[22ox] font-bold'>Current Location</span>
-                        <button onClick={goToAddNewLocation} className='text-left flex items-end justify-between rounded-[10px] bg-sh-blue mx-8 xl:px-24 px-4 lg:px-12 py-2 lg:py-3 mt-6 text-base font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-white cursor-pointer '>ADD NEW</button>
+                        {/* <button onClick={goToAddNewLocation} className='text-left flex items-end justify-between rounded-[10px] bg-sh-blue mx-8 xl:px-24 px-4 lg:px-12 py-2 lg:py-3 mt-6 text-base font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-white cursor-pointer '>ADD NEW</button> */}
                     </div>
                     <div className='mt-8 mx-8 pb-10'>
             <CurrentLocations currentPage={currentPage} recordsPerPage={recordsPerPage} />

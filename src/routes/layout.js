@@ -23,6 +23,8 @@ import LocationDashboard from "../pages/locations/dashboard";
 import AddLocation from "../pages/locations/add_location";
 import Uploads from "../pages/uploads/uploads";
 import Slider from "../pages/challenges/slider";
+import Settings from "../pages/settings/settings";
+import TeamDetails from "../pages/teams/team_details";
 // function ResetPasswordRoute() {
 //   return <ResetPassword />;
 // }
@@ -42,6 +44,7 @@ function Layout() {
   const showSidebar = [
     "/dashboard",
     "/teams",
+    "/teams/details",
     "/challenges",
     "/locations",
     "/locations/add",
@@ -53,6 +56,7 @@ function Layout() {
     "/challenges/add-questions/slider",
     "/challenges/add-questions/photo",
     "/challenges/add-questions/word-jumble",
+    "/settings"
   ].includes(location.pathname);
 
   return (
@@ -93,6 +97,7 @@ function Layout() {
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/challenges" element={<Challenges />} />
               <Route path="/teams" element={<Teams />} />
+              <Route path="/teams/details" element={<TeamDetails />} />
               <Route path="/challenges/create" element={<CreateChallenges />} />
               <Route path="/challenges/manage" element={<ManageChallenges />} />
               <Route path="/challenges/add-questions" element={<AddQuestions />} />
@@ -101,8 +106,8 @@ function Layout() {
               <Route path="/challenges/add-questions/slider" element={<Slider />} />
               <Route path="/challenges/add-questions/photo" />
               <Route path="/locations" element={<LocationDashboard />}/>
-              <Route path="/locations/add" element={<AddLocation />}/>
-              <Route path="/uploads" element={<Uploads />}/>
+              {/* <Route path="/locations/add" element={<AddLocation />}/> */}
+              <Route path="/settings" element={<Settings />}/>
               
 
             </Routes>

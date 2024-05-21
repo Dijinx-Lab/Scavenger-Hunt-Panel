@@ -1,36 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-const CreatedTeams = ({ currentPage, recordsPerPage }) => {
+const TeamsChallenges = ({ currentPage, recordsPerPage }) => {
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState([
     {
-      name: 'Team Unicorn',
-      id: 'ESCO154-5571',
-      members: 1,
-      rank: 308,
-      email: 'random@gmail.com',
+      question: 'FT. Howell was built by two infantry units. Add the nu',
+      points: '123',
+      answer: "TRUE",
+      status: "CORRECT",
+      scored: '123',
 
     },
     {
-      name: 'Team Unicorn',
-      id: 'ESCO154-5571',
-      members: 1,
-      rank: 308,
-      email: 'random@gmail.com',
+      question: 'FT. Howell was built by two infantry units. Add the nu',
+      points: '123',
+      answer: "TRUE",
+      status: "CORRECT",
+      scored: '123',
 
     },
     // Add more data objects as needed
   ]);
 
-  const navigateToTeamDetails=()=>{
-    navigate("/teams/details");
-  }
+ 
   const startIndex = (currentPage - 1) * recordsPerPage;
   const endIndex = startIndex + recordsPerPage;
   const currentData = tableData.slice(startIndex, endIndex);
   while (currentData.length < 10) {
-    currentData.push({ name: '', id: '', email: '', empty: true });
+    currentData.push({ question: '', points: '', scored: '', empty: true });
   }
   return (
     <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream rounded-sm">
@@ -39,27 +37,27 @@ const CreatedTeams = ({ currentPage, recordsPerPage }) => {
           <tr className='text-sh-graph-black text-opacity-80'>
             <th className="p-4 border border-gray-300 bg-sh-cream">
               <p className="block text-base  font-medium leading-none text-sh-graph-black">
-                Name
+              Question
               </p>
             </th>
             <th className="p-4 border border-gray-300 bg-sh-cream">
               <p className="block text-base  font-medium leading-none text-sh-graph-black ">
-                ID
+              Points
               </p>
             </th>
             <th className="p-4 border border-gray-300 bg-sh-cream">
               <p className="block text-base  font-medium leading-none text-sh-graph-black ">
-                Members
+              Answer
               </p>
             </th>
             <th className="p-4 border border-gray-300 bg-sh-cream">
               <p className="block text-base  font-medium leading-none text-sh-graph-black ">
-                Rank
+              Correct/Wrong
               </p>
             </th>
             <th className="p-4 border border-gray-300 bg-sh-cream">
               <p className="block text-base  font-medium leading-none text-sh-graph-black ">
-                Email
+              Scored
               </p>
             </th>
 
@@ -67,31 +65,31 @@ const CreatedTeams = ({ currentPage, recordsPerPage }) => {
         </thead>
         <tbody>
           {currentData.map((row, index) => (
-            <tr onClick={navigateToTeamDetails} key={index} className=' cursor-pointer text-opacity-50 text-black'>
+            <tr  key={index} className=' cursor-pointer text-opacity-50 text-black'>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[30%]`}>
 
                 <p className="block text-base font-normal leading-normal sh-graph-black ">
-                  {row.name}
+                  {row.question}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block text-base font-normal leading-normal sh-graph-black">
-                  {row.id}
+                  {row.points}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block text-base font-normal leading-normal sh-graph-black">
-                  {row.members}
+                  {row.answer}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block text-base font-normal leading-normal sh-graph-black">
-                  {row.rank}
+                  {row.status}
                 </p>
               </td>
-              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[25%]`}>
                 <p className="block text-base font-normal leading-normal sh-graph-black">
-                  {row.email}
+                  {row.scored}
                 </p>
               </td>
             </tr>
@@ -102,4 +100,4 @@ const CreatedTeams = ({ currentPage, recordsPerPage }) => {
   );
 };
 
-export default CreatedTeams;
+export default TeamsChallenges;

@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
+import { useNavigate } from "react-router";
+
 const CurrentLocations = ({ currentPage, recordsPerPage }) => {
+  const navigate = useNavigate();
 
     const [tableData, setTableData] = useState([
         {
@@ -21,6 +24,9 @@ const CurrentLocations = ({ currentPage, recordsPerPage }) => {
           },
         // Add more data objects as needed
       ]);
+      const navigateToChallenge=()=>{
+        navigate("/challenges/manage");
+      }
 
       const startIndex = (currentPage - 1) * recordsPerPage;
       const endIndex = startIndex + recordsPerPage;
@@ -64,7 +70,7 @@ const CurrentLocations = ({ currentPage, recordsPerPage }) => {
           </thead>
           <tbody>
           {currentData.map((row, index) => (
-            <tr key={index} className='text-opacity-50 text-black'>
+            <tr onClick={navigateToChallenge} key={index} className='text-opacity-50 cursor-pointer text-black'>
                <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[30%]`}>
                 <p className="block  text-base text-left font-normal leading-normal sh-graph-black">
                   {row.name}

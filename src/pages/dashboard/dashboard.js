@@ -44,7 +44,7 @@ function DashBoard() {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-sh-cream    xl:ml-0 h-32 w-72 lg:w-[80%] xl:w-[100%] rounded-[20px]">
+                    {/* <div className="bg-sh-cream    xl:ml-0 h-32 w-72 lg:w-[80%] xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
                             <img src="https://dk9gc53q2aga2.cloudfront.net/assets/Total+Users+Logo.svg" className='mt-[-7px]' />
 
@@ -53,8 +53,8 @@ function DashBoard() {
                                 <span className='flex mt-5 xl:text-xl text-lg w-full font-bold ml-[-9%]'>1542</span>
                             </div>
                         </div>
-                    </div>
-                    <div className="bg-sh-cream  xl:ml-0 lg:ml-[8%] h-32 w-72 lg:w-[80%]  xl:w-[100%] rounded-[20px]">
+                    </div> */}
+                    <div className="bg-sh-cream  xl:ml-0  h-32 w-72 lg:w-[80%]  xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
                             <img src="https://dk9gc53q2aga2.cloudfront.net/assets/Challenges_Icon_For_Dashboard.svg" className='mt-[-7px]' />
 

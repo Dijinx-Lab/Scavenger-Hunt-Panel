@@ -55,8 +55,8 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
   const goToLocation = () => {
     navigate("/locations");
   };
-  const goToUpload = () => {
-    navigate("/uploads");
+  const goToSettings = () => {
+    navigate("/settings");
   };
   const [isSignout, setIsSignout] = useState(false);
 
@@ -83,7 +83,9 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
   const dashboardfilterStyle = isDashboard ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
   const textColor = isDashboard ? 'text-sh-blue' : 'text-black';
 
-  const isTeamsPage = window.location.pathname === '/teams';
+  const isTeamsPage =
+   window.location.pathname === '/teams'||
+   window.location.pathname === '/teams/details';
   const Teams = "https://dk9gc53q2aga2.cloudfront.net/assets/Teams+Icon+Sidebar.svg"
   // const BlueTeams = "https://dk9gc53q2aga2.cloudfront.net/assets/Teams+Blue+Icon+Sidebar.svg"
   const teamsfilterStyle = isTeamsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
@@ -109,8 +111,7 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
 
 
   const isLocationsPage =
-    window.location.pathname === '/locations' ||
-    window.location.pathname === '/locations/add';
+    window.location.pathname === '/locations' ;
     const Location = "https://dk9gc53q2aga2.cloudfront.net/assets/Locations+Icon+Sidebar.svg"
     // const BlueLocation = "https://dk9gc53q2aga2.cloudfront.net/assets/Location+Blue+Icon Sidebar.svg"
   const locationsImgSrc =  Location;
@@ -118,13 +119,13 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
 
   const locationsTextColor = isLocationsPage ? 'text-sh-blue' : 'text-black';
   
-  const isUploadsPage = window.location.pathname === '/uploads';
-  const Upload = 'https://dk9gc53q2aga2.cloudfront.net/assets/Uploads+Icon+Sidebar.svg';
+  const isSettingsPage = window.location.pathname === '/settings';
+  const setting = 'https://dk9gc53q2aga2.cloudfront.net/assets/settingsIcon.svg';
   // const BlueUpload = 'https://dk9gc53q2aga2.cloudfront.net/assets/Upload+Blue+Icon+Sidebar.svg';
-const uploadsImgSrc = Upload;
-const uploadsfilterStyle = isUploadsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
+const settingsImgSrc = setting;
+const settingfilterStyle = isSettingsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
 
-const uploadsTextColor = isUploadsPage ? 'text-sh-blue' : 'text-black';
+const settingsTextColor = isSettingsPage ? 'text-sh-blue' : 'text-black';
 const [isClicked, setIsClicked] = useState(false);
 
 const handleClick = () => {
@@ -265,7 +266,7 @@ window.location.pathname === '/challenges/create' ||
 
             </div>
             <div className=" mx-4 my-8 opacity-20"></div>
-            <div className="hover:text-gray-300  hover:scale-105 transition-all duration-300 ease-in-out flex px-8 border-b-10 hover:cursor-pointer" onClick={goToUpload}>
+            <div className="hover:text-gray-300  hover:scale-105 transition-all duration-300 ease-in-out flex px-8 border-b-10 hover:cursor-pointer" onClick={goToSettings}>
               {/* <LogoutIcon className="text-white" style={{ width: 30, height: 32,marginLeft:7,marginBottom:8}} /> */}
               {/* {window.location.pathname === '/uploads' ? (
                 <>
@@ -278,8 +279,8 @@ window.location.pathname === '/challenges/create' ||
                   <span className="text-black font-bold text-xl mt-0.5 ml-4 mb-16">Uploads</span>
                 </>
               )} */}
-               <img src={uploadsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: uploadsfilterStyle }}/>
-    <span className={`${uploadsTextColor} font-bold text-xl mt-0.5 ml-4 ${isUploadsPage ? '' : 'mb-16'}`}>Uploads</span>
+               <img src={settingsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: settingfilterStyle }}/>
+    <span className={`${settingsTextColor} font-bold text-xl mt-0.5 ml-4 ${isSettingsPage ? '' : 'mb-16'}`}>Settings</span>
 
             </div>
           </div>
