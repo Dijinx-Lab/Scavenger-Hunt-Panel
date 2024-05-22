@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from "react";
 import ChallengesLogo from '../../assets/Challenges_Icon_For_Dashboard.svg';
 import CurrentChallenges from './table';
 import Pagination from "../../components/pagination/pagination";
+import { Blurhash } from 'react-blurhash';
 import PlainNavbar from '../../components/navbar/navbar';
 import { useNavigate } from "react-router";
 import UsePagination from "../../components/pagination/handle_page_change";
@@ -15,7 +16,7 @@ function Challenges() {
         navigate("/challenges/create");
       };
     
-
+      const cdnImageUrl = 'https://dk9gc53q2aga2.cloudfront.net/assets/Challenges_Icon_For_Dashboard.svg'; 
     return (
         <div className="flex-col w-full overflow-x-hidden ">
 <PlainNavbar/>
@@ -35,7 +36,7 @@ function Challenges() {
                 <div class="w-full xl:ml-[5%] ml-[8%]  md:mt-10 mt-10 grid md:grid-cols-1 lg:ml-[4%] lg:grid-cols-2 xl:grid-cols-[28%,28%,28%] xl:gap-x-[3%] xl:gap-y-0 gap-x-0 gap-y-10">
                     <div className="bg-sh-cream h-32  lg:ml-[8%] xl:ml-0 w-72 lg:w-[80%]  xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
-                            <img src={ChallengesLogo} className='mt-[-7px]' />
+                            <img src={cdnImageUrl} className='mt-[-7px]' />
 
                             <div className="text-sh-graph-black">
                                 <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>TOTAL</span>
@@ -45,7 +46,7 @@ function Challenges() {
                     </div>
                     <div className="bg-sh-cream  xl:mx-0  h-32 w-72  lg:w-[80%] xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
-                            <img src={ChallengesLogo} className='mt-[-7px]' />
+                            <img  src={cdnImageUrl} className='mt-[-7px]' />
 
                             <div className="text-sh-graph-black">
                                 <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>COMPLETED</span>
@@ -55,7 +56,7 @@ function Challenges() {
                     </div>
                     <div className="bg-sh-cream xl:ml-0 lg:ml-[8%]  h-32 w-72 lg:w-[80%] xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
-                            <img src={ChallengesLogo} className='mt-[-7px]' />
+                            <img src={cdnImageUrl} className='mt-[-7px]' />
 
                             <div className="text-sh-graph-black">
                                 <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-15px]'>UNCOMPLETED</span>

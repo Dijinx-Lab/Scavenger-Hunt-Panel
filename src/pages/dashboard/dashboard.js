@@ -36,7 +36,7 @@ function DashBoard() {
                 <div class="w-full xl:ml-[5%] ml-[8%] lg:ml-[4%] md:mt-10 mt-10 grid md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-[27.8%,28%,27.8%] xl:gap-x-[3.5%] xl:gap-y-0 gap-x-0 gap-y-10 ">
                     <div className="bg-sh-cream h-32 w-72 xl:ml-0 lg:ml-[8%] lg:w-[80%]  xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
-                            <img src={TeamLogo} className='mt-[-7px]' />
+                            <img src="https://dk9gc53q2aga2.cloudfront.net/assets/Teams_Logo_For_Dashboard.svg" className='mt-[-7px]' />
 
                             <div className='text-sh-graph-black'>
                                 <span className='flex mt-5 xl:text-xl text-lg  font-bold ml-[-10px]'>TEAMS</span>
@@ -44,19 +44,19 @@ function DashBoard() {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-sh-cream    xl:ml-0 h-32 w-72 lg:w-[80%] xl:w-[100%] rounded-[20px]">
+                    {/* <div className="bg-sh-cream    xl:ml-0 h-32 w-72 lg:w-[80%] xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
-                            <img src={UsersLogo} className='mt-[-7px]' />
+                            <img src="https://dk9gc53q2aga2.cloudfront.net/assets/Total+Users+Logo.svg" className='mt-[-7px]' />
 
                             <div className='text-sh-graph-black'>
                                 <span className='flex mt-5 xl:text-xl text-lg text-left w-full font-bold ml-[-9%]'>TOTAL USERS</span>
                                 <span className='flex mt-5 xl:text-xl text-lg w-full font-bold ml-[-9%]'>1542</span>
                             </div>
                         </div>
-                    </div>
-                    <div className="bg-sh-cream  xl:ml-0 lg:ml-[8%] h-32 w-72 lg:w-[80%]  xl:w-[100%] rounded-[20px]">
+                    </div> */}
+                    <div className="bg-sh-cream  xl:ml-0  h-32 w-72 lg:w-[80%]  xl:w-[100%] rounded-[20px]">
                         <div className='flex'>
-                            <img src={ChallengesLogo} className='mt-[-7px]' />
+                            <img src="https://dk9gc53q2aga2.cloudfront.net/assets/Challenges_Icon_For_Dashboard.svg" className='mt-[-7px]' />
 
                             <div className='text-sh-graph-black'>
                                 <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>CHALLENGES</span>

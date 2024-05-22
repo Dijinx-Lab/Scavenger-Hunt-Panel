@@ -14,6 +14,7 @@ function Teams() {
  
   const { currentPage: accountsPage, recordsPerPage: accountsPerPage, handlePageChange: handleAccountsPageChange } = UsePagination(1, 10);
   const { currentPage: teamsPage, recordsPerPage: teamsPerPage, handlePageChange: handleTeamsPageChange } = UsePagination(1, 10);
+  const uploadImgUrl="https://dk9gc53q2aga2.cloudfront.net/assets/Teams_Logo_For_Dashboard.svg";
 
   return (
     <div className="flex overflow-x-hidden">
@@ -33,10 +34,10 @@ function Teams() {
         </div>
 
 
-        <div class="w-full mx-40 mb-10 xl:ml-[5%] ml-[8%]  md:mt-10 mt-10 grid md:grid-cols-1  lg:grid-cols-1 xl:grid-cols-[34%,54%] gap-2"  >
-          <div className="bg-sh-cream h-[26rem]    w-[84%] xl:w-[100%] rounded-[20px]">
+        <div class="w-full mx-40 mb-10 xl:ml-[5%] ml-[8%]  md:mt-10 mt-10 grid md:grid-cols-[84%]  lg:grid-cols-[40%,40%] xl:grid-cols-[34%,40%] gap-2"  >
+          <div className="bg-sh-cream h-[26rem]    w-[100%] xl:w-[100%] rounded-[20px]">
             <div className='flex'>
-              <img src={TeamLogo} className='w-40 h-40 lg:w-48 lg:h-48 mt-[-20px] lg:mt-[-28px]' />
+              <img src={uploadImgUrl} className='w-40 h-40 lg:w-48 lg:h-48 mt-[-20px] lg:mt-[-28px]' />
               <div className="text-sh-graph-black">
                 <span className='flex mt-5 lg:text-2xl text-xl font-bold ml-[-10px]'>TEAMS</span>
                 <span className='flex mt-5 lg:text-2xl text-xl font-bold ml-[-10px]'>308</span>
@@ -67,7 +68,7 @@ function Teams() {
           </div>
 
 
-          <div className='row-span-3 xl:mt-[-2px] mt-8 mb-10  xl:ml-5   xl:w-[100%]   rounded-[20px] bg-sh-cream w-[84%] '>
+          {/* <div className='row-span-3 xl:mt-[-2px] mt-8 mb-10  xl:ml-5   xl:w-[100%]   rounded-[20px] bg-sh-cream w-[84%] '>
             <div className='flex justify-between'>
               <span className='text-sh-graph-black text-left flex items-start justify-start ml-8 pt-6 text-xl lg:text-[22px] font-bold'>Created Accounts</span>
             </div>
@@ -83,9 +84,9 @@ function Teams() {
             />
           </div>
 
-          </div>
+          </div> */}
 
-          <div className="bg-sh-cream  xl:mt-16 mt-[8px] h-72 w-[84%] xl:w-[100%] rounded-[20px]">
+          <div className="bg-sh-cream  xl:mt-0 mt-10  lg:ml-[8%] h-72 w-[100%] xl:w-[100%] rounded-[20px]">
             <div className='flex justify-center items-center text-xl lg:text-2xl font-bold mt-5 text-sh-graph-black '>CREATE TEAM</div>
             <div className='flex justify-start items-start text-base lg:text-lg font-medium mt-5 ml-[5%]  '>Team Name</div>
             <input
@@ -113,7 +114,7 @@ function Teams() {
             <div className="flex items-center mr-8 pt-6">
               <div class="w-full ">
                 <div class="relative h-10 w-full ">
-                  <div class="absolute grid w-5 h-5 top-2/4 right-3 -translate-y-2/4 place-items-center text-blue-gray-500">
+                  <div class="absolute grid w-5 h-5 top-2/4 right-3 cursor-pointer -translate-y-2/4 place-items-center text-blue-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" aria-hidden="true" class="w-5 h-5">
                       <path stroke-linecap="round" stroke-linejoin="round"
@@ -124,7 +125,7 @@ function Teams() {
                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" " />
                   <label
-                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                    class="before:content[' ']  after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                     Search
                   </label>
                 </div>

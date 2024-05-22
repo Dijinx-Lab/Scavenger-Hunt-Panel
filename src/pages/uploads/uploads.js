@@ -14,7 +14,7 @@ function Uploads() {
     const handleUpload = () => {
 
     };
-
+const uploadImgUrl="https://dk9gc53q2aga2.cloudfront.net/assets/Upload_Video_Icon.svg";
 
     return (
         <div className="flex-col w-full overflow-x-hidden ">
@@ -63,7 +63,7 @@ function Uploads() {
                     <div className='xl:ml-[20%] mt-8 mb-10 w-[84%] xl:w-[100%] h-[40rem]  lg:h-[41rem] rounded-[20px] bg-sh-cream  '>
                         <div className="grid w-full ">
                             <div className=" mt-16 justify-self-center">
-                                <img src={UploadVideoIcon} className="lg:w-72 lg:h-44 h-40 w-56 xl:h-full xl:w-full"></img>
+                                <img src={uploadImgUrl} className="lg:w-72 lg:h-44 h-40 w-56 xl:h-full xl:w-full"></img>
                             </div>
                         </div>
                         <div className="text-left md:ml-[10%] mt-2 xl:mt-8 lg:text-sm text-sm text-gray-600">Please upload video, size less than 1GB</div>
