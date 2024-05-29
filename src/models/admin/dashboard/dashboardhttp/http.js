@@ -1,23 +1,20 @@
 import ApiConstants from "../../../../constants/adminconstants.js";
-import { BaseResponse } from "../authmodels/signinmodel.js";
 
-class SignoutManager {
-  async signout() {
-    const url = ApiConstants.SIGN_OUT;
+class DashboardManager {
+  async get() {
+    const url = ApiConstants.DASHBOARD_SUMMARY;
     const token = sessionStorage.getItem("adminToken") || localStorage.getItem("adminToken");
-
     try {
       const response = await fetch(url, {
-        method: "DELETE",
+        method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-            
+            "Authorization": `Bearer ${token}`,
+          },
       });
 
       if (response.status === 401) {
         
-        localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminToken");
         localStorage.removeItem("adminEmail");
         localStorage.removeItem("adminName");
         sessionStorage.removeItem("adminToken");
@@ -26,16 +23,11 @@ class SignoutManager {
         window.location.href = "/";
         return;
       }
+    
 
       if (response.ok) {
         const responseBody = await response.json();
-        localStorage.removeItem("adminToken");
-          localStorage.removeItem("adminEmail");
-          localStorage.removeItem("adminName");
-          sessionStorage.removeItem("adminToken");
-          sessionStorage.removeItem("adminEmail");
-          sessionStorage.removeItem("adminName");
-        return new BaseResponse(responseBody);
+        return (responseBody);
       } else {
         const errorBody = await response.text();
         throw new Error(errorBody);
@@ -44,6 +36,8 @@ class SignoutManager {
       throw new Error(error.toString());
     }
   }
+
+ 
 }
 
-export default SignoutManager;
+export default DashboardManager;

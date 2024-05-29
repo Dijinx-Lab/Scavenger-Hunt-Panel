@@ -1,20 +1,27 @@
-function Spinner() {
-  return (
-    <div className="flex items-center justify-center h-full w-full">
-      <div className="h-10 w-10 border-[3px] border-t-[4px] border-solid border-t-sa-maroon rounded-[50%] spin"></div>
-      <style>
-        {`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-          .spin {
-            animation: spin 1s linear infinite;
-          }
-        `}
-      </style>
-    </div>
-  );
-}
+import { RotatingLines } from 'react-loader-spinner'
+import 'ldrs/ring'
+import 'ldrs/lineSpinner'
+import { lineSpinner } from 'ldrs'
 
+
+// Default values shown  
+
+function Spinner({ size = 20, stroke = 2, speed = 1, color = "white" }) {
+    lineSpinner.register()
+    return (
+        
+       
+        
+        // Default values shown
+        <l-line-spinner
+        size={size}
+        stroke={stroke}
+        speed={speed}
+        color={color}
+        >
+            
+        </l-line-spinner>
+    );
+
+}
 export default Spinner;

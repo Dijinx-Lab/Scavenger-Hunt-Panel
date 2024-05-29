@@ -66,7 +66,7 @@ const uploadImgUrl="https://dk9gc53q2aga2.cloudfront.net/assets/Upload_Video_Ico
                                 <img src={uploadImgUrl} className="lg:w-72 lg:h-44 h-40 w-56 xl:h-full xl:w-full"></img>
                             </div>
                         </div>
-                        <div className="text-left md:ml-[10%] mt-2 xl:mt-8 lg:text-sm text-sm text-gray-600">Please upload video, size less than 1GB</div>
+                        <div className="text-left md:ml-[10%] mt-2 xl:mt-8 lg:text-sm text-sm text-gray-600">Please upload video, size less than 15 MB</div>
                         {/* <input  className="file-input file-input-bordered w-full max-w-xs" 
     type="file"
     id="videoUpload"

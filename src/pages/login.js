@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import Logo from "../assets/Group 4.svg";
 import LogoBG from "../assets/Ellipse 57.svg";
 import HttpManager from "../models/admin/auth/https/signinhttp";
 import Toast from "../components/toast/toast";
+import { RotatingLines } from 'react-loader-spinner'
+import Spinner from "../components/spinner/spinner";
 function Login() {
+  const location = useLocation();  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [toastMessages, setToastMessages] = useState([]);
+  const [toastMessages, setToastMessages] = useState(location.state?.toastMessages || []); // Set initial toastMessages from location state
+
+  useEffect(() => {
+    // Check if there are toast messages in the location state
+    if (location.state?.toastMessages) {
+      // Display the toast message
+      const toastMessage = location.state.toastMessages[0]; // Assuming there's only one toast message
+      setToastMessages([toastMessage]);
+
+      // Clear the location state after showing the toast message
+      setTimeout(() => {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }, 0);
+    }
+  }, [location.state]);
   const navigate = useNavigate();
   const goToDashboard = (idx) => {
     navigate("/dashboard");
@@ -32,106 +49,105 @@ function Login() {
     return emailRegex.test(email);
   };
   const httpManager = new HttpManager();
-  const handleLogIn = async () => {
-    navigate("/dashboard");
+  const handleLogIn = async (e) => {
+    // navigate("/dashboard");
+    e.preventDefault();
+    try {
+     setShowLoading(true);
 
-    // try {
-    //  setShowLoading(true);
+      if (!email.trim()) {
+        // If subject is empty or contains only whitespace
+        setToastMessages([
+          ...toastMessages,
+          {
+            type: "invalid",
+            title: "Invalid Email",
+            body: "Email cannot be empty",
+          },
+        ]);
 
-    //   if (!email.trim()) {
-    //     // If subject is empty or contains only whitespace
-    //     setToastMessages([
-    //       ...toastMessages,
-    //       {
-    //         type: "invalid",
-    //         title: "Invalid Email",
-    //         body: "Email cannot be empty",
-    //       },
-    //     ]);
-
-    //     return; // Prevent form submission
-    //   }
-    //   if (!isValidEmail(email)) {
-    //     setToastMessages([
-    //       ...toastMessages,
-    //       {
-    //         type: "invalid",
-    //         title: "Invalid Email",
-    //         body: "Enter valid email address",
-    //       },
-    //     ]);
-    //     return;
-    //   }
-    //   if (!password.trim()) {
-    //     // If subject is empty or contains only whitespace
-    //     setToastMessages([
-    //       ...toastMessages,
-    //       {
-    //         type: "invalid",
-    //         title: "Invalid Email",
-    //         body: "Password cannot be empty",
-    //       },
-    //     ]);
-    //     return; // Prevent form submission
-    //   }
-    //   const response = await httpManager.login(email, password);
-    //   if(response.success){
-    //   handleSignInResponse(response);}
-    //   else{
-    //     handleSignInError(response.message);
-    //   }
-    // } catch (error) {
+        return; // Prevent form submission
+      }
+      if (!isValidEmail(email)) {
+        setToastMessages([
+          ...toastMessages,
+          {
+            type: "invalid",
+            title: "Invalid Email",
+            body: "Enter valid email address",
+          },
+        ]);
+        return;
+      }
+      if (!password.trim()) {
+        // If subject is empty or contains only whitespace
+        setToastMessages([
+          ...toastMessages,
+          {
+            type: "invalid",
+            title: "Invalid Email",
+            body: "Password cannot be empty",
+          },
+        ]);
+        return; // Prevent form submission
+      }
+      const response = await httpManager.login(email, password);
+      if(response.success){
+      handleSignInResponse(response);}
+      else{
+        handleSignInError(response.message);
+      }
+    } catch (error) {
       
-    //   handleSignInError("Enter valid email and password");
-    // }
-    // finally {
-    //   setShowLoading(false); // Stop loading
-    // }
+      handleSignInError("Enter valid email and password");
+    }
+    finally {
+      setShowLoading(false); // Stop loading
+    }
 
   };
-  // const handleSignInResponse = (response) => {
-  //    setShowLoading(false);
+  const handleSignInResponse = (response) => {
+     setShowLoading(false);
 
-  //   if (!response.error) {
-  //     const baseResponse = response.success;
+    if (!response.error) {
+      const baseResponse = response.success;
 
-  //     if (baseResponse === true) {
-  //       const adminToken = response.data.token;
-  //       const email = response.data.email;
-  //       const name = response.data.name;
-  //       //const isEmailSubscribed = response.data.is_email_subscribed;
+      if (baseResponse === true) {
+        const adminToken = response.data.token;
+        const email = response.data.email;
+        const name = response.data.name;
+        //const isEmailSubscribed = response.data.is_email_subscribed;
 
-  //       if (adminToken != null) {
-  //         console.log(rememberMe);
-  //         if (rememberMe) {
-  //           localStorage.setItem('adminToken', `${adminToken}`);
-  //           localStorage.setItem('adminEmail', email);
-  //           localStorage.setItem('adminName', name);
-  //         } else {
-  //           sessionStorage.setItem('adminToken', `${adminToken}`);
-  //           sessionStorage.setItem('adminEmail', email);
-  //           sessionStorage.setItem('adminName', name);
-  //         }
-  //         navigate("/dashboard");
-  //         } 
-  //       } else {
-  //         handleSignInError(response.message);
-  //       }
-  //     } else {
-  //       handleSignInError(response.message);
-  //     }
-  //   };
-  // const handleSignInError = (errorMessage) => {
-  //   setShowLoading(false);
-  //   setToastMessages([
-  //     ...toastMessages,
-  //     {
-  //       type: "invalid",
-  //       title: "Error",
-  //       body: errorMessage,
-  //     },
-  //   ]);
-  // };
+        if (adminToken != null) {
+          if (rememberMe) {
+            localStorage.setItem('adminToken', `${adminToken}`);
+            localStorage.setItem('adminEmail', email);
+            localStorage.setItem('adminName', name);
+          } else {
+            sessionStorage.setItem('adminToken', `${adminToken}`);
+            sessionStorage.setItem('adminEmail', email);
+            sessionStorage.setItem('adminName', name);
+          }
+          navigate("/dashboard");
+          } 
+        } else {
+          handleSignInError(response.message);
+        }
+      } else {
+        handleSignInError(response.message);
+      }
+    };
+  const handleSignInError = (errorMessage) => {
+    setShowLoading(false);
+    setToastMessages([
+      ...toastMessages,
+      {
+        type: "invalid",
+        title: "Error",
+        body: errorMessage,
+      },
+    ]);
+  };
 
   return (
     <div className="flex flex-col min-h-[100vh]">
@@ -206,7 +222,10 @@ function Login() {
                       </div>
                       
                   </div>
-                  <button  onClick={handleLogIn} class="mb-5 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 w-full text-white bg-sh-blue focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md text-sm px-5 py-3.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">LOG IN</button>
+                  <button  onClick={handleLogIn} class="mb-5 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 w-full text-white bg-sh-blue focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md text-base px-5 py-3.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                  {showLoading ? <Spinner /> : "LOG IN"}
+                   
+                    </button>
                 
               </form>
           </div>

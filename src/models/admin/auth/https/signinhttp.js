@@ -20,9 +20,13 @@ class HttpManager {
 
         if (response.status === 401) {
           localStorage.removeItem("adminToken");
+        sessionStorage.removeItem("adminToken");
+          
           localStorage.removeItem("adminEmail");
+          sessionStorage.removeItem("adminEmail");
           localStorage.removeItem("adminName");
-          window.location.href = "/login";
+          sessionStorage.removeItem("adminName");
+          window.location.href = "/";
           return;
         }
   

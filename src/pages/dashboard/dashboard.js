@@ -9,17 +9,72 @@ import RecentCreatedTeams from './table';
 import PlainNavbar from '../../components/navbar/navbar';
 import Pagination from '../../components/pagination/pagination';
 import UsePagination from '../../components/pagination/handle_page_change';
+import DashboardManager from '../../models/admin/dashboard/dashboardhttp/http';
+import Spinner from '../../components/spinner/spinner';
+import { useNavigate } from "react-router";
+
 function DashBoard() {
+  const navigate = useNavigate();
+
+    const dashboardManager = new DashboardManager();
+    const [showLoading, setShowLoading] = useState(true);
+    const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  
+
     // const [currentPage, setCurrentPage] = useState(1);
     // const recordsPerPage = 5; 
     // const handlePageChange = (page) => {
     //     setCurrentPage(page);
     //   };
-    
-    const { currentPage, recordsPerPage, handlePageChange } = UsePagination(1, 5);
-    const totalRecords = 6;
+    const [totalTeams,setTotalTeams]= useState("")
+    const [allTeams,setAllTeams]= useState("")
+    const [totalChallenges,setTotalChallenges]= useState("")
+    const fetchData = async () => {
+        try {
+          const response = await dashboardManager.get();
+          if (response.success) {
+            setTotalTeams(response.data.total_teams);
+            setTotalChallenges(response.data.total_challenges);
+            setAllTeams(response.data.teams);
+          } else {
+            setToastMessages([
+              ...toastMessages,
+              {
+                type: "invalid",
+                title: "Error",
+                body: response.message,
+              },
+            ]);
+          }
+        } catch (error) {
+          setToastMessages([
+            ...toastMessages,
+            {
+              type: "invalid",
+              title: "Error",
+              body: error.message,
+            },
+          ]);
+        } finally {
+          setShowLoading(false);
+        }
+      };
+      useEffect(() => {
+        fetchData();
+      }, []);
+      const navigateToTeams = () =>{
+        navigate("/teams");
+        
+      }
+    const { currentPage, recordsPerPage, handlePageChange } = UsePagination(1, 10);
+    const totalRecords = allTeams.length;
     return (
         <div className="flex-col w-full overflow-x-hidden ">
+  {showLoading && (
+      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <Spinner size={50} stroke={3} speed={1} color="black" />
+      </div>
+    )}
+
 <PlainNavbar/>
             <div className="w-full ">
                 <div className="md:mt-20 xl:ml-[5%] ml-[8%] mt-16 flex items-start justify-start">
@@ -40,7 +95,7 @@ function DashBoard() {
 
                             <div className='text-sh-graph-black'>
                                 <span className='flex mt-5 xl:text-xl text-lg  font-bold ml-[-10px]'>TEAMS</span>
-                                <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>308</span>
+                                <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>{totalTeams}</span>
                             </div>
                         </div>
                     </div>
@@ -60,7 +115,7 @@ function DashBoard() {
 
                             <div className='text-sh-graph-black'>
                                 <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>CHALLENGES</span>
-                                <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>500</span>
+                                <span className='flex mt-5 xl:text-xl text-lg font-bold ml-[-10px]'>{totalChallenges}</span>
                             </div>
                         </div>
                     </div>
@@ -73,20 +128,24 @@ function DashBoard() {
 </div>
 <div className='mt-8 mb-10 xl:ml-[5%] ml-[8%] xl:w-[91%] h-auto rounded-[20px] bg-sh-cream w-[85%] '>
 <div className='flex justify-between'>
-<span className='text-left flex items-start text-sh-graph-black justify-start ml-8 pt-6 text-lg lg:text-xl font-bold'>Recently Created Teams</span>
-<span className='text-left flex items-end justify-between mx-8 pt-6 text-base font-medium text-sh-gray cursor-pointer '>View All Teams</span>
+<span className='text-left flex items-start text-sh-graph-black justify-start ml-8 pt-6 text-lg lg:text-xl font-bold'>
+  Recently Created Teams
+  </span>
+<span onClick={navigateToTeams} className='text-left flex items-end justify-between mx-8 pt-6 text-base font-medium underline  hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-gray cursor-pointer '>
+  View All Teams
+  </span>
 </div>
 <div className='mt-8 mx-8 pb-10'>
-        <RecentCreatedTeams currentPage={currentPage} recordsPerPage={recordsPerPage}  totalRecords={totalRecords} />
+        <RecentCreatedTeams currentPage={currentPage} recordsPerPage={recordsPerPage}  AllTeams={allTeams} />
       </div>
-      <div className='mx-8 pb-10'>
+      {/* <div className='mx-8 pb-10'>
         <Pagination
           totalRecords={totalRecords} // Set the total number of records
           recordsPerPage={recordsPerPage}
           currentPage={currentPage}
           onPageChange={handlePageChange} // Pass the handlePageChange function
         />
-      </div>
+      </div> */}
     </div>
     
                 

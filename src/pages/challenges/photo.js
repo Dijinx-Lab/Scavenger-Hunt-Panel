@@ -3,7 +3,7 @@ import PlainNavbar from "../../components/navbar/navbar";
 import { useNavigate,useLocation } from "react-router";
 import QuestionsManager from "../../models/admin/questions/questionshttp/http";
 import Spinner from "../../components/spinner/spinner";
-function WordJumble() {
+function Photo() {
     const questionsManager = new QuestionsManager();
     const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  
 
@@ -12,12 +12,12 @@ function WordJumble() {
 
     const searchParams = new URLSearchParams(location.search);
     const challengeId = searchParams.get("_id");
-    const { selectedFile,questionName, questionType, points, newChallengeId, options, sliderMin, sliderMax, jumbledWord: initialJumbledWord, answer: initialAnswer } = location.state || {};
+    const { selectedFile,questionName, questionType, points, newChallengeId, options, sliderMin, sliderMax, jumbledWord, answer } = location.state || {};
 
     const navigate = useNavigate();
     const [showLoading, setShowLoading] = useState(false);
-    const [answer, setAnswer] = useState(initialAnswer || '');
-    const [jumbledWord, setJumbledword] = useState(initialJumbledWord || '');
+    // const [answer, setAnswer] = useState(initialAnswer || '');
+    // const [jumbledWord, setJumbledword] = useState(initialJumbledWord || '');
 
     const handleAddQuestion = async () => {
         
@@ -28,8 +28,6 @@ function WordJumble() {
                 type: questionType,
                 score: points,
                 // challenge: challengeId,
-                answer: answer, // If you need to send sliderValue as answer
-                jumbled_word: jumbledWord, // If you need to send sliderValue as answer
               };
               if (!isEdit) {
                 params.challenge = challengeId;
@@ -130,37 +128,19 @@ function WordJumble() {
     <div className="xl:ml-[4%] ml-[6%] text-left grid md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-12">
 <span className="text-left text-xl  font-bold">Question Type</span>
 <span className="text-left text-xl  ml-[10%] font-bold">Question Score</span>
-<span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+{/* <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span> */}
 </div>
 <div className="xl:ml-[4%] ml-[6%] text-left grid  md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-4">
-<span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType=="wordjumble"?"Word Jumble":"")}
+<span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType=="picture"?"Picture":"")}
 </span>
 <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
-<span 
+{/* <span 
 //  onClick={() => window.open(videoUrl, '_blank')} 
- className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
+ className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span> */}
 
 </div>
-                    <div className="text-sh-graph-black ml-[6%] mt-8 flex items-start justify-start pt-5 xl:ml-[4%] font-bold text-xl">
-                        Answer
-                    </div>
-                    <div className="text-left md:ml-[25%] mt-10 lg:text-xl text-lg text-black">Answer</div>
-                    <input
-                        type="text"
-                        onChange={(e) => setAnswer(e.target.value)}
-                        placeholder="Answer"
-                        value={answer}
-                        className="w-[50%] flex-col  text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue  focus:outline-none focus:ring-primary-300"
-                    />
-                      <div className="text-left md:ml-[25%] mt-5 lg:text-xl text-lg text-black">Letter Count</div>
-                    <input
-                        type="text"
-                        onChange={(e) => setJumbledword(e.target.value)}
-                        value={jumbledWord}
-                        placeholder="Letter Count"
-                        className="w-[50%] flex-col  text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue focus:outline-none focus:ring-primary-300"
-                    />
-                        <div className="grid md:ml-[25%] w-[50%] xl:grid-cols-2 grid-cols-1 gap-2  xl:gap-x-8 xl:gap-y-8 mt-12 ml-10 lg:text-xl text-lg text-black">
+              
+                        <div className="grid md:ml-[25%] w-[50%] xl:grid-cols-2 grid-cols-1 gap-2  xl:gap-x-8 xl:gap-y-8 mt-20 ml-10 lg:text-xl text-lg text-black">
 
 <div className=" flex-col order-2 xl:order-1 mb-6">
     <button onClick={goBack} class="text-sm lg:text-base  w-full mb-5 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90  text-white bg-sh-red focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md  px-5 py-5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -183,4 +163,4 @@ function WordJumble() {
     )
 }
 
-export default WordJumble;
+export default Photo;

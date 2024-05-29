@@ -10,6 +10,7 @@ module.exports = {
         "sh-field":"#969696",
         "sh-graph-black":"#171717",
         "sh-gray":"#646464",
+        "sh-gray2":"#666666",
         "sh-cream-light":"#FDFDF5",
         "sh-red":"#D41615",
         "sh-nav-gray":"#D9D9D9",

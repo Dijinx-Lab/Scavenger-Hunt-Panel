@@ -96,12 +96,18 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
   const isChallengesPage =
     window.location.pathname === '/challenges' ||
     window.location.pathname === '/challenges/create' ||
+    window.location.pathname === '/challenges/edit' ||
     window.location.pathname === '/challenges/manage' ||
     window.location.pathname === '/challenges/add-questions' ||
+    window.location.pathname === '/challenges/edit-questions' ||
     window.location.pathname === '/challenges/add-questions/slider' ||
+    window.location.pathname === '/challenges/edit-questions/slider' ||
     window.location.pathname === '/challenges/add-questions/word-jumble' ||
+    window.location.pathname === '/challenges/edit-questions/word-jumble' ||
     window.location.pathname === '/challenges/add-questions/photo' ||
-    window.location.pathname === '/challenges/add-questions/multiple';
+    window.location.pathname === '/challenges/edit-questions/photo' ||
+    window.location.pathname === '/challenges/add-questions/multiple'||
+    window.location.pathname === '/challenges/edit-questions/multiple';
     const Challenges = "https://dk9gc53q2aga2.cloudfront.net/assets/Challenges+Icon+Sidebar.svg"
     // const BlueChallenges = "https://dk9gc53q2aga2.cloudfront.net/assets/Challenges+Blue+Icon+Sidebar.svg"
   const challengesImgSrc =  Challenges;
