@@ -500,7 +500,7 @@ function Settings() {
             >
               <div className=" bg-black opacity-50 absolute inset-0"></div>
               <div
-                className=" bg-white rounded-3xl md:w-auto w-80  p-8 px-12 relative z-10"
+                className=" bg-white rounded-3xl md:w-[33rem] w-80  p-8 px-12 relative z-10"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* <h2 className="text-black font-semibold text-lg md:w-auto w-60 text-left mb-4">
