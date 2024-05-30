@@ -2,8 +2,22 @@ import React, { useState, useEffect } from "react";
 
 import ApexCharts from 'apexcharts';
 
-const LineChart = () => {
+const LineChart = ({ challengesChartdata, onDropdownChange }) => {
+
+  const [data,setData]= useState(challengesChartdata)
+  useEffect(() => {
+    if (challengesChartdata && challengesChartdata.data && challengesChartdata.keys) {
+      setData(challengesChartdata);
+    }
+  }, [challengesChartdata]);
+  // useEffect(() => {
+  //   setData(challengesChartdata);
+  // }, [challengesChartdata]);
+
   const [isMedium, setisMedium] = useState(window.innerWidth < 1280);
+
+
+ 
   useEffect(() => {
     const handleResize = () => {
       setisMedium(window.innerWidth < 1280);
@@ -23,7 +37,9 @@ const LineChart = () => {
       series: [
         {
           name: 'Sales',
-          data: [50, 40, 300, 320, 500, 350, 200, 230, 500,200,400,300],
+          // data: [50, 40, 300, 320, 500, 350, 200, 230, 1000,200,400,300],
+          //  data: [0, 0, 0,0,0,0,0, 0,0,0,0,0],
+          data: data.data,
 
         },
       ],
@@ -64,19 +80,20 @@ const LineChart = () => {
             fontWeight: 400,
           },
         },
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec'],
+        // categories: [
+        //   'Jan',
+        //   'Feb',
+        //   'Mar',
+        //   'Apr',
+        //   'May',
+        //   'Jun',
+        //   'Jul',
+        //   'Aug',
+        //   'Sep',
+        //   'Oct',
+        //   'Nov',
+        //   'Dec'],
+        categories: data.keys
       },
       yaxis: {
         labels: {
@@ -118,8 +135,17 @@ const LineChart = () => {
     return () => {
       chart.destroy();
     };
-  }, []);
+  }, [data, chartWidth]);
 
+  // const handleDropdownChange = (event) => {
+  //   // const value = event.target.value;
+   
+  //     onDropdownChange(event.target.value);
+   
+  // };
+  // useEffect(() => {
+  //   handleDropdownChange({ target: { value: selectedValue } });
+  // }, [onDropdownChange, selectedValue]);
   return (
     <div className="bg-sh-cream  w-[85%] lg:w-[41.5%] xl:w-[44%] overflow-x-auto overflow-y-hidden md:mt-10 xl:ml-[5%] ml-[8%] relative flex flex-col rounded-xl  text-gray-700 shadow-md">
       <div className="mx-4 mt-4 flex flex-col gap-4  bg-transparent text-gray-700 md:flex-row md:items-center">
@@ -142,9 +168,12 @@ const LineChart = () => {
         </div>
         
         <div className="relative inline-block  w-[9rem]">
-      <select className="border text-black border-gray-300  rounded-sm px-2 py-2 focus:outline-none bg-gray-300 appearance-none w-full">
+      <select
+       onChange={(e)=>onDropdownChange(e.target.value)}
+      // onChange={handleDropdownChange}
+       className="border text-black border-gray-300  rounded-sm px-2 py-2 focus:outline-none bg-gray-300 appearance-none w-full">
         <option value="monthly">Monthly</option>
-        <option value="weakly">Weekly</option>
+        <option value="weekly">Weekly</option>
         <option value="daily">Daily</option>
       </select>
       <div className="pointer-events-none  absolute inset-y-0 right-0 flex items-center pr-1 text-black">

@@ -15,6 +15,7 @@ function TeamDetails() {
   const teamsManager = new TeamsManager();
   const [teamData, setTeamData] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
+  const [deleteShowLoading, setDeleteShowLoading] = useState(false);
 
   const { currentPage: teamsDetailsPage, recordsPerPage: teamsDetailPerPage, handlePageChange: handleTeamsDetailPageChange } = UsePagination(1, 10);
 
@@ -87,7 +88,67 @@ function TeamDetails() {
       fetchData();
     }, []);
   const totalRecords = allQuestions.length;
+  const [isDelete, setIsDelete] = useState(false);
 
+  const closeIsDelete = () => {
+    setIsDelete(false);
+  };
+  const openIsDelete = () => {
+    setIsDelete(true);
+  };
+
+  const handleDelete = async () => {
+    setDeleteShowLoading(true);
+    try {
+      const response = await teamsManager.delete(teamCode);
+      if (response.success) {
+        closeIsDelete();
+        // setTableData(allQuestions.filter(question => question._id !== deleteIdx));
+        const updatedToastMessages = [
+          {
+            type: "success",
+            title: "Success",
+            body: response.message,
+          },
+        ];
+        const state = {
+          toastMessages: updatedToastMessages,
+        };
+        navigate("/teams", { state });
+
+      }
+      else {
+        const updatedToastMessages = [
+          {
+            type: "invalid",
+            title: "Error",
+            body: response.message,
+          },
+        ];
+        const state = {
+          toastMessages: updatedToastMessages,
+        };
+        navigate("/challenges", { state });
+      }
+    }
+    catch (error) {
+      const updatedToastMessages = [
+        {
+          type: "invalid",
+          title: "Error",
+          body: error.message,
+        },
+      ];
+      const state = {
+        toastMessages: updatedToastMessages,
+      };
+      navigate("/challenges", { state });
+
+    }
+    finally {
+      setDeleteShowLoading(false);
+    }
+  };
     return (
     <div className="flex-col w-full overflow-x-hidden ">
       {showLoading && (
@@ -124,8 +185,44 @@ function TeamDetails() {
           <button  className='md:mt-5 lg:ml-[40%] w-full mt-16    rounded-md bg-white text-sh-blue text-center py-2 lg:py-4 text-base font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 cursor-pointer border border-sh-blue '>Edit Details</button>
           </div> */}
           <div>
-          <button className='xl:mt-20 lg:ml-[40%] w-full mt-16    rounded-md bg-white text text-center py-2 lg:py-4 text-base font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-red border border-sh-red cursor-pointer  '>Delete Challenge</button>
+          <button 
+          onClick={openIsDelete}
+          className='xl:mt-20 lg:ml-[40%] w-full mt-16    rounded-md bg-white text text-center py-2 lg:py-4 text-base font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-red border border-sh-red cursor-pointer  '>
+            Delete Team</button>
           </div>
+          {isDelete && (
+            <div
+              className=" fixed inset-0 flex items-center justify-center z-50"
+              onClick={closeIsDelete}
+            >
+              <div className=" bg-black opacity-50 absolute inset-0"></div>
+              <div
+                className=" bg-white rounded-3xl md:w-auto w-80  p-8 px-12 relative z-10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 className="text-black font-semibold text-lg md:w-auto w-60 text-left mb-4">
+                  Confirm
+                </h2>
+                <p className="text-black text-filter-heading md:w-auto w-60 text-left">
+                  Are you sure you want to delete this challenge?
+                </p>
+                <div className="flex justify-end mt-6">
+                  <button
+                    onClick={closeIsDelete}
+                    className="text-filter-heading hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-70 mr-4 border-2 border-gray-400 rounded-[9px] border-filter-heading py-1 px-6"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="bg-sh-red hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-70 text-white md:px-7 px-5 rounded-[9px] py-1 "
+                    onClick={handleDelete}
+                  >
+                    {deleteShowLoading ? <Spinner /> : <span>Delete</span>}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 <div className="xl:ml-[5%] text-left grid md:grid-cols-3 lg:grid-cols-[20%,25%,25%,25%] xl:grid-cols-[15%,15%,15%,15%,15%,15%] ml-[8%] md:mt-12">
@@ -182,6 +279,7 @@ function TeamDetails() {
               onPageChange={handleTeamsDetailPageChange} // Pass the handlePageChange function
             />
           </div></div>
+          
  </div>
 )
 }

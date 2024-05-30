@@ -24,20 +24,25 @@ function Teams() {
   const [allTeams, setAllTeams] = useState([]);
   const [totalTeams,setTotalTeams]= useState("")
   const [toastMessages, setToastMessages] = useState(location.state?.toastMessages || []); // Set initial toastMessages from location state
-
   useEffect(() => {
-    // Check if there are toast messages in the location state
-    if (location.state?.toastMessages) {
-      // Display the toast message
-      const toastMessage = location.state.toastMessages[0]; // Assuming there's only one toast message
-      setToastMessages([toastMessage]);
-
-      // Clear the location state after showing the toast message
-      setTimeout(() => {
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }, 0);
+    // Retrieve toastMessages from location.state
+    if (location.state && location.state.toastMessages) {
+      setToastMessages(location.state.toastMessages);
     }
-  }, [location.state]);
+  
+    // Preserve other URL parameters while updating toastMessages
+    setTimeout(() => {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const idParam = urlSearchParams.get('_id');
+      if (idParam) {
+        const newUrl = `${window.location.pathname}?_id=${idParam}`;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+      else{
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }, 0);
+  }, [location]);
   
   const handleImageLoad = () => {
     setShowImageLoading(false); // Set showLoading to false when the image is loaded
