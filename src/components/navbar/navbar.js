@@ -3,11 +3,24 @@ import { useNavigate } from "react-router";
 import NavbarUserImage from "../../assets/navbar_user_image.svg"
 import NavbarDropdownIcon from "../../assets/navbar_dropdown_icon.svg"
 import SignoutManager from "../../models/admin/auth/https/signouthttp";
+import Spinner from "../spinner/spinner";
 function PlainNavbar() {
   const [toastMessages, setToastMessages] = useState([]);
+  const [deleteShowLoading, setDeleteShowLoading] = useState(false);
+
+  const name = sessionStorage.getItem("adminName") || localStorage.getItem("adminName");
+  const image = sessionStorage.getItem("adminImage") || localStorage.getItem("adminImage");
 
   const navigate = useNavigate();
   const signoutManager = new SignoutManager();
+  const [isDelete, setIsDelete] = useState(false);
+
+  const closeIsDelete = () => {
+    setIsDelete(false);
+  };
+  const openIsDelete = () => {
+    setIsDelete(true);
+  };
 const handleSignOut = async () =>{
   const response = await signoutManager.signout();
   if(response.success){
@@ -59,21 +72,55 @@ const handleSignOut = async () =>{
                 </span>
               </div>
             )} */}
-        <div onClick={handleSignOut} className="border cursor-pointer grid-cols-3 rounded-md w-[250%] border-black py-2  bg-sh-nav-gray md:block hidden">
+        <div onClick={openIsDelete} className="border cursor-pointer grid-cols-3 h-12 rounded-md w-[250%] border-black py-2  bg-sh-nav-gray md:block hidden">
 
           <div
             // onMouseEnter={toggleAccountMenu}
             className=" w-full transition-opacity hover:opacity-60 text-xl text-sh-blue font-bold mx-5 hover:cursor-pointer"
           >
-            <img src={NavbarUserImage}></img>
+            <img src={image} className="h-8 w-8 rounded-full"></img>
+            {/* <img src={NavbarUserImage} ></img> */}
 
           </div>
-          <div className="w-full mt-[-12%]">John Black</div>
-          <div className="w-full mt-[-8%] mb-3 ml-[85%] "><img src={NavbarDropdownIcon}></img></div>
+          {/* <div className="w-full mt-[-12%]">John Black</div> */}
+          <div className="w-full mt-[-11%]">{name}</div>
+          <div className="w-full mt-[-5%] mb-3 ml-[85%] "><img src={NavbarDropdownIcon}></img></div>
 
         </div>
       </div>
-
+      {isDelete && (
+            <div
+              className=" fixed inset-0 flex items-center justify-center z-50"
+              onClick={closeIsDelete}
+            >
+              <div className=" bg-black opacity-50 absolute inset-0"></div>
+              <div
+                className=" bg-white rounded-3xl md:w-auto w-80  p-8 px-12 relative z-10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 className="text-black font-semibold text-lg md:w-auto w-60 text-left mb-4">
+                  Confirm
+                </h2>
+                <p className="text-black text-filter-heading md:w-auto w-60 text-left">
+                  Are you sure you want to Sign out?
+                </p>
+                <div className="flex justify-end mt-6">
+                  <button
+                    onClick={closeIsDelete}
+                    className="text-filter-heading hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-70 mr-4 border-2 border-gray-400 rounded-[9px] border-filter-heading py-1 px-6"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="bg-sh-red hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-70 text-white md:px-7 px-5 rounded-[9px] py-1 "
+                    onClick={handleSignOut}
+                  >
+                    {deleteShowLoading ? <Spinner /> : <span>Sign Out</span>}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
       {/* <div className="md:block hidden">
           <span
             onClick={handleHomeClick}

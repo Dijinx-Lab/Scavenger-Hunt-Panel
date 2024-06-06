@@ -8,7 +8,7 @@ import { RotatingLines } from 'react-loader-spinner'
 import Spinner from "../components/spinner/spinner";
 function Login() {
   const location = useLocation();  
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
@@ -32,7 +32,7 @@ function Login() {
     navigate("/dashboard");
   };
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    setUsername(e.target.value);
   };
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -43,11 +43,11 @@ function Login() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  const isValidEmail = (email) => {
-    // Regular expression for validating email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // const isValidEmail = (email) => {
+  //   // Regular expression for validating email format
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
   const httpManager = new HttpManager();
   const handleLogIn = async (e) => {
     // navigate("/dashboard");
@@ -55,43 +55,43 @@ function Login() {
     try {
      setShowLoading(true);
 
-      if (!email.trim()) {
+      if (!username.trim()) {
         // If subject is empty or contains only whitespace
         setToastMessages([
           ...toastMessages,
           {
             type: "invalid",
             title: "Invalid Email",
-            body: "Email cannot be empty",
+            body: "Username cannot be empty",
           },
         ]);
 
         return; // Prevent form submission
       }
-      if (!isValidEmail(email)) {
-        setToastMessages([
-          ...toastMessages,
-          {
-            type: "invalid",
-            title: "Invalid Email",
-            body: "Enter valid email address",
-          },
-        ]);
-        return;
-      }
+      // if (!isValidEmail(email)) {
+      //   setToastMessages([
+      //     ...toastMessages,
+      //     {
+      //       type: "invalid",
+      //       title: "Invalid Email",
+      //       body: "Enter valid email address",
+      //     },
+      //   ]);
+      //   return;
+      // }
       if (!password.trim()) {
         // If subject is empty or contains only whitespace
         setToastMessages([
           ...toastMessages,
           {
             type: "invalid",
-            title: "Invalid Email",
+            title: "Invalid Password",
             body: "Password cannot be empty",
           },
         ]);
         return; // Prevent form submission
       }
-      const response = await httpManager.login(email, password);
+      const response = await httpManager.login(username, password);
       if(response.success){
       handleSignInResponse(response);}
       else{
@@ -114,18 +114,18 @@ function Login() {
 
       if (baseResponse === true) {
         const adminToken = response.data.token;
-        const email = response.data.email;
-        const name = response.data.name;
+        const image = response.data.admin.image;
+        const name = response.data.admin.username;
         //const isEmailSubscribed = response.data.is_email_subscribed;
 
         if (adminToken != null) {
           if (rememberMe) {
             localStorage.setItem('adminToken', `${adminToken}`);
-            localStorage.setItem('adminEmail', email);
+            localStorage.setItem('adminImage', image);
             localStorage.setItem('adminName', name);
           } else {
             sessionStorage.setItem('adminToken', `${adminToken}`);
-            sessionStorage.setItem('adminEmail', email);
+            sessionStorage.setItem('adminImage', image);
             sessionStorage.setItem('adminName', name);
           }
           navigate("/dashboard");
@@ -183,12 +183,12 @@ function Login() {
                   <div>
                       <label for="email" class="block mb-2 text-left text-md font-medium text-sh-black">Email</label>
                       <input 
-                      type="email" 
+                      type="text" 
                       name="email" 
                       id="email" 
                       className="bg-transparent border text-black border-gray-500  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 focus:outline-none focus:ring-0 focus:border-sh-blue peer " 
                       placeholder="Email" 
-                      value={email}
+                      value={username}
                       onChange={handleEmailChange}
                       style={{ color: 'black' }} 
                       />
