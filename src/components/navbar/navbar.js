@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import NavbarUserImage from "../../assets/navbar_user_image.svg"
-import NavbarDropdownIcon from "../../assets/navbar_dropdown_icon.svg"
+import NavbarDropdownIcon from "../../assets/logout_Icon.svg"
 import SignoutManager from "../../models/admin/auth/https/signouthttp";
 import Spinner from "../spinner/spinner";
 function PlainNavbar() {
@@ -84,7 +84,7 @@ const handleSignOut = async () =>{
           </div>
           {/* <div className="w-full mt-[-12%]">John Black</div> */}
           <div className="w-full mt-[-11%]">{name}</div>
-          <div className="w-full mt-[-5%] mb-3 ml-[85%] "><img src={NavbarDropdownIcon}></img></div>
+          <div className="w-full mt-[-9%] mb-3 ml-[85%] "><img src={NavbarDropdownIcon}></img></div>
 
         </div>
       </div>
