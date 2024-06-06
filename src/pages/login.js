@@ -181,7 +181,7 @@ function Login() {
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
                   <div>
-                      <label for="email" class="block mb-2 text-left text-md font-medium text-sh-black">Email</label>
+                      <label for="email" class="block mb-2 text-left text-md font-medium text-sh-black">Username</label>
                       <input 
                       type="text" 
                       name="email" 
