@@ -187,7 +187,7 @@ function Login() {
                       name="email" 
                       id="email" 
                       className="bg-transparent border text-black border-gray-500  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 focus:outline-none focus:ring-0 focus:border-sh-blue peer " 
-                      placeholder="Email" 
+                      placeholder="Username" 
                       value={username}
                       onChange={handleEmailChange}
                       style={{ color: 'black' }} 
