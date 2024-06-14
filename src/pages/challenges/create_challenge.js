@@ -379,7 +379,7 @@ function CreateChallenges() {
                             <img src={uploadImgUrl} className="lg:w-72 lg:h-40 h-40 w-56 xl:h-full xl:w-full"></img>
                         </div>
                     </div>
-                    <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">Please upload video, size less than 1GB</div>
+                    <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">Please upload video, size less than 15 MB</div>
                     <div className="flex md:ml-[25%]">
                         <label className="flex-col text-sm hover:scale-105 transition-all duration-200 ease-in-out hover:opacity-90 rounded-md font-medium cursor-pointer px-3 py-1.5 mt-3 border border-black custom-file-upload">
                             <input
@@ -391,7 +391,8 @@ function CreateChallenges() {
                                     const fileLabel = document.getElementById("fileLabel");
 
                                     if (file) {
-                                        if (file.type !== "video/mp4") {
+                                      if (!["video/mp4", "video/avi", "video/mov", "video/wmv", "video/mkv", "video/flv", "video/webm", "video/m4v", "video/mpg", "video/mpeg", "video/3gp"].includes(file.type)) {
+                                        //{
                                             setToastMessages([
                                                 ...toastMessages,
                                                 {
@@ -402,7 +403,7 @@ function CreateChallenges() {
                                             ]);
                                             e.target.value = ""; // Reset the input
                                             if (fileLabel) fileLabel.textContent = "No File Chosen";
-                                        } else if (file.size > 15 * 1024 * 1024) { // Check if file is larger than 1GB
+                                        } else if (file.size > 15 * 1024 * 1024) { 
                                             setToastMessages([
                                                 ...toastMessages,
                                                 {

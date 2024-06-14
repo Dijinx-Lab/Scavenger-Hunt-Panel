@@ -13,6 +13,8 @@ function Slider() {
 
     const searchParams = new URLSearchParams(location.search);
     const challengeId = searchParams.get("_id");
+  const [videoUrl, setVideoUrl] = useState("");
+
     const { selectedFile,questionName, questionType, points, newChallengeId, options, sliderMin:initialMinSlider, sliderMax:initialMaxSlider, jumbledWord, answer: initialAnswer } = location.state || {};
     // const { questionName, questionType, points } = location.state || {};
     const navigate = useNavigate();
@@ -293,6 +295,7 @@ function Slider() {
                 type: questionType,
                 score: points,
                 // challenge: challengeId,
+                picture:selectedFile,
                 slider_min: sliderMin2,
                 slider_max: sliderMax2,
                 answer: sliderValue, // If you need to send sliderValue as answer
@@ -354,6 +357,12 @@ function Slider() {
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+    const handleOpenFile = () => {
+        if (selectedFile) {
+          const fileURL = URL.createObjectURL(selectedFile);
+          window.open(fileURL, '_blank');
+        }
+      };
     return (
         <div className="flex-col w-full overflow-x-hidden ">
             <PlainNavbar />
@@ -387,8 +396,9 @@ function Slider() {
 <span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType=="slider"?"Slider":"")}</span>
 <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
 <span 
-//  onClick={() => window.open(videoUrl, '_blank')} 
- className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
+//  onClick={() => window.open(selectedFile, '_blank')} 
+onClick={handleOpenFile}
+ className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer" >VIEW</span>
 
 </div>
                     <div className="text-sh-graph-black ml-[6%] mt-8 flex items-start justify-start pt-5 xl:ml-[4%] font-bold text-xl">

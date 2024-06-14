@@ -11,6 +11,7 @@ import Spinner from '../../components/spinner/spinner';
 import Toast from '../../components/toast/toast';
 import { useNavigate,useLocation } from "react-router";
 import UtilityManager from '../../models/admin/utility/utilityhttp';
+import { Padding } from '@mui/icons-material';
 
 function Settings() {
   const location = useLocation();
@@ -45,7 +46,7 @@ function Settings() {
         
         // all options from https://xdsoft.net/jodit/docs/
         placeholder: "Start typing....",
-        // theme: "dark", // Add this line for dark mode
+        theme: "dark", // Add this line for dark mode
         disablePlugins: ['speech-recognize'],
         removeButtons: [
             "undo",
@@ -358,6 +359,7 @@ function Settings() {
                                 initialValue={termsEditorcontent2}
                                 config={config}
                                 // style={{ minHeight: "500px", maxHeight: "800px",maxWidth:"200px" }}
+                                 style={{paddingLeft:"20px" }}
                             />
                        </div> 
                         <div className='w-full flex justify-center items-center'>

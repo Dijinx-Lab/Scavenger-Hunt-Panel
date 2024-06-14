@@ -35,8 +35,8 @@ function AddQuestions() {
         const file = e.target.files[0];
         if (file) {
           const fileName = file.name;
-          const allowedExtensions = [".jpg", ".jpeg", ".png"];
-          const extension = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+          const allowedExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "tiff", "tif", "webp", "svg", "heic"];
+          const extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
       
           if (allowedExtensions.includes(extension)) {
             setSelectedFile(file); // Set the selected file if it has an allowed extension
@@ -50,7 +50,7 @@ function AddQuestions() {
               {
                 type: "invalid",
                 title: "Invalid File",
-                body: "Only JPEG, JPG, and PNG files are allowed",
+                body: "This image format is not allowed",
               },
             ]);
             setSelectedFile(null); // Reset selected file

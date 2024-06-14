@@ -28,6 +28,8 @@ function WordJumble() {
                 type: questionType,
                 score: points,
                 // challenge: challengeId,
+                picture:selectedFile,
+
                 answer: answer, // If you need to send sliderValue as answer
                 jumbled_word: jumbledWord, // If you need to send sliderValue as answer
               };
@@ -105,6 +107,12 @@ function WordJumble() {
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+    const handleOpenFile = () => {
+        if (selectedFile) {
+          const fileURL = URL.createObjectURL(selectedFile);
+          window.open(fileURL, '_blank');
+        }
+      };
     return (
         <div className="flex-col w-full overflow-x-hidden ">
             <PlainNavbar />
@@ -138,6 +146,7 @@ function WordJumble() {
 <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
 <span 
 //  onClick={() => window.open(videoUrl, '_blank')} 
+onClick={handleOpenFile}
  className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
 
 </div>

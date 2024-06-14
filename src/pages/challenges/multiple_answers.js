@@ -33,6 +33,8 @@ function MultipleType() {
                 question: questionName,
                 type: questionType,
                 score: points,
+                picture:selectedFile,
+
                 // challenge: challengeId,
                 options: options,
                 answer: correctAnswer, // If you need to send sliderValue as answer
@@ -113,7 +115,12 @@ function MultipleType() {
     const handleCorrectAnswerChange = (e) => {
         setCorrectAnswer(e.target.value);
     };
-
+    const handleOpenFile = () => {
+        if (selectedFile) {
+          const fileURL = URL.createObjectURL(selectedFile);
+          window.open(fileURL, '_blank');
+        }
+      };
     return (
         <div className="flex-col w-full overflow-x-hidden ">
             <PlainNavbar />
@@ -149,6 +156,7 @@ function MultipleType() {
 <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
 <span 
 //  onClick={() => window.open(videoUrl, '_blank')} 
+onClick={handleOpenFile}
  className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
 
 </div>
