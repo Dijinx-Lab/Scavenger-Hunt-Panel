@@ -1,4 +1,5 @@
-const BASE_URL = "http://3.143.104.128/api/v1/";
+// const BASE_URL = "http://3.143.104.128/api/v1/";
+const BASE_URL = "https://data.warriorleader.us/api/v1/";
 // const BASE_URL = "http://localhost:3000/api/v1/";
 
 const ApiConstants = {
