@@ -25,6 +25,7 @@ import Uploads from "../pages/uploads/uploads";
 import Slider from "../pages/challenges/slider";
 import Settings from "../pages/settings/settings";
 import TeamDetails from "../pages/teams/team_details";
+import Photo from "../pages/challenges/photo";
 // function ResetPasswordRoute() {
 //   return <ResetPassword />;
 // }
@@ -50,12 +51,18 @@ function Layout() {
     "/locations/add",
     "/uploads",
     "/challenges/create",
+    "/challenges/edit",
     "/challenges/manage",
     "/challenges/add-questions",
+    "/challenges/edit-questions",
     "/challenges/add-questions/multiple",
+    "/challenges/edit-questions/multiple",
     "/challenges/add-questions/slider",
+    "/challenges/edit-questions/slider",
     "/challenges/add-questions/photo",
+    "/challenges/edit-questions/photo",
     "/challenges/add-questions/word-jumble",
+    "/challenges/edit-questions/word-jumble",
     "/settings"
   ].includes(location.pathname);
 
@@ -79,7 +86,7 @@ function Layout() {
     //   </div>
 
     // </div>
-    <div className="App   h-screen" >
+    <div className="App h-screen" >
       {/* <div className=" flex-col"> */}
       {showSidebar && <Sidebar />}
       {/* {showSidebar && <PlainNavbar />} */}
@@ -88,23 +95,29 @@ function Layout() {
        
 
             <Routes>
-            <Route 
+            {/* <Route 
             path="/" 
             element={adminToken ? <Navigate to="/dashboard" /> : <Login />} 
-          />
-            {/* <Route path="/" element={<Login />} /> */}
+          /> */}
+            <Route path="/" element={<Login />} />
 
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/challenges" element={<Challenges />} />
               <Route path="/teams" element={<Teams />} />
               <Route path="/teams/details" element={<TeamDetails />} />
               <Route path="/challenges/create" element={<CreateChallenges />} />
+              <Route path="/challenges/edit" element={<CreateChallenges />} />
               <Route path="/challenges/manage" element={<ManageChallenges />} />
               <Route path="/challenges/add-questions" element={<AddQuestions />} />
+              <Route path="/challenges/edit-questions" element={<AddQuestions />} />
               <Route path="/challenges/add-questions/multiple" element={<MultipleType />} />
+              <Route path="/challenges/edit-questions/multiple" element={<MultipleType />} />
               <Route path="/challenges/add-questions/word-jumble" element={<WordJumble />} />
+              <Route path="/challenges/edit-questions/word-jumble" element={<WordJumble />} />
               <Route path="/challenges/add-questions/slider" element={<Slider />} />
-              <Route path="/challenges/add-questions/photo" />
+              <Route path="/challenges/edit-questions/slider" element={<Slider />} />
+              <Route path="/challenges/add-questions/photo" element={<Photo />}/>
+              <Route path="/challenges/edit-questions/photo" element={<Photo />} />
               <Route path="/locations" element={<LocationDashboard />}/>
               {/* <Route path="/locations/add" element={<AddLocation />}/> */}
               <Route path="/settings" element={<Settings />}/>

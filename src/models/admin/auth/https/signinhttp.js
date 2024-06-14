@@ -2,10 +2,10 @@ import ApiConstants from "../../../../constants/adminconstants.js";
 import {BaseResponse} from '../authmodels/signinmodel.js';
 
 class HttpManager {
-    async login(email, password) {
+    async login(username, password) {
       const url = ApiConstants.SIGN_IN;
       const params = {
-        email: email,
+        username: username,
         password: password,
       };
   
@@ -20,15 +20,20 @@ class HttpManager {
 
         if (response.status === 401) {
           localStorage.removeItem("adminToken");
-          localStorage.removeItem("adminEmail");
+          sessionStorage.removeItem("adminToken");
+          localStorage.removeItem("adminImage");
+          sessionStorage.removeItem("adminImage");
           localStorage.removeItem("adminName");
-          window.location.href = "/login";
+          sessionStorage.removeItem("adminName");
+          window.location.href = "/";
           return;
         }
   
         if (response.ok) {
           const responseBody = await response.json();
-          return new BaseResponse(responseBody);
+          // console.log(responseBody);
+          // return new BaseResponse(responseBody);
+          return (responseBody);
         } else {
           const errorBody = await response.text();
           throw new Error(errorBody);

@@ -1,39 +1,45 @@
-import React, { useState, } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from "react-router";
 
-const CurrentLocations = ({ currentPage, recordsPerPage }) => {
+const CurrentLocations = ({ currentPage, recordsPerPage,allChallenges }) => {
   const navigate = useNavigate();
+  const [tableData, setTableData] = useState(allChallenges);
 
-    const [tableData, setTableData] = useState([
-        {
-          name: 'Fort Howell',
-          latitude: 32.2332466372599,
-          longitude: -80.69384960400781,
-          status: 'Start',
-          totalTime: '01:29:00',
+
+  useEffect(() => {
+    setTableData(allChallenges);
+  }, [allChallenges]);
+    // const [tableData, setTableData] = useState([
+    //     {
+    //       name: 'Fort Howell',
+    //       latitude: 32.2332466372599,
+    //       longitude: -80.69384960400781,
+    //       status: 'Start',
+    //       totalTime: '01:29:00',
           
-        },
-        {
-            name: 'Fort Howell',
-            latitude: 32.2332466372599,
-            longitude: -80.69384960400781,
-            status: 'Start',
-            totalTime: '01:29:00',
+    //     },
+    //     {
+    //         name: 'Fort Howell',
+    //         latitude: 32.2332466372599,
+    //         longitude: -80.69384960400781,
+    //         status: 'Start',
+    //         totalTime: '01:29:00',
 
             
-          },
-        // Add more data objects as needed
-      ]);
-      const navigateToChallenge=()=>{
-        navigate("/challenges/manage");
+    //       },
+    //     // Add more data objects as needed
+    //   ]);
+      const navigateToChallenge=(id)=>{
+        navigate("/challenges/manage?_id="+id);
       }
 
       const startIndex = (currentPage - 1) * recordsPerPage;
       const endIndex = startIndex + recordsPerPage;
       const currentData = tableData.slice(startIndex, endIndex);
       
-      while (currentData.length < 10) {
-        currentData.push({ name: '', id: '', email: '', empty: true });
+      let paddedData = [...currentData];
+      while (paddedData.length < 10) {
+        paddedData = [...paddedData, { name: '', questions: '', total_score: '', longitude: '', latitude: '', description: '', empty: true }];
       }
       return (
       <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream rounded-sm ">
@@ -47,7 +53,7 @@ const CurrentLocations = ({ currentPage, recordsPerPage }) => {
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
                 <p className="block text-base  font-medium leading-none text-sh-graph-black ">
-                 Total Challenges
+                 Total Questions
                 </p>
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
@@ -57,7 +63,12 @@ const CurrentLocations = ({ currentPage, recordsPerPage }) => {
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
                 <p className="block  text-base  font-medium leading-none text-sh-graph-black ">
-                Coordinates
+                Latitude
+                </p>
+              </th>
+              <th className="p-4 border border-gray-300 bg-sh-cream">
+                <p className="block  text-base  font-medium leading-none text-sh-graph-black ">
+                Longitude
                 </p>
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
@@ -69,11 +80,21 @@ const CurrentLocations = ({ currentPage, recordsPerPage }) => {
             </tr>
           </thead>
           <tbody>
-          {currentData.map((row, index) => (
-            <tr onClick={navigateToChallenge} key={index} className='text-opacity-50 cursor-pointer text-black'>
-               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[30%]`}>
+          {paddedData && paddedData.map((row, index) => (
+            <tr onClick={() => navigateToChallenge(row._id)}  key={index} className='text-opacity-50 cursor-pointer text-black'>
+               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[15%]`}>
                 <p className="block  text-base text-left font-normal leading-normal sh-graph-black">
                   {row.name}
+                </p>
+              </td>
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+                <p className="block text-base font-normal leading-normal sh-graph-black">
+                  {row.questions}
+                </p>
+              </td>
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+                <p className="block text-base font-normal leading-normal sh-graph-black">
+                  {row.total_score}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
@@ -88,12 +109,7 @@ const CurrentLocations = ({ currentPage, recordsPerPage }) => {
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block text-base font-normal leading-normal sh-graph-black">
-                  {row.status}
-                </p>
-              </td>
-              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
-                <p className="block text-base font-normal leading-normal sh-graph-black">
-                  {row.totalTime}
+                  {row.description}
                 </p>
               </td>
             </tr>

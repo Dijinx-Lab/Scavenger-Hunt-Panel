@@ -1,64 +1,68 @@
-import React, { useState } from 'react';
-const RecentCreatedTeams = ({ currentPage, recordsPerPage,totalRecords  }) => {
-
-    const [tableData, setTableData] = useState([
-        {
-          name: 'Team Unicorn',
-          id: 'ESCO154-5571',
-          members: 1,
-          rank: 308,
-          email: 'random@gmail.com',
+import React, { useState,useEffect } from 'react';
+const RecentCreatedTeams = ({ currentPage, recordsPerPage,AllTeams  }) => {
+  const [tableData, setTableData] = useState(AllTeams);
+  useEffect(() => {
+    setTableData(AllTeams);
+  }, [AllTeams]);
+    // const [tableData, setTableData] = useState([
+    //     {
+    //       name: 'Team Unicorn',
+    //       id: 'ESCO154-5571',
+    //       members: 1,
+    //       rank: 308,
+    //       email: 'random@gmail.com',
           
-        },
-        {
-            name: 'Team Unicorn',
-            id: 'ESCO154-5571',
-            members: 1,
-            rank: 308,
-            email: 'random@gmail.com',
+    //     },
+    //     {
+    //         name: 'Team Unicorn',
+    //         id: 'ESCO154-5571',
+    //         members: 1,
+    //         rank: 308,
+    //         email: 'random@gmail.com',
             
-          },
-          {
-            name: 'Team Unicorn',
-            id: 'ESCO154-5571',
-            members: 1,
-            rank: 308,
-            email: 'random@gmail.com',
+    //       },
+    //       {
+    //         name: 'Team Unicorn',
+    //         id: 'ESCO154-5571',
+    //         members: 1,
+    //         rank: 308,
+    //         email: 'random@gmail.com',
             
-          },
-          {
-              name: 'Team Unicorn',
-              id: 'ESCO154-5571',
-              members: 1,
-              rank: 308,
-              email: 'random@gmail.com',
+    //       },
+    //       {
+    //           name: 'Team Unicorn',
+    //           id: 'ESCO154-5571',
+    //           members: 1,
+    //           rank: 308,
+    //           email: 'random@gmail.com',
               
-            },
-            {
-              name: 'Team Unicorn',
-              id: 'ESCO154-5571',
-              members: 1,
-              rank: 308,
-              email: 'random@gmail.com',
+    //         },
+    //         {
+    //           name: 'Team Unicorn',
+    //           id: 'ESCO154-5571',
+    //           members: 1,
+    //           rank: 308,
+    //           email: 'random@gmail.com',
               
-            },
-            {
-                name: 'Team Unicorn',
-                id: 'ESCO154-5571',
-                members: 1,
-                rank: 308,
-                email: 'random@gmail.com',
+    //         },
+    //         {
+    //             name: 'Team Unicorn',
+    //             id: 'ESCO154-5571',
+    //             members: 1,
+    //             rank: 308,
+    //             email: 'random@gmail.com',
                 
-              },
+    //           },
                       
-        // Add more data objects as needed
-      ]);
+    //     // Add more data objects as needed
+    //   ]);
       const startIndex = (currentPage - 1) * recordsPerPage;
   const endIndex = startIndex + recordsPerPage;
   const currentData = tableData.slice(startIndex, endIndex);
     
-  while (currentData.length < 5) {
-    currentData.push({ name: '', id: '', email: '', empty: true });
+  let paddedData = [...currentData];
+  while (paddedData.length < 10) {
+    paddedData = [...paddedData, { name: '', questions: '', total_score: '', longitude: '', latitude: '', description: '', empty: true }];
   }
   return (
       <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream  rounded-sm ">
@@ -72,12 +76,12 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,totalRecords  }) => {
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
                 <p className="block  text-base  font-medium leading-none  ">
-                  ID
+                  Team Code
                 </p>
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
                 <p className="block  text-base  font-medium leading-none  ">
-                  Members
+                Score
                 </p>
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
@@ -87,14 +91,17 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,totalRecords  }) => {
               </th>
               <th className="p-4 border border-gray-300 bg-sh-cream">
                 <p className="block  text-base  font-medium leading-none  ">
-                  Email
+                  Completed Challenges
                 </p>
               </th>
               
             </tr>
           </thead>
           <tbody>
-          {currentData.map((row, index) => (
+          {paddedData.slice(0, 10).map((row, index) => {
+
+            const completedChallengesLength = row.completed_challenges ? row.completed_challenges.length : 0;
+            return (
             <tr key={index} className='text-opacity-50 text-black'>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[40%]`}>
                 <p className="block  text-base font-normal leading-normal ">
@@ -103,12 +110,12 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,totalRecords  }) => {
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block text-base font-normal leading-normal ">
-                  {row.id}
+                  {row.team_code}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block  text-base font-normal leading-normal ">
-                  {row.members}
+                  {row.score}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
@@ -118,11 +125,12 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,totalRecords  }) => {
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block  text-base font-normal leading-normal ">
-                  {row.email}
+                {!row.empty ? completedChallengesLength:""}
                 </p>
               </td>
             </tr>
-          ))}
+            );
+          })}
           {/* <tr className="border-b-0">
                     <td className="md:py-8 py-5 border border-gray-300 w-[100px]"></td>
                     <td className="md:py-8 py-5 border-r border-gray-300"></td>

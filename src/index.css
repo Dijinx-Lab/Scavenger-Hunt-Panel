@@ -71,3 +71,62 @@ code {
 .svgicon {
   fill: #3F6AC9 !important;
 }
+
+/* .jodit-wysiwyg {
+  padding: 10px; 
+} */
+
+
+/* .jodit-toolbar-button {
+ 
+    background-color: rgb(66, 63, 55) !important; 
+    color: white !important;
+
+} */
+.jodit-toolbar-button:active {
+  background-color: black !important;
+  
+  color: white !important; /* Optional: Change the text color to white for better contrast */
+}
+
+.jodit-ui-button,
+	.jodit-toolbar-select,
+	.jodit-toolbar-button {
+		--color-icon: var(--dark-icon-color);
+    
+		text {
+			color: white;
+		}
+
+		svg,
+		trigger,
+		.jodit-icon {
+			/* fill: white !important; */
+			stroke: var(--color-icon);
+		}
+
+		
+		text,
+		button,
+		trigger {
+			&:hover:not([disabled]) {
+				--color-text: white !important;
+				--color-icon: white !important;
+				background-color:black !important;
+        opacity: 100;
+				color: white !important;
+			}
+		}
+    
+	}
+
+  .jodit-toolbar-button:active svg,
+  .jodit-toolbar-button:active trigger,
+  .jodit-toolbar-button:active .jodit-icon {
+    fill: white !important;
+  }
+   
+  
+  
+  
+ 
