@@ -125,6 +125,19 @@ code {
   .jodit-toolbar-button:active .jodit-icon {
     fill: white !important;
   }
+  .jodit-wysiwyg {
+    padding-left: 10px;
+}
+ul {
+    list-style: inside;
+}
+ol {
+    list-style: inside;
+    list-style-type: number;
+}
+td {
+    border: solid 1px;
+}
    
   
   

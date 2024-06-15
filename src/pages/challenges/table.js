@@ -1,6 +1,9 @@
 import React,{ useState, useEffect } from "react";
 import Challenges from "./challenges";
+import { useNavigate } from "react-router";
+
 const CurrentChallenges = ({ currentPage, recordsPerPage, allChallenges }) => {
+  const navigate = useNavigate();
 
     // const [tableData, setTableData] = useState([
     //     {
@@ -22,7 +25,9 @@ const CurrentChallenges = ({ currentPage, recordsPerPage, allChallenges }) => {
     //     // Add more data objects as needed
     //   ]);
     const [tableData, setTableData] = useState(allChallenges);
-
+    const navigateToChallenge=(id)=>{
+      navigate("/challenges/manage?_id="+id);
+    }
 
     useEffect(() => {
       setTableData(allChallenges);
@@ -76,7 +81,7 @@ const CurrentChallenges = ({ currentPage, recordsPerPage, allChallenges }) => {
           </thead>
           <tbody>
           {paddedData && paddedData.map((row, index) => (
-            <tr key={index} className='text-opacity-50 text-black'>
+            <tr onClick={() => navigateToChallenge(row._id)} key={index} className='text-opacity-50  cursor-pointer text-black'>
              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[15%]`}>
                 <p className="block  text-base text-left font-normal leading-normal sh-graph-black">
                   {row.name}

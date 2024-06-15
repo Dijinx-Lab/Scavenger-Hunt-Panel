@@ -32,6 +32,8 @@ function CreateChallenges() {
     const searchParams = new URLSearchParams(location.search);
     const challengeId = searchParams.get("_id");
     const [showLoading, setShowLoading] = useState(false);
+    const [picture, setPicture] = useState('');
+
     const [challengeData, setChallengeData] = useState({ name: '', latitude: '', longitude: '' });
     const route = "66521318cac9420edc624570";
     const uploadImgUrl = "https://dk9gc53q2aga2.cloudfront.net/assets/Upload_Video_Icon.svg";
@@ -66,6 +68,7 @@ function CreateChallenges() {
             setLatitude(response.data.challenge.latitude);
             setLongitude(response.data.challenge.longitude);
             setDescription(response.data.challenge.description);
+            setPicture(response.data.challenge.intro_url);
             // setCompletedChallenges(response.data.completed_challenges);
             // setUncompletedChallenges(response.data.uncompleted_challenges);
             // setTotalChallenges(response.data.total_challenges);
@@ -210,7 +213,7 @@ function CreateChallenges() {
         try{
             const isEdit = location.pathname.includes("/challenges/edit");
             let videoUrl= introVideo;
-            if(introVideo){
+            if(typeof introVideo !== 'string'){
               // const compressedVideo = await compressVideo(introVideo);
               const params = {
                 folder: "challenges",
@@ -379,7 +382,7 @@ function CreateChallenges() {
                             <img src={uploadImgUrl} className="lg:w-72 lg:h-40 h-40 w-56 xl:h-full xl:w-full"></img>
                         </div>
                     </div>
-                    <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">Please upload video, size less than 1GB</div>
+                    <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">Please upload video, size less than 15 MB</div>
                     <div className="flex md:ml-[25%]">
                         <label className="flex-col text-sm hover:scale-105 transition-all duration-200 ease-in-out hover:opacity-90 rounded-md font-medium cursor-pointer px-3 py-1.5 mt-3 border border-black custom-file-upload">
                             <input
@@ -391,7 +394,8 @@ function CreateChallenges() {
                                     const fileLabel = document.getElementById("fileLabel");
 
                                     if (file) {
-                                        if (file.type !== "video/mp4") {
+                                      if (!["video/mp4", "video/avi", "video/mov", "video/wmv", "video/mkv", "video/flv", "video/webm", "video/m4v", "video/mpg", "video/mpeg", "video/3gp"].includes(file.type)) {
+                                        //{
                                             setToastMessages([
                                                 ...toastMessages,
                                                 {
@@ -402,7 +406,7 @@ function CreateChallenges() {
                                             ]);
                                             e.target.value = ""; // Reset the input
                                             if (fileLabel) fileLabel.textContent = "No File Chosen";
-                                        } else if (file.size > 15 * 1024 * 1024) { // Check if file is larger than 1GB
+                                        } else if (file.size > 15 * 1024 * 1024) { 
                                             setToastMessages([
                                                 ...toastMessages,
                                                 {
@@ -451,7 +455,7 @@ function CreateChallenges() {
                             Choose File
                         </label>
                         <label id="fileLabel" className="ml-1 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
-                            No File Chosen
+                            {isEdit && picture ? picture: "No File Chosen"}
                         </label>
                     </div>
                     <div className="grid md:ml-[25%] w-[50%] xl:grid-cols-2 grid-cols-1 gap-1 xl:gap-5 xl:gap-x-8 xl:gap-y-8 mt-10 ml-10 lg:text-xl text-lg text-black">

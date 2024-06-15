@@ -17,9 +17,9 @@ import { useNavigate } from "react-router";
 // import SidebarLogo from '../../assets/Sidebar Logo.svg';
 import PlainNavbar from "../navbar/navbar";
 function Sidebar() {
-const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.svg';
+  const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.svg';
 
-  
+
   const navigate = useNavigate();
   const [open, setOpen] = useState(window.innerWidth >= 768);
   // const signoutManager = new SignoutManager();
@@ -84,8 +84,8 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
   const textColor = isDashboard ? 'text-sh-blue' : 'text-black';
 
   const isTeamsPage =
-   window.location.pathname === '/teams'||
-   window.location.pathname === '/teams/details';
+    window.location.pathname === '/teams' ||
+    window.location.pathname === '/teams/details';
   const Teams = "https://dk9gc53q2aga2.cloudfront.net/assets/Teams+Icon+Sidebar.svg"
   // const BlueTeams = "https://dk9gc53q2aga2.cloudfront.net/assets/Teams+Blue+Icon+Sidebar.svg"
   const teamsfilterStyle = isTeamsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
@@ -106,37 +106,37 @@ const SidebarLogo = 'https://dk9gc53q2aga2.cloudfront.net/assets/Sidebar+Logo.sv
     window.location.pathname === '/challenges/edit-questions/word-jumble' ||
     window.location.pathname === '/challenges/add-questions/photo' ||
     window.location.pathname === '/challenges/edit-questions/photo' ||
-    window.location.pathname === '/challenges/add-questions/multiple'||
+    window.location.pathname === '/challenges/add-questions/multiple' ||
     window.location.pathname === '/challenges/edit-questions/multiple';
-    const Challenges = "https://dk9gc53q2aga2.cloudfront.net/assets/Challenges+Icon+Sidebar.svg"
-    // const BlueChallenges = "https://dk9gc53q2aga2.cloudfront.net/assets/Challenges+Blue+Icon+Sidebar.svg"
-  const challengesImgSrc =  Challenges;
+  const Challenges = "https://dk9gc53q2aga2.cloudfront.net/assets/Challenges+Icon+Sidebar.svg"
+  // const BlueChallenges = "https://dk9gc53q2aga2.cloudfront.net/assets/Challenges+Blue+Icon+Sidebar.svg"
+  const challengesImgSrc = Challenges;
   const challengesfilterStyle = isChallengesPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
 
   const challengesTextColor = isChallengesPage ? 'text-sh-blue' : 'text-black';
 
 
   const isLocationsPage =
-    window.location.pathname === '/locations' ;
-    const Location = "https://dk9gc53q2aga2.cloudfront.net/assets/Locations+Icon+Sidebar.svg"
-    // const BlueLocation = "https://dk9gc53q2aga2.cloudfront.net/assets/Location+Blue+Icon Sidebar.svg"
-  const locationsImgSrc =  Location;
+    window.location.pathname === '/locations';
+  const Location = "https://dk9gc53q2aga2.cloudfront.net/assets/Locations+Icon+Sidebar.svg"
+  // const BlueLocation = "https://dk9gc53q2aga2.cloudfront.net/assets/Location+Blue+Icon Sidebar.svg"
+  const locationsImgSrc = Location;
   const locationfilterStyle = isLocationsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
 
   const locationsTextColor = isLocationsPage ? 'text-sh-blue' : 'text-black';
-  
+
   const isSettingsPage = window.location.pathname === '/settings';
   const setting = 'https://dk9gc53q2aga2.cloudfront.net/assets/settingsIcon.svg';
   // const BlueUpload = 'https://dk9gc53q2aga2.cloudfront.net/assets/Upload+Blue+Icon+Sidebar.svg';
-const settingsImgSrc = setting;
-const settingfilterStyle = isSettingsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
+  const settingsImgSrc = setting;
+  const settingfilterStyle = isSettingsPage ? 'invert(34%) sepia(66%) saturate(1220%) hue-rotate(197deg) brightness(92%) contrast(83%)' : 'none';
 
-const settingsTextColor = isSettingsPage ? 'text-sh-blue' : 'text-black';
-const [isClicked, setIsClicked] = useState(false);
+  const settingsTextColor = isSettingsPage ? 'text-sh-blue' : 'text-black';
+  const [isClicked, setIsClicked] = useState(false);
 
-const handleClick = () => {
-  setIsClicked(!isClicked); // Toggle the clicked state
-};
+  const handleClick = () => {
+    setIsClicked(!isClicked); // Toggle the clicked state
+  };
   return (
     <>
       {open && window.innerWidth < 768 && (
@@ -190,12 +190,12 @@ const handleClick = () => {
     <span className="text-black font-bold text-xl mt-0.5 ml-4">Dashboard</span>
   </>
 )} */}
-           <img
-  src={imgSrc}
-  alt="Books"
-  className="w-8 h-8"
-  style={{ filter: dashboardfilterStyle }}
-/>
+              <img
+                src={imgSrc}
+                alt="Books"
+                className="w-8 h-8"
+                style={{ filter: dashboardfilterStyle }}
+              />
               <span className={`${textColor} font-bold text-xl mt-0.5 ml-4`}>Dashboard</span>
             </div>
             <div className=" mx-4 my-8 opacity-20"></div>
@@ -214,7 +214,7 @@ const handleClick = () => {
     <span className="text-black font-bold text-xl mt-0.5 ml-4">Teams</span>
   </>
 )} */}
-              <img src={teamsImgSrc} alt="Books" className="w-8 h-8"  style={{ filter: teamsfilterStyle }} />
+              <img src={teamsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: teamsfilterStyle }} />
               <span className={`${teamsTextColor} font-bold text-xl mt-0.5 ml-4`}>Teams</span>
 
             </div>
@@ -267,7 +267,7 @@ window.location.pathname === '/challenges/create' ||
     <span className="text-black font-bold text-xl mt-0.5 ml-4">Locations</span>
   </>
 )} */}
-              <img src={locationsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: locationfilterStyle }}/>
+              <img src={locationsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: locationfilterStyle }} />
               <span className={`${locationsTextColor} font-bold text-xl mt-0.5 ml-4`}>Locations</span>
 
             </div>
@@ -285,8 +285,8 @@ window.location.pathname === '/challenges/create' ||
                   <span className="text-black font-bold text-xl mt-0.5 ml-4 mb-16">Uploads</span>
                 </>
               )} */}
-               <img src={settingsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: settingfilterStyle }}/>
-    <span className={`${settingsTextColor} font-bold text-xl mt-0.5 ml-4 ${isSettingsPage ? '' : 'mb-16'}`}>Settings</span>
+              <img src={settingsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: settingfilterStyle }} />
+              <span className={`${settingsTextColor} font-bold text-xl mt-0.5 ml-4 ${isSettingsPage ? '' : 'mb-16'}`}>Settings</span>
 
             </div>
           </div>

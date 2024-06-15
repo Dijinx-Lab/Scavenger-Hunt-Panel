@@ -11,6 +11,7 @@ import Spinner from '../../components/spinner/spinner';
 import Toast from '../../components/toast/toast';
 import { useNavigate,useLocation } from "react-router";
 import UtilityManager from '../../models/admin/utility/utilityhttp';
+import { Padding } from '@mui/icons-material';
 
 function Settings() {
   const location = useLocation();
@@ -84,8 +85,6 @@ function Settings() {
         showCharsCounter: false,
         showWordsCounter: false,
         showXPathInStatusbar: false,
-        
-
     };
 
     const toggleTermsAndConditionAccordion = () => {
@@ -352,12 +351,13 @@ function Settings() {
                         aria-labelledby="accordion-collapse-heading-1"
                     >
                       
-                         <div className="mt-0 mb-8 w-[98%] "> 
+                         <div className="mt-0 mb-8 w-full "> 
                             <RichTextEditor
                                 setValue={setTermsEditorcontent2}
                                 initialValue={termsEditorcontent2}
                                 config={config}
                                 // style={{ minHeight: "500px", maxHeight: "800px",maxWidth:"200px" }}
+                                //  style={{paddingLeft:"20px" }}
                             />
                        </div> 
                         <div className='w-full flex justify-center items-center'>

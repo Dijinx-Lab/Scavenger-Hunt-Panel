@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PlainNavbar from "../../components/navbar/navbar";
-import { useNavigate,useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import QuestionsManager from "../../models/admin/questions/questionshttp/http";
 import Spinner from "../../components/spinner/spinner";
+import UtilityManager from "../../models/admin/utility/utilityhttp";
+import Toast from "../../components/toast/toast";
 function Slider() {
     const questionsManager = new QuestionsManager();
+    const utilityManager = new UtilityManager();
+
     const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  
 
     const location = useLocation();
@@ -13,11 +17,13 @@ function Slider() {
 
     const searchParams = new URLSearchParams(location.search);
     const challengeId = searchParams.get("_id");
-    const { selectedFile,questionName, questionType, points, newChallengeId, options, sliderMin:initialMinSlider, sliderMax:initialMaxSlider, jumbledWord, answer: initialAnswer } = location.state || {};
+    const [videoUrl, setVideoUrl] = useState("");
+
+    const { selectedFile, questionName, questionType, points, newChallengeId, options, sliderMin: initialMinSlider, sliderMax: initialMaxSlider, jumbledWord, answer: initialAnswer } = location.state || {};
     // const { questionName, questionType, points } = location.state || {};
     const navigate = useNavigate();
 
-    
+
     const goBack = () => {
         const fromDetails = true;
 
@@ -27,26 +33,26 @@ function Slider() {
             questionType,
             points,
             fromDetails,
-            newChallengeId         
+            newChallengeId
         };
-        if(isEdit){
-            navigate("/challenges/edit-questions?_id="+challengeId,{state});
-            }
-            else{
-                navigate("/challenges/add-questions?_id="+challengeId,{state});
-            }
+        if (isEdit) {
+            navigate("/challenges/edit-questions?_id=" + challengeId, { state });
+        }
+        else {
+            navigate("/challenges/add-questions?_id=" + challengeId, { state });
+        }
     };
-    const [sliderValue, setSliderValue] = useState(initialAnswer||0);
+    const [sliderValue, setSliderValue] = useState(initialAnswer || 0);
 
     const handleSliderChange = (e) => {
         const newValue = parseInt(e.target.value);
         const clampedValue = Math.max(newValue, sliderMin2); // Ensure the value is not less than sliderMin
         setSliderValue(clampedValue);
     };
-    const [sliderMin, setSliderMin] = useState(initialMinSlider||0);
-    const [sliderMin2, setSliderMin2] = useState(initialMinSlider||0);
-    const [sliderMax, setSliderMax] = useState(initialMaxSlider||100);
-    const [sliderMax2, setSliderMax2] = useState(initialMaxSlider||100);
+    const [sliderMin, setSliderMin] = useState(initialMinSlider || 0);
+    const [sliderMin2, setSliderMin2] = useState(initialMinSlider || 0);
+    const [sliderMax, setSliderMax] = useState(initialMaxSlider || 100);
+    const [sliderMax2, setSliderMax2] = useState(initialMaxSlider || 100);
     // const handleMinChange = (e) => {
     //     const value = parseInt(e.target.value);
     //     if (isNaN(value) ) {
@@ -106,11 +112,11 @@ function Slider() {
     const handleMaxChange = (e) => {
         const value = (e.target.value);
         setSliderMax(value);
-        if ((value=="")) {
+        if ((value == "")) {
             setSliderMax("");
             setErrorMessage("Field cannot be empty*");
             if (sliderMin == "") {
-                 // Set to empty if NaN
+                // Set to empty if NaN
 
                 setSliderValue(0);
                 setSliderMin2(0);
@@ -121,40 +127,40 @@ function Slider() {
             }
             setSliderMin(sliderMin); // Set to 0 if NaN
         }
-         else {
+        else {
             setErrorMessage("")
-            if ((sliderMin=="")) {
-                
+            if ((sliderMin == "")) {
+
                 setSliderValue(0);
                 setSliderMin2(0);
                 setSliderMax2(value);
                 // setErrorMessage("Field cannot be empty*");
 
-        }else{
-            if (value >parseInt(sliderMin)) {
-                setErrorMessage("")
-                setErrorMessage2("");
+            } else {
+                if (value > parseInt(sliderMin)) {
+                    setErrorMessage("")
+                    setErrorMessage2("");
 
-               
+
                     setSliderValue(sliderMin);
                     setSliderMin2(sliderMin);
                     setSliderMax2(value);
-                
+
+                }
+                else {
+                    // setErrorMessage2("Must be lesser than maximum*");
+
+                    setErrorMessage("Must be greater than minimum*");
+                    setSliderValue(sliderMin);
+                    setSliderMax2(value); // Set to 0 if NaN
+                    setSliderMin2(sliderMin); // Set to 0 if NaN
+
+                }
+
+
             }
-            else {
-                // setErrorMessage2("Must be lesser than maximum*");
 
-                setErrorMessage("Must be greater than minimum*");
-                setSliderValue(sliderMin);
-                setSliderMax2(value); // Set to 0 if NaN
-                setSliderMin2(sliderMin); // Set to 0 if NaN
 
-            }
-         
-
-        }
-           
-          
             // if (sliderMin == "") {
             //     setErrorMessage("");
 
@@ -162,7 +168,7 @@ function Slider() {
             //         setSliderMin2(0);
             //         setSliderMax2(value);
             //     }
-           
+
         }
     };
     // const handleMaxFieldClick = () => {
@@ -196,8 +202,8 @@ function Slider() {
     const handleMinChange = (e) => {
         const value = (e.target.value);
         setSliderMin(value)
-    
-        if ((value=="")) {
+
+        if ((value == "")) {
 
             setSliderMin(""); // Set to empty if NaN
             setErrorMessage2("Field cannot be empty*");
@@ -217,7 +223,7 @@ function Slider() {
 
             setErrorMessage2("");
             if (parseInt(value) < sliderMax) {
-               
+
                 setSliderMin2(value);
                 setSliderValue(value);
                 setErrorMessage("");
@@ -283,26 +289,49 @@ function Slider() {
     //     // Clear minimum field when clicking on maximum field
     // };
 
-    
+
     const handleAddQuestion = async () => {
-        
+
         setShowLoading(true);
-        try{
+        try {
+            let imageUrl = selectedFile;
+            if (typeof selectedFile !== 'string') {
+                // const compressedVideo = await compressVideo(introVideo);
+                const params = {
+                    folder: "questions",
+                    file: selectedFile,
+                };
+                const imageResponse = await utilityManager.create(params);
+                if (imageResponse.success) {
+                    imageUrl = imageResponse.data.url;
+                }
+                else {
+                    setToastMessages([
+                        ...toastMessages,
+                        {
+                            type: "invalid",
+                            title: "Error",
+                            body: imageResponse.message,
+                        },
+                    ]);
+                }
+            }
             const params = {
                 question: questionName,
                 type: questionType,
                 score: points,
                 // challenge: challengeId,
+                picture: imageUrl,
                 slider_min: sliderMin2,
                 slider_max: sliderMax2,
                 answer: sliderValue, // If you need to send sliderValue as answer
-              };
-              if (!isEdit) {
+            };
+            if (!isEdit) {
                 params.challenge = challengeId;
-              }
-            
-                const response = await questionsManager.create(params,challengeId,isEdit)
-            if(response.success){
+            }
+
+            const response = await questionsManager.create(params, challengeId, isEdit)
+            if (response.success) {
                 const updatedToastMessages = [
                     {
                         type: "success",
@@ -310,55 +339,74 @@ function Slider() {
                         body: response.message,
                     },
                 ];
-        
+
                 // Update the state to include toast messages
                 // setToastMessages(updatedToastMessages)
                 const state = {
                     toastMessages: updatedToastMessages,
                 };
 
-                if(isEdit){
-                    navigate("/challenges/manage?_id="+newChallengeId,{state});
-                    }
-                    else{
-                        navigate("/challenges/manage?_id="+challengeId,{state});
-    
-                    }
+                if (isEdit) {
+                    navigate("/challenges/manage?_id=" + newChallengeId, { state });
+                }
+                else {
+                    navigate("/challenges/manage?_id=" + challengeId, { state });
+
+                }
 
             }
-            else{
+            else {
                 setToastMessages([
                     ...toastMessages,
                     {
-                      type: "invalid",
-                      title: "Error",
-                      body: response.message,
+                        type: "invalid",
+                        title: "Error",
+                        body: response.message,
                     },
-                  ]);
+                ]);
             }
         }
-        catch(error){
+        catch (error) {
             setToastMessages([
                 ...toastMessages,
                 {
-                  type: "invalid",
-                  title: "Error",
-                  body: error.message,
+                    type: "invalid",
+                    title: "Error",
+                    body: error.message,
                 },
-              ]);
+            ]);
         }
-        finally{
+        finally {
             setShowLoading(false);
         }
     };
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+    const handleOpenFile = () => {
+        if (selectedFile) {
+            const fileURL = URL.createObjectURL(selectedFile);
+            window.open(fileURL, '_blank');
+        }
+    };
     return (
         <div className="flex-col w-full overflow-x-hidden ">
             <PlainNavbar />
 
             <div className="w-full ">
+                {toastMessages.map((toast, index) => (
+                    <Toast
+                        className="mb-0"
+                        key={index}
+                        toasts={[toast]}
+                        onClose={() => {
+                            // Remove the toast message when it's closed
+                            const updatedToasts = [...toastMessages];
+                            updatedToasts.splice(index, 1);
+                            setToastMessages(updatedToasts);
+                        }}
+                    />
+                ))}
                 <div className="md:mt-20 xl:ml-[5%] ml-[8%] mt-16  flex items-start justify-start">
                     <span className="text-sa-maroon text-left font-bold text-2xl md:text-4xl">
                         Challenges
@@ -371,26 +419,27 @@ function Slider() {
                 </div>
 
                 <div className="mt-10 mb-20 xl:ml-[5%] ml-[8%] w-[80%] rounded-[20px] h-auto bg-sh-cream">
-                <div className="text-black flex items-start justify-start pt-5  xl:ml-[4%] ml-[6%] font-bold text-xl">
-        Question
-    </div>
-<div className=" flex items-start justify-start text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
+                    <div className="text-black flex items-start justify-start pt-5  xl:ml-[4%] ml-[6%] font-bold text-xl">
+                        Question
+                    </div>
+                    <div className=" flex items-start justify-start text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
 
-{capitalizeFirstLetter(questionName)}
-    </div>
-    <div className="xl:ml-[4%] ml-[6%] text-left grid md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-12">
-<span className="text-left text-xl  font-bold">Question Type</span>
-<span className="text-left text-xl  ml-[10%] font-bold">Question Score</span>
-<span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
-</div>
-<div className="xl:ml-[4%] ml-[6%] text-left grid  md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-4">
-<span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType=="slider"?"Slider":"")}</span>
-<span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
-<span 
-//  onClick={() => window.open(videoUrl, '_blank')} 
- className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
+                        {capitalizeFirstLetter(questionName)}
+                    </div>
+                    <div className="xl:ml-[4%] ml-[6%] text-left grid md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-12">
+                        <span className="text-left text-xl  font-bold">Question Type</span>
+                        <span className="text-left text-xl  ml-[10%] font-bold">Question Score</span>
+                        <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+                    </div>
+                    <div className="xl:ml-[4%] ml-[6%] text-left grid  md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-4">
+                        <span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType == "slider" ? "Slider" : "")}</span>
+                        <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
+                        <span
+                            //  onClick={() => window.open(selectedFile, '_blank')} 
+                            onClick={handleOpenFile}
+                            className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer " >VIEW</span>
 
-</div>
+                    </div>
                     <div className="text-sh-graph-black ml-[6%] mt-8 flex items-start justify-start pt-5 xl:ml-[4%] font-bold text-xl">
                         Answer
                     </div>
@@ -489,7 +538,7 @@ function Slider() {
                             </button></div>
                         <div className=" flex-col order-1 xl:order-2">
                             <button onClick={handleAddQuestion} class="text-sm lg:text-base   w-full mb-5 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90  text-white bg-sh-blue focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md  px-5 py-5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            {showLoading ? <Spinner color="white" /> : isEdit ? "EDIT QUESTION" : "ADD QUESTION"}
+                                {showLoading ? <Spinner color="white" /> : isEdit ? "EDIT QUESTION" : "ADD QUESTION"}
                             </button></div>
                     </div>
 
