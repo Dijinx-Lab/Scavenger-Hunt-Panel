@@ -356,6 +356,7 @@ function Settings() {
                                 setValue={setTermsEditorcontent2}
                                 initialValue={termsEditorcontent2}
                                 config={config}
+                                
                                 // style={{ minHeight: "500px", maxHeight: "800px",maxWidth:"200px" }}
                                 //  style={{paddingLeft:"20px" }}
                             />
