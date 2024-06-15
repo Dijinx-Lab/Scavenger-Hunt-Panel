@@ -1,9 +1,13 @@
 import React, { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const RecentCreatedTeams = ({ currentPage, recordsPerPage,AllTeams  }) => {
   const [tableData, setTableData] = useState(AllTeams);
   useEffect(() => {
     setTableData(AllTeams);
   }, [AllTeams]);
+  const navigate = useNavigate();
+
     // const [tableData, setTableData] = useState([
     //     {
     //       name: 'Team Unicorn',
@@ -64,6 +68,10 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,AllTeams  }) => {
   while (paddedData.length < 10) {
     paddedData = [...paddedData, { name: '', questions: '', total_score: '', longitude: '', latitude: '', description: '', empty: true }];
   }
+
+  const navigateToTeamDetails=(team_code)=>{
+    navigate("/teams/details?code="+team_code);
+  }
   return (
       <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream  rounded-sm ">
         <table className="w-full text-left table-auto min-w-max">
@@ -102,7 +110,7 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,AllTeams  }) => {
 
             const completedChallengesLength = row.completed_challenges ? row.completed_challenges.length : 0;
             return (
-            <tr key={index} className='text-opacity-50 text-black'>
+            <tr onClick={() => navigateToTeamDetails(row.team_code)}  key={index} className='cursor-pointer text-opacity-50 text-black'>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[40%]`}>
                 <p className="block  text-base font-normal leading-normal ">
                   {row.name}

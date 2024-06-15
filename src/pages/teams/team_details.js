@@ -149,6 +149,7 @@ function TeamDetails() {
       setDeleteShowLoading(false);
     }
   };
+  
     return (
     <div className="flex-col w-full overflow-x-hidden ">
       {showLoading && (
@@ -204,7 +205,7 @@ function TeamDetails() {
                   Confirm
                 </h2>
                 <p className="text-black text-filter-heading md:w-auto w-60 text-left">
-                  Are you sure you want to delete this challenge?
+                  Are you sure you want to delete this team?
                 </p>
                 <div className="flex justify-end mt-6">
                   <button
@@ -243,13 +244,13 @@ function TeamDetails() {
 <div className='lg:mt-0 mt-8'>
 
 <span className="text-left text-xl lg:ml-[10%] font-bold">Route Started</span>
-<div className="text-left text-xl mt-3  lg:ml-[10%] font-bold">{convertDateFormat(teamData.route_started)}</div>
+<div className="text-left text-xl mt-3  lg:ml-[10%] font-bold">{teamData.route_started ? convertDateFormat(teamData.route_started): "N/A"}</div>
 
 </div>
 <div className='xl:mt-0 mt-8'>
 
 <span className="text-left text-xl xl:ml-[10%] font-bold">Time Taken</span>
-<div className="text-left text-xl mt-3 xl:ml-[10%] font-bold">{teamData.time_taken}</div>
+<div className="text-left text-xl mt-3 xl:ml-[10%] font-bold">{teamData.time_taken ? teamData.time_taken : "N/A"}</div>
 
 </div>
 <div className='xl:mt-0 mt-8'>

@@ -73,7 +73,7 @@ class TeamsManager {
 
       if (response.ok) {
         const responseBody = await response.json();
-        return new BaseResponse(responseBody);
+        return (responseBody);
       } else {
         const errorBody = await response.text();
         throw new Error(errorBody);

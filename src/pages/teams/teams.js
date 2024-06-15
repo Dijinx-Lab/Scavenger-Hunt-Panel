@@ -15,6 +15,8 @@ import Toast from "../../components/toast/toast";
 import Spinner from "../../components/spinner/spinner";
 import { useNavigate,useLocation } from "react-router-dom";
 function Teams() {
+  const navigate = useNavigate();
+
   const location = useLocation();  
   const [showLoading, setShowLoading] = useState(true);
   const [showImageLoading, setShowImageLoading] = useState(true);
@@ -98,16 +100,9 @@ function Teams() {
       const response = await teamsManager.create(teamName);
 
       if (response.success) {
-        setToastMessages([
-          ...toastMessages,
-          {
-            type: "success",
-            title: "Success",
-            body: response.message,
-          },
-        ]);
-        setTeamName("");
-        fetchData();
+    
+
+        navigate("/teams/details?code="+response.data.team.team_code);
       }
       else {
         setToastMessages([
@@ -134,7 +129,9 @@ function Teams() {
       setShowCreateLoading(false);
     }
   }
-  
+  const navigateToTeamDetails=(team_code)=>{
+    navigate("/teams/details?code="+team_code);
+  }
   const { currentPage: teamsPage, recordsPerPage: teamsPerPage, handlePageChange: handleTeamsPageChange } = UsePagination(1, 10);
   const uploadImgUrl = "https://dk9gc53q2aga2.cloudfront.net/assets/Teams_Logo_For_Dashboard.svg";
   const [searchTerm, setSearchTerm] = useState("");
@@ -236,9 +233,10 @@ function Teams() {
       <div className='flex bg-sh-cream-light bg-opacity-40 w-[92%] h-14'>
         <img src={index === 0 ? Logo1 : index === 1 ? Logo2 : Logo3} className='ml-4 mt-2 w-8 h-8' alt="team logo" />
         <input
+          onClick={() => navigateToTeamDetails(team.team_code)}
           placeholder={team.name}
           readOnly
-          className='bg-sh-cream-light bg-opacity-10 ml-6  border-none outline-none h-12 text-black text-opacity-50 placeholder-opacity-100'
+          className='bg-sh-cream-light cursor-pointer bg-opacity-10 ml-6  border-none outline-none h-12 text-black text-opacity-50 placeholder-opacity-100'
         />
       </div>
     </div>
