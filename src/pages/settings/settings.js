@@ -46,7 +46,7 @@ function Settings() {
         
         // all options from https://xdsoft.net/jodit/docs/
         placeholder: "Start typing....",
-        theme: "dark", // Add this line for dark mode
+        // theme: "dark", // Add this line for dark mode
         disablePlugins: ['speech-recognize'],
         removeButtons: [
             "undo",
@@ -85,8 +85,6 @@ function Settings() {
         showCharsCounter: false,
         showWordsCounter: false,
         showXPathInStatusbar: false,
-        
-
     };
 
     const toggleTermsAndConditionAccordion = () => {
@@ -353,13 +351,13 @@ function Settings() {
                         aria-labelledby="accordion-collapse-heading-1"
                     >
                       
-                         <div className="mt-0 mb-8 w-[98%] "> 
+                         <div className="mt-0 mb-8 w-full "> 
                             <RichTextEditor
                                 setValue={setTermsEditorcontent2}
                                 initialValue={termsEditorcontent2}
                                 config={config}
                                 // style={{ minHeight: "500px", maxHeight: "800px",maxWidth:"200px" }}
-                                 style={{paddingLeft:"20px" }}
+                                //  style={{paddingLeft:"20px" }}
                             />
                        </div> 
                         <div className='w-full flex justify-center items-center'>

@@ -95,11 +95,11 @@ function Layout() {
        
 
             <Routes>
-            {/* <Route 
+            <Route 
             path="/" 
             element={adminToken ? <Navigate to="/dashboard" /> : <Login />} 
-          /> */}
-            <Route path="/" element={<Login />} />
+          />
+            {/* <Route path="/" element={<Login />} /> */}
 
               <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/challenges" element={<Challenges />} />

@@ -23,10 +23,18 @@ function AddQuestions() {
     const [sliderMax, setSliderMax] = useState('');
     const [jumbledWord, setJumbledword] = useState('');
     const [answer, setAnswer] = useState('');
+    const [picture, setPicture] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
+    const isEdit = location.pathname.includes("/challenges/edit-questions");
     
     const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  
     const searchParams = new URLSearchParams(location.search);
+    console.log(newChallengeId);
+    let ForchallengeId;
+    if(!isEdit){
+     ForchallengeId = searchParams.get("_id");
+
+    }
     const challengeId = searchParams.get("_id");
     const handleFileInputClick = () => {
         setSelectedFile(null);
@@ -95,6 +103,8 @@ function AddQuestions() {
             setSliderMax(response.data.slider_max);
             setJumbledword(response.data.jumbled_word);
             setAnswer(response.data.answer);
+            setPicture(response.data.picture);
+            // setSelectedFile(response.data.picture);
 
           } 
           else {
@@ -130,20 +140,35 @@ function AddQuestions() {
         }
       };
       useEffect(() => {
-        if(isEdit && !location.state.fromDetails){
+        if(isEdit  ){
         fetchData();}
       }, []);
     useEffect(() => {
-        if (location.state) {
+        if (!isEdit && location.state) {
           setSelectedFile(location.state.selectedFile || '');
           setQuestionType(location.state.questionType || '');
           setQuestionName(location.state.questionName || '');
           setPoints(location.state.points || '');
           setIsFromDetails(location.state.fromDetails || '');
           setChallengeIdState(location.state.newChallengeId || '');
-          
+          // window.history.replaceState({}, document.title);
         }
       }, [location.state]);
+      useEffect(() => {
+        if (location.state) {
+          setIsFromDetails(location.state.fromDetails || '');
+          // window.history.replaceState({}, document.title);
+        }
+      }, [location.state]);
+      
+      // useEffect(() => {
+      //   if ( location.state) {
+       
+      //     setIsFromDetails(location.state.fromDetails || '');
+      //     // window.history.replaceState({}, document.title);
+      //   }
+      // }, [location.state]);
+      
     const handleSelectChange = (event) => {
         setQuestionType(event.target.value);
     };
@@ -158,7 +183,6 @@ function AddQuestions() {
         }
     };
     const navigate = useNavigate();
-    const isEdit = location.pathname.includes("/challenges/edit-questions");
 
     const goToQuestionType = () => {
         if(!questionName){
@@ -195,7 +219,7 @@ function AddQuestions() {
             return;
         }
         const state = {
-            selectedFile,
+          selectedFile: selectedFile || picture,
             questionName,
             questionType,
             points,
@@ -248,14 +272,19 @@ function AddQuestions() {
             }
         }
     };
-
+    // console.log(challengeIdState);
     const goBack = () => {
         if(isViewDetails ){
         navigate("/challenges/manage?_id="+newChallengeId);
         return;
         }
         if(fromDetails ){
-            navigate("/challenges/manage?_id="+challengeIdState);
+          if(isEdit){
+            navigate("/challenges/manage?_id="+newChallengeId);
+          }
+          else{
+            navigate("/challenges/manage?_id="+ForchallengeId);
+          }
             return;
             }
          if(isFromManageChallenge){
@@ -315,7 +344,11 @@ function AddQuestions() {
                             <img src={uploadImgUrl} className="lg:w-72 lg:h-40 h-40 w-56 xl:h-full xl:w-full"></img>
                         </div>
                     </div>
-                    <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">Please upload picture, size less than 15 MB</div>
+                    <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">
+                      {/* {isEdit? selectedFile:"Please upload picture, size less than 15 MB"} */}
+                      Please upload picture, size less than 15 MB
+
+                      </div>
                     <div className="flex md:ml-[25%]">
                         <label className="flex-col text-sm hover:scale-105 transition-all duration-200 ease-in-out hover:opacity-90 rounded-md font-medium cursor-pointer px-3 py-1.5 mt-3 border border-black custom-file-upload">
                             <input
@@ -325,10 +358,12 @@ function AddQuestions() {
                                 onChange={handleFileChange}
                                 onClick={handleFileInputClick}
                             />
-                            Choose File
+                           {isEdit ? "Change File" : "Choose File" } 
                         </label>
                         <label id="fileLabel" className="ml-1 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
-                        {selectedFile ? selectedFile.name : "No File Chosen"}
+                        {/* {selectedFile ? selectedFile.name : "No File Chosen"} */}
+                        { isEdit  && picture ?  picture : selectedFile ? selectedFile.name  : "No File Chosen"}
+                        {/* {isEdit? picture ? picture:""} */}
                         </label>
                     </div>
                     </>
