@@ -100,8 +100,8 @@ function DashBoard() {
       try {
         await Promise.all([
           fetchData(),
-          fetchChallengesGraphData(),
-          fetchTeamsGraphData()
+          // fetchChallengesGraphData(),
+          // fetchTeamsGraphData()
         ]);
       } catch (error) {
         setToastMessages((prevMessages) => [

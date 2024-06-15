@@ -51,7 +51,7 @@ const CurrentChallenges = ({ currentPage, recordsPerPage, allChallenges }) => {
                   Name
                 </p>
               </th>
-              <th className="p-4 border border-gray-300 bg-sh-cream">
+              <th className="p-4 border border-gray-300 bg-sh-cream w-[200px]">
                 <p className="block  text-base  font-medium leading-none text-sh-graph-black ">
                  Total Challenges
                 </p>
@@ -82,7 +82,7 @@ const CurrentChallenges = ({ currentPage, recordsPerPage, allChallenges }) => {
           <tbody>
           {paddedData && paddedData.map((row, index) => (
             <tr onClick={() => navigateToChallenge(row._id)} key={index} className='text-opacity-50  cursor-pointer text-black'>
-             <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[15%]`}>
+             <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[200px]`}>
                 <p className="block  text-base text-left font-normal leading-normal sh-graph-black">
                   {row.name}
                 </p>

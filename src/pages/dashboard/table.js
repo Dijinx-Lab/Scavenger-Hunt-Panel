@@ -128,7 +128,7 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,AllTeams  }) => {
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
                 <p className="block  text-base font-normal leading-normal ">
-                  {row.rank}
+                  {row.leaderboard}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>

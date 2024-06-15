@@ -169,7 +169,7 @@ function TeamDetails() {
           </div>
           <div className="md:mt-4  mt-5  flex items-start justify-start">
             <span className=" text-left font-bold text-lg md:text-xl">
-              {teamData.team_code}
+              <span>Code: </span><span className="text-sh-blue">{teamData.team_code}</span>
             </span>
           </div>
           {/* <div className="md:mt-4  mt-5  flex items-start justify-start">

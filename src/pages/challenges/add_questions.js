@@ -29,16 +29,15 @@ function AddQuestions() {
     
     const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  
     const searchParams = new URLSearchParams(location.search);
-    console.log(newChallengeId);
     let ForchallengeId;
     if(!isEdit){
      ForchallengeId = searchParams.get("_id");
 
     }
     const challengeId = searchParams.get("_id");
-    const handleFileInputClick = () => {
-        setSelectedFile(null);
-      };
+    // const handleFileInputClick = () => {
+    //     setSelectedFile(null);
+    //   };
       const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -50,7 +49,7 @@ function AddQuestions() {
             setSelectedFile(file); // Set the selected file if it has an allowed extension
             const fileLabel = document.getElementById("fileLabel");
             if (fileLabel) {
-              fileLabel.textContent = fileName; // Update file label text
+              fileLabel.textContent = truncateText(fileName,15); // Update file label text
             }
           } else {
             setToastMessages([
@@ -72,8 +71,8 @@ function AddQuestions() {
       };
       useEffect(() => {
         const fileLabel = document.getElementById("fileLabel");
-        if (fileLabel) {
-          fileLabel.textContent = selectedFile ? selectedFile.name : "No File Chosen";
+        if (fileLabel) { 
+          fileLabel.textContent = selectedFile ? truncateText(selectedFile.name,15) : "No File Chosen";
         }
       }, [selectedFile]);
 
@@ -304,7 +303,23 @@ function AddQuestions() {
     }
     };
     const uploadImgUrl = "https://dk9gc53q2aga2.cloudfront.net/assets/Upload_Video_Icon.svg";
+    const [key, setKey] = useState(0);
+    const handleClearPicture = () => {
+      setPicture(null);
+      setSelectedFile(null);
+      
+      setKey((prevKey) => prevKey + 1);
+    };
 
+    const truncateText = (text, maxLength) => {
+      if (text.length <= maxLength) {
+          return text;
+      } else {
+          const truncated = text.slice(0, maxLength);
+          const lastFour = text.slice(-5);
+          return `${truncated}......${lastFour}`;
+      }
+    };
     return (
         <div className="flex-col w-full overflow-x-hidden ">
             <PlainNavbar />
@@ -362,17 +377,27 @@ function AddQuestions() {
                             <input
                                 type="file"
                                 // value={selectedFile}
+                                key={key} 
                                 className="hidden"
                                 onChange={handleFileChange}
-                                onClick={handleFileInputClick}
+                                // onClick={handleFileInputClick}
                             />
                            {isEdit ? "Change File" : "Choose File" } 
                         </label>
-                        <label id="fileLabel" className="ml-1 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
+                        {picture || selectedFile ? (
+                <button
+                    onClick={handleClearPicture}
+                    className=' mt-3 ml-3 rounded-md bg-sh-cream text text-center py-1.5 px-3 text-sm font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-red border border-sh-red cursor-pointer'
+                >
+                    Clear
+                </button>
+            ) : null}
+                        <label id="fileLabel" className="ml-1 text-sm text-left whitespace-normal w-[50%] break-words text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
                         {/* {selectedFile ? selectedFile.name : "No File Chosen"} */}
-                        { isEdit  && picture ?  picture : selectedFile ? selectedFile.name  : "No File Chosen"}
+                        { isEdit  && picture ?  truncateText(picture,15) : selectedFile ?  truncateText(selectedFile.name,15) : "No File Chosen"}
                         {/* {isEdit? picture ? picture:""} */}
                         </label>
+                    
                     </div>
                     </>
             )}
@@ -391,13 +416,14 @@ function AddQuestions() {
 
                         <div className="order-2 xl:order-1">
                             <label htmlFor="questionType" className="flex text-left">Question Type</label>
+                           <div className="relative">
                             <select
                                 id="questionType"
                                 placeholder="Question Type"
                                 required
                                 value={questionType}
                                 onChange={handleSelectChange}
-                                className="w-full flex-col  bg-sh-cream text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue focus:outline-none focus:ring-primary-300"
+                                className=" appearance-none w-full flex-col  bg-sh-cream text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue focus:outline-none focus:ring-primary-300"
                             >
                                 <option value="" disabled selected hidden  >Question Type</option>
                                 <option value="slider" className="bg-sh-cream  " >Slider</option>
@@ -405,6 +431,10 @@ function AddQuestions() {
                                 <option value="picture" className="bg-sh-cream">Photo</option>
                                 <option value="wordjumble" className="bg-sh-cream">Word Jumble</option>
                             </select>
+                            <svg className="w-5 h-5 absolute top-[60%] right-3 transform -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+                            </div>
                         </div>
                         <div className="order-1 xl:order-2">
                             <label htmlFor="points" className="flex text-left">Points</label>

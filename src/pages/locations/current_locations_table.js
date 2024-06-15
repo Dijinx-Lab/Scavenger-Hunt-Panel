@@ -30,7 +30,9 @@ const CurrentLocations = ({ currentPage, recordsPerPage,allChallenges }) => {
     //     // Add more data objects as needed
     //   ]);
       const navigateToChallenge=(id)=>{
-        navigate("/challenges/manage?_id="+id);
+        if(id){
+          navigate("/challenges/manage?_id="+id);
+        }
       }
 
       const startIndex = (currentPage - 1) * recordsPerPage;
@@ -71,18 +73,18 @@ const CurrentLocations = ({ currentPage, recordsPerPage,allChallenges }) => {
                 Longitude
                 </p>
               </th>
-              <th className="p-4 border border-gray-300 bg-sh-cream">
+              {/* <th className="p-4 border border-gray-300 bg-sh-cream">
                 <p className="block  text-base  font-medium leading-none text-sh-graph-black ">
                 Welcome Message
                 </p>
-              </th>
+              </th> */}
               
             </tr>
           </thead>
           <tbody>
           {paddedData && paddedData.map((row, index) => (
             <tr onClick={() => navigateToChallenge(row._id)}  key={index} className='text-opacity-50 cursor-pointer text-black'>
-               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[15%]`}>
+               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[200px]`}>
                 <p className="block  text-base text-left font-normal leading-normal sh-graph-black">
                   {row.name}
                 </p>
@@ -107,11 +109,11 @@ const CurrentLocations = ({ currentPage, recordsPerPage,allChallenges }) => {
                   {row.longitude}
                 </p>
               </td>
-              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+              {/* <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 `}>
                 <p className="block text-base font-normal leading-normal sh-graph-black">
                   {row.description}
                 </p>
-              </td>
+              </td> */}
             </tr>
           ))}
           {/* <tr className="border-b-0">
