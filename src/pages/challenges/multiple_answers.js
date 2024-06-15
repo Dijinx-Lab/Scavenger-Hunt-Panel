@@ -126,7 +126,8 @@ function MultipleType() {
             questionName,
             questionType,
             points,
-            fromDetails
+            fromDetails,
+            newChallengeId
         };
         if (isEdit) {
             navigate("/challenges/edit-questions?_id=" + challengeId, { state });

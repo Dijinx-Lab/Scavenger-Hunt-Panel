@@ -121,7 +121,6 @@ function WordJumble() {
             points,
             fromDetails,
             newChallengeId,
-            challengeId
         };
         if (isEdit) {
             navigate("/challenges/edit-questions?_id=" + challengeId, { state });

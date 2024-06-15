@@ -171,9 +171,17 @@ function AddQuestions() {
       
     const handleSelectChange = (event) => {
         setQuestionType(event.target.value);
+        if (isEdit) {
+          setOptions('');
+          setSliderMin('');
+          setSliderMax('');
+          setJumbledword('');
+          setAnswer('');
+        }
     };
     const handleQuestionChange = (event) => {
         setQuestionName(event.target.value);
+        
     };
 
     const handlePointsChange = (event) => {
