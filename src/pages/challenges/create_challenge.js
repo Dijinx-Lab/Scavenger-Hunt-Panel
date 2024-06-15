@@ -32,6 +32,8 @@ function CreateChallenges() {
     const searchParams = new URLSearchParams(location.search);
     const challengeId = searchParams.get("_id");
     const [showLoading, setShowLoading] = useState(false);
+    const [picture, setPicture] = useState('');
+
     const [challengeData, setChallengeData] = useState({ name: '', latitude: '', longitude: '' });
     const route = "66521318cac9420edc624570";
     const uploadImgUrl = "https://dk9gc53q2aga2.cloudfront.net/assets/Upload_Video_Icon.svg";
@@ -66,6 +68,7 @@ function CreateChallenges() {
             setLatitude(response.data.challenge.latitude);
             setLongitude(response.data.challenge.longitude);
             setDescription(response.data.challenge.description);
+            setPicture(response.data.challenge.intro_url);
             // setCompletedChallenges(response.data.completed_challenges);
             // setUncompletedChallenges(response.data.uncompleted_challenges);
             // setTotalChallenges(response.data.total_challenges);
@@ -210,7 +213,7 @@ function CreateChallenges() {
         try{
             const isEdit = location.pathname.includes("/challenges/edit");
             let videoUrl= introVideo;
-            if(introVideo){
+            if(typeof introVideo !== 'string'){
               // const compressedVideo = await compressVideo(introVideo);
               const params = {
                 folder: "challenges",
@@ -452,7 +455,7 @@ function CreateChallenges() {
                             Choose File
                         </label>
                         <label id="fileLabel" className="ml-1 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
-                            No File Chosen
+                            {isEdit && picture ? picture: "No File Chosen"}
                         </label>
                     </div>
                     <div className="grid md:ml-[25%] w-[50%] xl:grid-cols-2 grid-cols-1 gap-1 xl:gap-5 xl:gap-x-8 xl:gap-y-8 mt-10 ml-10 lg:text-xl text-lg text-black">

@@ -437,7 +437,7 @@ function Slider() {
                         <span
                             //  onClick={() => window.open(selectedFile, '_blank')} 
                             onClick={handleOpenFile}
-                            className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer" >VIEW</span>
+                            className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer " >VIEW</span>
 
                     </div>
                     <div className="text-sh-graph-black ml-[6%] mt-8 flex items-start justify-start pt-5 xl:ml-[4%] font-bold text-xl">

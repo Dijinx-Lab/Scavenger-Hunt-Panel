@@ -345,7 +345,7 @@ function AddQuestions() {
                     {questionType !== 'picture' && (
                 <>
                     <div className="text-left  md:ml-[25%] mt-10 lg:text-xl text-lg text-black">
-                        Question Picture
+                        Question Picture (Optional)
                     </div>
                     <div className="grid w-full ">
                         <div className=" mt-10 justify-self-center">

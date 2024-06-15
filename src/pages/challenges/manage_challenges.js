@@ -256,7 +256,7 @@ function ManageChallenges() {
 <span className="text-left text-xl   font-bold">{challengeData.difficulty}</span>
 <span className="text-left text-xl  ml-[10%] font-bold">{challengeData.total_score}</span>
 <span className="text-left text-xl  ml-[10%] font-bold">{challengeData.questions}</span>
-<span  onClick={() => window.open(videoUrl, '_blank')} className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
+<span  onClick={() => window.open(videoUrl, '_blank')} className="text-left text-xl  ml-[10%] underline  font-bold text-sh-blue cursor-pointer">VIEW</span>
 
 </div>
       <div className='mt-16 mb-10 xl:ml-[5%] ml-[8%] w-[84%]  xl:w-[90%] mx-[5%] h-auto rounded-[20px] bg-sh-cream  '>

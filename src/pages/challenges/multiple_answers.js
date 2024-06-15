@@ -197,7 +197,7 @@ function MultipleType() {
                         <span
                             //  onClick={() => window.open(videoUrl, '_blank')} 
                             onClick={handleOpenFile}
-                            className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
+                            className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer ">VIEW</span>
 
                     </div>
                     <div className="mt-8 text-sh-graph-black xl:ml-[4%] ml-[6%]  flex items-start justify-start pt-5 font-bold text-xl">
