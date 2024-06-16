@@ -231,17 +231,7 @@ function Settings() {
           setMessage(e.target.value);
         }
     const handleSave = async (loader) =>{
-      if(!message){
-        setToastMessages([
-          ...toastMessages,
-          {
-            type: "invalid",
-            title: "Error",
-            body: "Message is required",
-          },
-        ]);
-        return;
-      }
+    
       if(loader=="route"){
         setShowSave3Loading(true);
       }
@@ -252,6 +242,17 @@ function Settings() {
         setShowSave2Loading(true);
       }
       if(loader=="change"){
+        if(!message){
+          setToastMessages([
+            ...toastMessages,
+            {
+              type: "invalid",
+              title: "Error",
+              body: "Message is required",
+            },
+          ]);
+          return;
+        }
         setShowSave4Loading(true);
       }
      
