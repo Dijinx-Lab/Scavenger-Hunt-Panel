@@ -138,6 +138,13 @@ function WordJumble() {
             window.open(fileURL, '_blank');
         }
     };
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        // Only allow digits
+        if (/^\d*$/.test(value)) {
+            setJumbledword(value);
+        }
+    };
     return (
         <div className="flex-col w-full overflow-x-hidden ">
             <PlainNavbar />
@@ -170,22 +177,28 @@ function WordJumble() {
                     <div className="text-black flex items-start justify-start pt-5  xl:ml-[4%] ml-[6%] font-bold text-xl">
                         Question
                     </div>
-                    <div className=" flex items-start justify-start text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
-                        {capitalizeFirstLetter(questionName)}
+                    <div className=" flex items-start justify-start w-[90%] text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
+                    <span className="whitespace-normal break-words w-full">
+
+                        {capitalizeFirstLetter(questionName)}</span>
                     </div>
                     <div className="xl:ml-[4%] ml-[6%] text-left grid md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-12">
                         <span className="text-left text-xl  font-bold">Question Type</span>
                         <span className="text-left text-xl  ml-[10%] font-bold">Question Score</span>
-                        <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+                        {selectedFile && (
+                            <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+                        )}
                     </div>
                     <div className="xl:ml-[4%] ml-[6%] text-left grid  md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-4">
                         <span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType == "wordjumble" ? "Word Jumble" : "")}
                         </span>
                         <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
+                        {selectedFile && (
                         <span
                             //  onClick={() => window.open(videoUrl, '_blank')} 
                             onClick={handleOpenFile}
                             className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer">VIEW</span>
+                        )}
 
                     </div>
                     <div className="text-sh-graph-black ml-[6%] mt-8 flex items-start justify-start pt-5 xl:ml-[4%] font-bold text-xl">
@@ -202,7 +215,8 @@ function WordJumble() {
                     <div className="text-left md:ml-[25%] mt-5 lg:text-xl text-lg text-black">Letter Count</div>
                     <input
                         type="text"
-                        onChange={(e) => setJumbledword(e.target.value)}
+                        // onChange={(e) => setJumbledword(e.target.value)}
+                        onChange={handleInputChange}
                         value={jumbledWord}
                         placeholder="Letter Count"
                         className="w-[50%] flex-col  text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue focus:outline-none focus:ring-primary-300"

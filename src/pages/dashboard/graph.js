@@ -36,7 +36,7 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
     const chartConfig = {
       series: [
         {
-          name: 'Sales',
+          name: 'Challenges',
           // data: [50, 40, 300, 320, 500, 350, 200, 230, 1000,200,400,300],
           //  data: [0, 0, 0,0,0,0,0, 0,0,0,0,0],
           data: data.data,

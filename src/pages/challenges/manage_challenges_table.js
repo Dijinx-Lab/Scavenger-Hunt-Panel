@@ -107,7 +107,7 @@ const ManageChallengesTable = ({ currentPage, recordsPerPage, allQuestions, newC
               </p>
             </th>
             <th className="p-4 border border-gray-300 bg-sh-cream">
-              <p className="block  text-base  font-medium leading-none text-sh-graph-black ">
+              <p className="block  text-base  font-medium leading-none text-sh-graph-black w-[150px]">
                 Challenge Type
               </p>
             </th>
@@ -138,7 +138,7 @@ const ManageChallengesTable = ({ currentPage, recordsPerPage, allQuestions, newC
                   {row.question}
                 </p>
               </td>
-              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[12%]`}>
+              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[15%]`}>
                 <p className="block  text-base font-normal leading-normal sh-graph-black">
                   {row.type === 'mcq' ? 'Multiple Choice' :
                     row.type === 'wordjumble' ? 'Word Jumble' :
@@ -146,23 +146,23 @@ const ManageChallengesTable = ({ currentPage, recordsPerPage, allQuestions, newC
                         row.type === 'slider' ? 'Slider' : ''}
                 </p>
               </td>
-              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+              <td className={`p-${row.empty ? '6' : '4'} w-[15%] border border-gray-300`}>
                 <p className="block  text-base font-normal leading-normal sh-graph-black">
                   {row.score}
                 </p>
               </td>
-              <td className={`p-${row.empty ? '6' : '4'} border border-gray-300`}>
+              <td className={`p-${row.empty ? '6' : '4'} border w-[30%] border-gray-300`}>
                 {/* <p className="block   text-base font-normal leading-normal sh-graph-black"> */}
                 <div className='flex w-full'>
                   {!row.empty && (
-                    <div className='flex w-full items-center justify-center'>
+                    <div className='flex w-[50%] items-center justify-center'>
                       <button onClick={() => handleViewDetails(row._id)} className="py-4 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 w-[90%] text-white bg-sh-blue focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md text-sm text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         VIEW DETAILS
                       </button>
                     </div>
                   )}
                   {!row.empty && (
-                    <div className='flex w-full items-center justify-center'>
+                    <div className='flex w-[50%] items-center justify-center'>
                       <button onClick={() => openIsDelete(row._id)} className="py-4 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 w-[90%] text-white bg-sh-red focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-md text-sm text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         DELETE
                       </button>

@@ -422,22 +422,26 @@ function Slider() {
                     <div className="text-black flex items-start justify-start pt-5  xl:ml-[4%] ml-[6%] font-bold text-xl">
                         Question
                     </div>
-                    <div className=" flex items-start justify-start text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
-
-                        {capitalizeFirstLetter(questionName)}
+                    <div className=" flex items-start w-[90%] justify-start text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
+                    <span className="whitespace-normal break-words w-full">
+                        {capitalizeFirstLetter(questionName)}</span>
                     </div>
                     <div className="xl:ml-[4%] ml-[6%] text-left grid md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-12">
                         <span className="text-left text-xl  font-bold">Question Type</span>
                         <span className="text-left text-xl  ml-[10%] font-bold">Question Score</span>
-                        <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+                        {selectedFile && (
+                            <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+                        )}
                     </div>
                     <div className="xl:ml-[4%] ml-[6%] text-left grid  md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-4">
                         <span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType == "slider" ? "Slider" : "")}</span>
                         <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
+                        {selectedFile && (
                         <span
                             //  onClick={() => window.open(selectedFile, '_blank')} 
                             onClick={handleOpenFile}
                             className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer " >VIEW</span>
+                        )}
 
                     </div>
                     <div className="text-sh-graph-black ml-[6%] mt-8 flex items-start justify-start pt-5 xl:ml-[4%] font-bold text-xl">

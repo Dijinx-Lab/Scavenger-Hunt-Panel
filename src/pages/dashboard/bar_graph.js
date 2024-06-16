@@ -15,7 +15,7 @@ const BarChart = ({ teamsChartdata, onDropdownChange }) => {
     const chartConfig = {
       series: [
         {
-          name: 'Sales',
+          name: 'Teams',
           // data: [50, 40, 300, 320, 500, 350, 200, 230, 500,400,200,100],
           data: data.data,
         
@@ -111,7 +111,7 @@ const BarChart = ({ teamsChartdata, onDropdownChange }) => {
           <h6 className="block xl:text-xl text-lg font-bold leading-relaxed tracking-normal text-sh-graph-black">
             Teams Joined
           </h6>
-          <div className="relative inline-block  w-[9rem]">
+          <div className="relative inline-block  w-[7.5rem]">
       <select
        onChange={(e)=>onDropdownChange(e.target.value)}
       // onChange={handleDropdownChange}

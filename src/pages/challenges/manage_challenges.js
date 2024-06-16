@@ -186,7 +186,24 @@ function ManageChallenges() {
   const challengeName = challengeData.name;
   const coords = "("+challengeData.latitude+", "+challengeData.longitude+")"
   const message = challengeData.description;
+  const [showFullMessage, setShowFullMessage] = useState(false);
 
+  const toggleMessageDisplay = () => {
+      setShowFullMessage(!showFullMessage);
+  };
+
+  const getTruncatedMessage = (message, wordLimit) => {
+      if (!message) {
+          return '';
+      }
+      const words = message.split(' ');
+      if (words.length <= wordLimit) {
+          return message;
+      }
+      return words.slice(0, wordLimit).join(' ') + '...';
+  };
+
+  const wordLimit = 50;
   return (
     <div className="flex-col w-full overflow-x-hidden ">
        {showLoading && (
@@ -224,7 +241,14 @@ function ManageChallenges() {
           </div>
           <div className="md:mt-4  mt-5  flex items-start justify-start">
             <span className="text-sh-gray text-left text-lg md:text-xl">
-              {message}
+            {showFullMessage ? message : getTruncatedMessage(message, wordLimit)}
+                {message && message.split(' ').length > wordLimit && (
+                    <button
+                        onClick={toggleMessageDisplay}
+                        className="text-sh-blue underline">
+                        {showFullMessage ? ' Read less' : 'Read more'}
+                    </button>
+                )}
             </span>
           </div>
         </div>
@@ -254,7 +278,7 @@ function ManageChallenges() {
 </div>
 <div className="xl:ml-[5%] text-left grid  lg:grid-cols-[20%,25%,25%,20%] xl:grid-cols-[20%,20%,20%,20%] ml-[8%] md:mt-4">
 <span className="text-left text-xl   font-bold">{challengeData.difficulty}</span>
-<span className="text-left text-xl  ml-[10%] font-bold">{challengeData.total_score}</span>
+<span className="text-left text-xl  ml-[10%] whitespace-normal break-words w-[70%] font-bold ">{challengeData.total_score}</span>
 <span className="text-left text-xl  ml-[10%] font-bold">{challengeData.questions}</span>
 <span  onClick={() => window.open(videoUrl, '_blank')} className="text-left text-xl  ml-[10%] underline  font-bold text-sh-blue cursor-pointer">VIEW</span>
 

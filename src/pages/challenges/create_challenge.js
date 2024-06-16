@@ -6,6 +6,7 @@ import Toast from "../../components/toast/toast";
 import Spinner from "../../components/spinner/spinner";
 import UtilityManager from "../../models/admin/utility/utilityhttp";
 import imageCompression from 'browser-image-compression';
+import { DeleteOutline } from "@mui/icons-material";
 function CreateChallenges() {
   const location = useLocation();
   const isEdit = location.pathname.includes("/challenges/edit");
@@ -32,7 +33,7 @@ function CreateChallenges() {
   const searchParams = new URLSearchParams(location.search);
   const challengeId = searchParams.get("_id");
   const [showLoading, setShowLoading] = useState(false);
-  const [picture, setPicture] = useState('');
+  const [video, setVideo] = useState('');
 
   const [challengeData, setChallengeData] = useState({ name: '', latitude: '', longitude: '' });
   const route = "66521318cac9420edc624570";
@@ -68,7 +69,7 @@ function CreateChallenges() {
         setLatitude(response.data.challenge.latitude);
         setLongitude(response.data.challenge.longitude);
         setDescription(response.data.challenge.description);
-        setPicture(response.data.challenge.intro_url);
+        setVideo(response.data.challenge.intro_url);
         // setCompletedChallenges(response.data.completed_challenges);
         // setUncompletedChallenges(response.data.uncompleted_challenges);
         // setTotalChallenges(response.data.total_challenges);
@@ -213,7 +214,7 @@ function CreateChallenges() {
     try {
       const isEdit = location.pathname.includes("/challenges/edit");
       let videoUrl = introVideo;
-      if (typeof introVideo !== 'string') {
+      if (introVideo && typeof introVideo !== 'string') {
         // const compressedVideo = await compressVideo(introVideo);
         const params = {
           folder: "challenges",
@@ -224,7 +225,19 @@ function CreateChallenges() {
           videoUrl = videoResponse.data.url;
         }
       }
-      const response = await challengesManager.create(challengeName, challengeDifficulty, latitude, longitude, route, description, videoUrl, isEdit, challengeId);
+      const params = {
+        challengeName: challengeName,
+        challengeDifficulty: challengeDifficulty,
+        latitude: latitude,
+        longitude: longitude,
+        route: route,
+
+        description: description, // If you need to send sliderValue as answer
+        videoUrl: videoUrl || video, // If you need to send sliderValue as answer
+    };
+      // const response = await challengesManager.create(
+      //   challengeName, challengeDifficulty, latitude, longitude, route, description, videoUrl, isEdit, challengeId);
+        const response = await challengesManager.create(params,isEdit,challengeId);
       if (response.success) {
         const updatedToastMessages = [
           {
@@ -282,6 +295,95 @@ function CreateChallenges() {
       setLongitude(value);
     }
   };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const fileLabel = document.getElementById("fileLabel");
+
+    if (file) {
+  
+        const validTypes = [
+            "video/mp4",
+            "video/avi",
+            "video/mov",
+            "video/wmv",
+            "video/mkv",
+            "video/flv",
+            "video/webm",
+            "video/m4v",
+            "video/mpg",
+            "video/mpeg",
+            "video/3gp",
+            "video/quicktime",
+            "video/3gpp",
+            "video/x-msvideo",
+            "video/x-flv",
+            "video/x-matroska",
+            "video/x-ms-wmv",
+            "video/ogg",
+        ];
+
+        if (!validTypes.includes(file.type)) {
+            setToastMessages([
+                ...toastMessages,
+                {
+                    type: "invalid",
+                    title: "Error",
+                    body: "This video format is not available.",
+                },
+            ]);
+            e.target.value = ""; // Reset the input
+            if (fileLabel) fileLabel.textContent = "No File Chosen";
+        } else if (file.size > 15 * 1024 * 1024) {
+            setToastMessages([
+                ...toastMessages,
+                {
+                    type: "invalid",
+                    title: "Error",
+                    body: "File size must be less than 15 MB",
+                },
+            ]);
+            e.target.value = ""; // Reset the input
+            if (fileLabel) fileLabel.textContent = "No File Chosen";
+        } else {
+            setIntroVideo(file);
+            const fileName = file.name;
+            if (fileLabel) fileLabel.textContent = truncateText(fileName, 15);
+        }
+    } else {
+        if (fileLabel) fileLabel.textContent = "No File Chosen";
+    }
+};
+const handleLabelClick = () => {
+  const fileInput = document.getElementById("fileInput");
+  const fileLabel = document.getElementById("fileLabel");
+  if (fileInput) {
+      fileInput.value = ""; // Reset the input
+  }
+  if (fileLabel) {
+      fileLabel.textContent = "No File Chosen";
+  }
+  setIntroVideo(null); // Clear the introVideo state if needed
+};
+const truncateText = (text, maxLength) => {
+  if (text.length <= maxLength) {
+      return text;
+  } else {
+      const truncated = text.slice(0, maxLength);
+      const lastFour = text.slice(-5);
+      return `${truncated}......${lastFour}`;
+  }
+};
+const [key, setKey] = useState(0);
+const handleClearVideo = () => {
+  setVideo(null);
+  setIntroVideo(null);
+  const fileLabel = document.getElementById("fileLabel");
+  fileLabel.textContent = "No File Chosen";
+  const fileInput = document.getElementById('fileInput');
+  if (fileInput) fileInput.value = "";
+  setKey((prevKey) => prevKey + 1);
+};
   return (
     <div className="flex-col w-full overflow-x-hidden ">
       {showLoading && (
@@ -388,7 +490,9 @@ function CreateChallenges() {
           </div>
           <div className="text-left md:ml-[25%] mt-2 xl:mt-8 lg:text-lg text-sm text-sh-gray">Please upload video, size less than 15 MB</div>
           <div className="flex md:ml-[25%]">
-            <label className="flex-col text-sm hover:scale-105 transition-all duration-200 ease-in-out hover:opacity-90 rounded-md font-medium cursor-pointer px-3 py-1.5 mt-3 border border-black custom-file-upload">
+            <label 
+            // onClick={handleLabelClick} 
+            className="flex-col text-sm hover:scale-105 transition-all duration-200 ease-in-out hover:opacity-90 rounded-md font-medium cursor-pointer px-3 py-1.5 mt-3 border border-black custom-file-upload">
               {/* <input
                 type="file"
                 className="hidden"
@@ -431,69 +535,71 @@ function CreateChallenges() {
                 }}
               /> */}
               <input
+               key={key} 
     type="file"
     className="hidden"
-    onChange={(e) => {
-        const file = e.target.files[0];
-        const fileLabel = document.getElementById("fileLabel");
+    onChange={handleFileChange}
+    // onChange={(e) => {
+    //     const file = e.target.files[0];
+    //     const fileLabel = document.getElementById("fileLabel");
 
-        if (file) {
-          console.log("File selected:", file);
-          console.log("File type:", file.type);
-          console.log("File size:", file.size);
-            const validTypes = [
-                "video/mp4",
-                "video/avi",
-                "video/mov",
-                "video/wmv",
-                "video/mkv",
-                "video/flv",
-                "video/webm",
-                "video/m4v",
-                "video/mpg",
-                "video/mpeg",
-                "video/3gp",
-                "video/quicktime",
-                "video/3gpp", // Added for .3gp
-                "video/x-msvideo", // Added for .avi
-                "video/x-flv", // Added for .flv
-                "video/x-matroska", // Added for .mkv
-                "video/x-ms-wmv", // Added for .wmv
-                "video/ogg", // Added for .ogv
-            ];
+    //     if (file) {
+    //       console.log("File selected:", file);
+    //       console.log("File type:", file.type);
+    //       console.log("File size:", file.size);
+    //         const validTypes = [
+    //             "video/mp4",
+    //             "video/avi",
+    //             "video/mov",
+    //             "video/wmv",
+    //             "video/mkv",
+    //             "video/flv",
+    //             "video/webm",
+    //             "video/m4v",
+    //             "video/mpg",
+    //             "video/mpeg",
+    //             "video/3gp",
+    //             "video/quicktime",
+    //             "video/3gpp", // Added for .3gp
+    //             "video/x-msvideo", // Added for .avi
+    //             "video/x-flv", // Added for .flv
+    //             "video/x-matroska", // Added for .mkv
+    //             "video/x-ms-wmv", // Added for .wmv
+    //             "video/ogg", // Added for .ogv
+    //         ];
 
-            if (!validTypes.includes(file.type)) {
+    //         if (!validTypes.includes(file.type)) {
               
-                setToastMessages([
-                    ...toastMessages,
-                    {
-                        type: "invalid",
-                        title: "Error",
-                        body: "This video format is not available.",
-                    },
-                ]);
-                e.target.value = ""; // Reset the input
-                if (fileLabel) fileLabel.textContent = "No File Chosen";
-            } else if (file.size > 15 * 1024 * 1024) {
-                setToastMessages([
-                    ...toastMessages,
-                    {
-                        type: "invalid",
-                        title: "Error",
-                        body: "File size must be less than 15 MB",
-                    },
-                ]);
-                e.target.value = ""; // Reset the input
-                if (fileLabel) fileLabel.textContent = "No File Chosen";
-            } else {
-                setIntroVideo(file);
-                const fileName = file.name;
-                if (fileLabel) fileLabel.textContent = fileName;
-            }
-        } else {
-            if (fileLabel) fileLabel.textContent = "No File Chosen";
-        }
-    }}
+    //             setToastMessages([
+    //                 ...toastMessages,
+    //                 {
+    //                     type: "invalid",
+    //                     title: "Error",
+    //                     body: "This video format is not available.",
+    //                 },
+    //             ]);
+    //             e.target.value = ""; // Reset the input
+    //             if (fileLabel) fileLabel.textContent = "No File Chosen";
+    //         } else if (file.size > 15 * 1024 * 1024) {
+    //             setToastMessages([
+    //                 ...toastMessages,
+    //                 {
+    //                     type: "invalid",
+    //                     title: "Error",
+    //                     body: "File size must be less than 15 MB",
+    //                 },
+    //             ]);
+    //             e.target.value = ""; // Reset the input
+    //             if (fileLabel) fileLabel.textContent = "No File Chosen";
+    //         } else {
+    //             setIntroVideo(file);
+    //             const fileName = file.name;
+    //             if (fileLabel) fileLabel.textContent = fileName;
+    //         }
+    //     } else {
+    //         if (fileLabel) fileLabel.textContent = "No File Chosen";
+    //     }
+    // }}
 />
 
               {/* <input
@@ -523,9 +629,38 @@ function CreateChallenges() {
                             /> */}
               Choose File
             </label>
-            <label id="fileLabel" className="ml-1 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
-              {isEdit && picture ? picture : "No File Chosen"}
-            </label>
+            
+            {video || introVideo ? (
+                <button
+                    onClick={handleClearVideo}
+                    className=' mt-3 ml-3 rounded-md bg-sh-cream text text-center py-1.5 px-3 text-sm font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-red border border-sh-red cursor-pointer'
+                >
+                    Clear
+                </button>
+            ) : null}
+          {/* <div className="py-1.5 text-sm mt-3 ml-3 px-3 rounded-md  text-sh-red border border-sh-red cursor-pointer">
+              <DeleteOutline className="text-sh-red cursor-pointer ml-0 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90" width={16} height={16} />
+              <button
+                // onClick={openIsDelete}
+                //  className=' w-full mt-3 ml-3 rounded-md bg-sh-cream text text-center py-1.5 px-3  text-sm font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-red border border-sh-red cursor-pointer  '
+                className="ml-1 text-sm"
+              >
+                Clear
+              </button>
+              
+
+            </div> */}
+            {/* <label id="fileLabel" className="text-left whitespace-normal w-[70%] break-words ml-2 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
+              {isEdit && video ? video : "No File Chosen"}
+            </label> */}
+             <label
+            id="fileLabel"
+            className="text-left whitespace-normal w-[50%] break-words ml-2 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3"
+        >
+             {isEdit && video ? truncateText(video, 15) : 'No File Chosen'}
+        </label>
+              {/* {video? <DeleteOutline className="text-sh-red cursor-pointer ml-2 hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90" width={16} height={16} />:""} */}
+
           </div>
           <div className="grid md:ml-[25%] w-[50%] xl:grid-cols-2 grid-cols-1 gap-1 xl:gap-5 xl:gap-x-8 xl:gap-y-8 mt-10 ml-10 lg:text-xl text-lg text-black">
 

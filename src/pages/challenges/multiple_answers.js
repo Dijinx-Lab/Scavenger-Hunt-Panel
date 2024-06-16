@@ -181,23 +181,32 @@ function MultipleType() {
                     <div className="text-sh-graph-black flex items-start justify-start pt-5  xl:ml-[4%] ml-[6%]  font-bold text-xl">
                         Question
                     </div>
-                    <div className=" flex items-start justify-start text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
-                        {capitalizeFirstLetter(questionName)}
+                    <div className=" flex items-start justify-start w-[90%] text-sh-gray text-left pt-5 xl:ml-[4%] ml-[6%]  text-xl">
+                    <span className="whitespace-normal break-words w-full">
+
+                        {capitalizeFirstLetter(questionName)}</span>
 
                     </div>
                     <div className="xl:ml-[4%] ml-[6%] text-left grid md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-12">
                         <span className="text-left text-xl  font-bold">Question Type</span>
                         <span className="text-left text-xl  ml-[10%] font-bold">Question Score</span>
-                        <span className="text-left text-xl  ml-[10%] font-bold">Attached Image</span>
+                        {selectedFile && (
+                            <span className="text-left text-xl  ml-[10%] font-bold">
+                                Attached Image
+                            </span>
+                        )}
                     </div>
                     <div className="xl:ml-[4%] ml-[6%] text-left grid  md:grid-cols-[25%,30%,30%] xl:grid-cols-[20%,25%,25%] md:mt-4">
                         <span className="text-left text-xl   font-bold">{capitalizeFirstLetter(questionType == "mcq" ? "Multiple Choice" : "")}
                         </span>
                         <span className="text-left text-xl  ml-[10%] font-bold">{points}</span>
-                        <span
-                            //  onClick={() => window.open(videoUrl, '_blank')} 
-                            onClick={handleOpenFile}
-                            className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer ">VIEW</span>
+                        {selectedFile && (
+                            <span
+                                //  onClick={() => window.open(videoUrl, '_blank')} 
+                                onClick={handleOpenFile}
+                                className="text-left text-xl  ml-[10%] underline font-bold text-sh-blue cursor-pointer ">VIEW
+                            </span>
+                        )}
 
                     </div>
                     <div className="mt-8 text-sh-graph-black xl:ml-[4%] ml-[6%]  flex items-start justify-start pt-5 font-bold text-xl">
@@ -263,20 +272,25 @@ function MultipleType() {
 
                         <div className="lg:w-[50%] w-full  lg:justify-self-center ">
                             <label htmlFor="questionType" className="flex text-left">Correct Answer</label>
-                            <select
-                                id="questionType"
-                                placeholder="Question Type"
-                                required
-                                value={correctAnswer}
-                                onChange={handleCorrectAnswerChange}
-                                className="w-full flex-col  bg-sh-cream text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue focus:outline-none focus:ring-primary-300"
-                            >
-                                <option value="" disabled selected hidden  >Correct Answer</option>
-                                <option value={answer1} className="bg-sh-cream  " >1</option>
-                                <option value={answer2} className="bg-sh-cream">2</option>
-                                <option value={answer3} className="bg-sh-cream">3</option>
-                                <option value={answer4} className="bg-sh-cream">4</option>
-                            </select>
+                            <div className="relative">
+                                <select
+                                    id="questionType"
+                                    placeholder="Question Type"
+                                    required
+                                    value={correctAnswer}
+                                    onChange={handleCorrectAnswerChange}
+                                    className=" appearance-none w-full flex-col  bg-sh-cream text-base bg-transparent mt-3 px-3 rounded-xl py-3 border border-gray-400 focus:border-sh-blue focus:outline-none focus:ring-primary-300"
+                                >
+                                    <option value="" disabled selected hidden  >Correct Answer</option>
+                                    <option value={answer1} className="bg-sh-cream  " >1</option>
+                                    <option value={answer2} className="bg-sh-cream">2</option>
+                                    <option value={answer3} className="bg-sh-cream">3</option>
+                                    <option value={answer4} className="bg-sh-cream">4</option>
+                                </select>
+                                <svg className="w-5 h-5 absolute top-[60%] right-3 transform -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
                         </div></div>
 
                     <div className="grid md:ml-[25%] w-[50%] xl:grid-cols-2 grid-cols-1 gap-2  xl:gap-x-8 xl:gap-y-8 mt-28 ml-10 lg:text-xl text-lg text-black">

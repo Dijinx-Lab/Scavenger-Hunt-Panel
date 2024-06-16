@@ -44,27 +44,29 @@ class ChallengesManager {
     }
   }
 
-  async create(name,difficulty,latitude,longitude,route,description,intro_url,isEdit, id) {
-  console.log(intro_url);
+  async create(params,isEdit,challengeId) {
     let url;
     let method;
     if(isEdit) {
-      url = ApiConstants.UPDATE_CHALLENGE+id;
+      url = ApiConstants.UPDATE_CHALLENGE+challengeId;
       method = 'PUT';
     }
     else{
       url = ApiConstants.CREATE_CHALLENGE;
       method = 'POST';
     }
-    const params = {
-        name: name,
-        difficulty: difficulty,
-        latitude: latitude,
-        longitude: longitude,
-        route: route,
-        description: description,
-        intro_url: intro_url,
+    let requestParams = {
+      name: params.challengeName,
+      difficulty: params.challengeDifficulty,
+      latitude: params.latitude,
+      longitude: params.longitude,
+      route: params.route,
+      description: params.description,
+     
     };
+    if (params.intro_url) {
+      requestParams.answer = params.intro_url;
+    }
 
     try {
       const response = await fetch(url, {
@@ -72,7 +74,7 @@ class ChallengesManager {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params),
+        body: JSON.stringify(requestParams),
       });
 
       if (response.status === 401) {
