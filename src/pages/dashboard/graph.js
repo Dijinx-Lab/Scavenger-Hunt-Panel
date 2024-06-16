@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import ApexCharts from 'apexcharts';
+import ApexCharts from "apexcharts";
 
 const LineChart = ({ challengesChartdata, onDropdownChange }) => {
-
-  const [data,setData]= useState(challengesChartdata)
+  const [data, setData] = useState(challengesChartdata);
   useEffect(() => {
-    if (challengesChartdata && challengesChartdata.data && challengesChartdata.keys) {
+    if (
+      challengesChartdata &&
+      challengesChartdata.data &&
+      challengesChartdata.keys
+    ) {
       setData(challengesChartdata);
     }
   }, [challengesChartdata]);
@@ -16,35 +19,31 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
 
   const [isMedium, setisMedium] = useState(window.innerWidth < 1280);
 
-
- 
   useEffect(() => {
     const handleResize = () => {
       setisMedium(window.innerWidth < 1280);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
   const chartWidth = isMedium ? 7 * 100 : 8 * 100; // Set chart width based on isMedium condition
 
   useEffect(() => {
-  
     const chartConfig = {
       series: [
         {
-          name: 'Challenges',
+          name: "Challenges",
           // data: [50, 40, 300, 320, 500, 350, 200, 230, 1000,200,400,300],
           //  data: [0, 0, 0,0,0,0,0, 0,0,0,0,0],
           data: data.data,
-
         },
       ],
       chart: {
-        type: 'line',
+        type: "line",
         width: chartWidth,
         height: 240,
         toolbar: {
@@ -57,10 +56,10 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
       dataLabels: {
         enabled: false,
       },
-      colors: ['#0C4DA2'],
+      colors: ["#0C4DA2"],
       stroke: {
-        lineCap: 'round',
-        curve: 'smooth',
+        lineCap: "round",
+        curve: "smooth",
       },
       markers: {
         size: 0,
@@ -74,9 +73,9 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
         },
         labels: {
           style: {
-            colors: '#616161',
-            fontSize: '12px',
-            fontFamily: 'inherit',
+            colors: "#616161",
+            fontSize: "12px",
+            fontFamily: "inherit",
             fontWeight: 400,
           },
         },
@@ -93,22 +92,21 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
         //   'Oct',
         //   'Nov',
         //   'Dec'],
-        categories: data.keys
+        categories: data.keys,
       },
       yaxis: {
         labels: {
           style: {
-            colors: '#616161',
-            fontSize: '12px',
-            fontFamily: 'inherit',
+            colors: "#616161",
+            fontSize: "12px",
+            fontFamily: "inherit",
             fontWeight: 400,
           },
         },
       },
       grid: {
-
         show: true,
-        borderColor: '#dddddd',
+        borderColor: "#dddddd",
         strokeDashArray: 1,
         xaxis: {
           lines: {
@@ -121,15 +119,18 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
         },
       },
       fill: {
-        colors: ['#F44336', '#E91E63', '#9C27B0'],
+        colors: ["#F44336", "#E91E63", "#9C27B0"],
         opacity: 1,
       },
       tooltip: {
-        theme: 'dark',
+        theme: "dark",
       },
     };
 
-    const chart = new ApexCharts(document.querySelector('#line-chart'), chartConfig);
+    const chart = new ApexCharts(
+      document.querySelector("#line-chart"),
+      chartConfig
+    );
     chart.render();
 
     return () => {
@@ -139,9 +140,9 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
 
   // const handleDropdownChange = (event) => {
   //   // const value = event.target.value;
-   
+
   //     onDropdownChange(event.target.value);
-   
+
   // };
   // useEffect(() => {
   //   handleDropdownChange({ target: { value: selectedValue } });
@@ -149,42 +150,48 @@ const LineChart = ({ challengesChartdata, onDropdownChange }) => {
   return (
     <div className="bg-sh-cream  w-[85%] lg:w-[41.5%] xl:w-[44%] overflow-x-auto overflow-y-hidden md:mt-10 xl:ml-[5%] ml-[8%] relative flex flex-col rounded-xl  text-gray-700 shadow-md">
       <div className="mx-4 mt-4 flex flex-col gap-4  bg-transparent text-gray-700 md:flex-row md:items-center">
-
-        <div className='flex justify-between w-full '>
+        <div className="flex justify-between w-full ">
           <p className="flex items-start justify-start text-left   xl:text-xl text-lg font-bold   text-sh-graph-black ">
             Challenges Completed
           </p>
 
-
           {/* <div className='fixed top-[40.5%] ml-[26%]'>  */}
-          
+
           {/* <select className="border text-black border-gray-300 rounded-sm px-2 py-2 focus:outline-none bg-gray-300 focus:border-none">
           <option value="monthly">Monthly</option>
           <option value="weakly">Weekly</option>
           <option value="daily">Daily</option>
         </select> */}
-   
-        {/* </div> */}
+
+          {/* </div> */}
         </div>
-        
+
         <div className="relative inline-block  w-[9rem]">
-      <select
-       onChange={(e)=>onDropdownChange(e.target.value)}
-      // onChange={handleDropdownChange}
-       className="border text-black border-gray-300  rounded-sm px-2 py-2 focus:outline-none bg-gray-300 appearance-none w-full">
-        <option value="monthly">Monthly</option>
-        <option value="weekly">Weekly</option>
-        <option value="daily">Daily</option>
-      </select>
-      <div className="pointer-events-none  absolute inset-y-0 right-0 flex items-center pr-1 text-black">
-        <svg className="fill-current h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-        </svg>
-      </div>
-    </div>
+          <select
+            onChange={(e) => onDropdownChange(e.target.value)}
+            // onChange={handleDropdownChange}
+            className="border text-black border-gray-300  rounded-sm px-2 py-2 focus:outline-none bg-gray-300 appearance-none w-full"
+          >
+            <option value="monthly">Monthly</option>
+            <option value="weekly">Weekly</option>
+            <option value="daily">Daily</option>
+          </select>
+          <div className="pointer-events-none  absolute inset-y-0 right-0 flex items-center pr-1 text-black">
+            <svg
+              className="fill-current h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+            </svg>
+          </div>
+        </div>
       </div>
       <div className="pt-6 px-2    pb-0">
-        <div className="overflow-x-auto overflow-y-hidden"  id="line-chart"></div>
+        <div
+          className="overflow-x-auto overflow-y-hidden"
+          id="line-chart"
+        ></div>
       </div>
       <div className="mt-5"></div>
     </div>
