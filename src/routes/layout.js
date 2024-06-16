@@ -8,6 +8,7 @@ import {
   Navigate,
   useParams,
 } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import MultipleType from "../pages/challenges/multiple_answers";
 import Login from "../pages/login";
 import Sidebar from "../components/sidebar/sidebar";
@@ -26,6 +27,7 @@ import Slider from "../pages/challenges/slider";
 import Settings from "../pages/settings/settings";
 import TeamDetails from "../pages/teams/team_details";
 import Photo from "../pages/challenges/photo";
+import ScrollToTop from "../components/scroll";
 // function ResetPasswordRoute() {
 //   return <ResetPassword />;
 // }
@@ -33,14 +35,23 @@ import Photo from "../pages/challenges/photo";
 //   return <ChangePassword />;
 // }
 function Layout() {
+  
   const adminToken = localStorage.getItem('adminToken') || sessionStorage.getItem('adminToken');
 
   const location = useLocation();
+  ScrollToTop();
   const [isLoading, setIsLoading] = useState(true);
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth" // You can change this to "auto" for instant scrolling
+  //   });
+  // };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
+  // // Scroll to top when the location changes
+  // useEffect(() => {
+  //   scrollToTop();
+  // }, [location.pathname]);
 
   const showSidebar = [
     "/dashboard",
@@ -88,12 +99,14 @@ function Layout() {
     // </div>
     <div className="App h-screen" >
       {/* <div className=" flex-col"> */}
+          {/* <ScrollToTop /> */}
+
       {showSidebar && <Sidebar />}
       {/* {showSidebar && <PlainNavbar />} */}
         {/* <div className="flex-col h-screen"> */}
           <div className="App-content w-full ">
        
-
+          {/* <ScrollToTop > */}
             <Routes>
             <Route 
             path="/" 
@@ -124,6 +137,7 @@ function Layout() {
               
 
             </Routes>
+            {/* </ScrollToTop> */}
           </div>
         {/* </div> */}
       {/* </div> */}

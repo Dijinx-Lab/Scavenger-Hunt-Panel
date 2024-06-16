@@ -59,13 +59,13 @@ code {
   padding-bottom: 10px;
   background-color: #E5E5E5;
   
-  /* Width of the entire scrollbar */
+
 }
 ::-webkit-scrollbar-thumb {
   background-color: #BDBDBD;
-  /* Color of the scroll thumb */
+
   border-radius: 6px;
-  /* Roundness of the scroll thumb */
+
 }
 
 .svgicon {

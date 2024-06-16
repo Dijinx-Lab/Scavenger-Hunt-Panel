@@ -11,10 +11,11 @@ import Pagination from '../../components/pagination/pagination';
 import UsePagination from '../../components/pagination/handle_page_change';
 import DashboardManager from '../../models/admin/dashboard/dashboardhttp/http';
 import Spinner from '../../components/spinner/spinner';
-import { useNavigate } from "react-router";
+import { useNavigate,useLocation } from "react-router";
 
 function DashBoard() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dashboardManager = new DashboardManager();
   const [showLoading, setShowLoading] = useState(true);
@@ -119,6 +120,8 @@ function DashBoard() {
 
     fetchAllData();
   }, []);
+
+
 
   // const fetchData = async () => {
   //   setShowLoading(true);
