@@ -137,6 +137,24 @@ function Sidebar() {
   const handleClick = () => {
     setIsClicked(!isClicked); // Toggle the clicked state
   };
+  const [isSidebarScrollable, setIsSidebarScrollable] = useState(false);
+
+  const [isWindowHeightLessThan600, setIsWindowHeightLessThan600] = useState(
+    window.innerHeight < 640
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsWindowHeightLessThan600(window.innerHeight < 640);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
   return (
     <>
       {open && window.innerWidth < 768 && (
@@ -147,6 +165,7 @@ function Sidebar() {
       )}
       {/* <PlainNavbar/> */}
       <div
+       id="sidebar"
         className={`flex md:w-72 md:relative fixed md:overflow-y-auto md:overflow-x-hidden bg-sh-cream h-screen pt-5 transition-transform duration-300 flex-shrink-0 z-50 ${open ? "translate-x-0 w-72 " : "-translate-x-full w-0"
           }`}
         style={{ maxHeight: "100vh" }}
@@ -286,9 +305,26 @@ window.location.pathname === '/challenges/create' ||
                 </>
               )} */}
               <img src={settingsImgSrc} alt="Books" className="w-8 h-8" style={{ filter: settingfilterStyle }} />
-              <span className={`${settingsTextColor} font-bold text-xl mt-0.5 ml-4 ${isSettingsPage ? '' : 'mb-16'}`}>Settings</span>
-
+              <span className={`${settingsTextColor} font-bold text-xl mt-0.5 ml-4 ${isSettingsPage ? '' : 'mb-28'}`}>Settings</span>
+            
             </div>
+            {/* <div className="relative h-[37%]"> */}
+            {/* <div
+          className={`${
+            isSidebarScrollable ? "fixed bottom-0 left-0 w-full" : "absolute "
+          } text-center mt-[98%] py-4 bg-sh-cream text-gray-700`}
+        > */}
+        <div
+          className={`${
+            isWindowHeightLessThan600 ? 'relative pb-8' : 'absolute bottom-5 left-0 w-full'
+          } text-center py-4 bg-sh-cream text-xs text-gray-500`}
+        >
+        Powered By | <a className="underline transition-opacity hover:opacity-70" href="https://www.dijinx.com">D I J I N X</a>
+      </div>
+      {/* </div> */}
+      {/* <div className="relative mt-[98%] bottom-5 left-0 w-full text-center py-4 text-sm bg-sh-cream text-gray-500">
+        Powered By | <a className="underline transition-opacity hover:opacity-70" href="https://www.dijinx.com">D I J I N X</a>
+      </div> */}
           </div>
         ) : (
           <div className="px-4 py-4">
@@ -331,7 +367,8 @@ window.location.pathname === '/challenges/create' ||
               </div>
             </div>
           </div>
-        )} */}
+        )} */
+        }
     </>
   );
 

@@ -6,9 +6,9 @@ import UsePagination from "../../components/pagination/handle_page_change";
 import Pagination from "../../components/pagination/pagination";
 import TeamsManager from "../../models/admin/teams/teamshttp/http";
 import Spinner from "../../components/spinner/spinner";
-import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
-import Tooltip from '@mui/material/Tooltip';
-function TeamDetails() {  
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import Tooltip from "@mui/material/Tooltip";
+function TeamDetails() {
   const [showLoading, setShowLoading] = useState(true);
   const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state
   const location = useLocation();
@@ -150,20 +150,20 @@ function TeamDetails() {
       setDeleteShowLoading(false);
     }
   };
-  const [tooltipText, setTooltipText] = useState('Copy Code');
+  const [tooltipText, setTooltipText] = useState("Copy Code");
   let timeoutId;
   const copyCodeToClipboard = () => {
     navigator.clipboard.writeText(teamData.team_code);
-    setTooltipText('Copied');
+    setTooltipText("Copied");
     // Optionally, show a toast message or tooltip indicating successful copy
   };
   const handleMouseLeave = () => {
     clearTimeout(timeoutId); // Clear the previous timeout if it exists
     timeoutId = setTimeout(() => {
-      setTooltipText('Copy Code');
+      setTooltipText("Copy Code");
     }, 1500);
   };
-    return (
+  return (
     <div className="flex-col w-full overflow-x-hidden ">
       {showLoading && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -182,12 +182,16 @@ function TeamDetails() {
           </div>
           <div className="md:mt-4  mt-5  flex items-start justify-start">
             <span className=" text-left font-bold text-lg md:text-xl">
-              <span>Code: </span><span className="text-sh-blue">{teamData.team_code}</span>
+              <span>Code: </span>
+              <span className="text-sh-blue">{teamData.team_code}</span>
               <Tooltip title={tooltipText} placement="top" arrow>
-              <span  
-              onMouseLeave={handleMouseLeave}
-              onClick={copyCodeToClipboard}
-               className="ml-2 cursor-pointer  hover:opacity-70 text-sh-blue" ><ContentCopyOutlinedIcon/></span>  
+                <span
+                  onMouseLeave={handleMouseLeave}
+                  onClick={copyCodeToClipboard}
+                  className="ml-2 cursor-pointer  hover:opacity-70 text-sh-blue"
+                >
+                  <ContentCopyOutlinedIcon />
+                </span>
               </Tooltip>
             </span>
           </div>
@@ -292,7 +296,7 @@ function TeamDetails() {
         </div>
         <div className="xl:mt-0 mt-8">
           <span className="text-left text-sm text-sh-gray ml-[10%] font-bold">
-            Leaderboards
+            Rank
           </span>
           <div className="text-left text-xl mt-3 ml-[10%] font-bold">
             {teamData.leaderboard}
