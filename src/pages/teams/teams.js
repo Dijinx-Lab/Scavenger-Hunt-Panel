@@ -132,6 +132,34 @@ function Teams() {
   const navigateToTeamDetails=(team_code)=>{
     navigate("/teams/details?code="+team_code);
   }
+  const getMaxLength = (width) => {
+    if (width > 1500) return 30;
+    if (width > 1200) return 15;
+    if (width > 992) return 12;
+    if (width > 768) return 10;
+    return 8;
+  };
+
+  const [maxLength, setMaxLength] = useState(getMaxLength(window.innerWidth));
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxLength(getMaxLength(window.innerWidth));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return `${text.slice(0, maxLength)}....`;
+    }
+  };
+  
   const { currentPage: teamsPage, recordsPerPage: teamsPerPage, handlePageChange: handleTeamsPageChange } = UsePagination(1, 10);
   const uploadImgUrl = "https://dk9gc53q2aga2.cloudfront.net/assets/Teams_Logo_For_Dashboard.svg";
   const [searchTerm, setSearchTerm] = useState("");
@@ -234,9 +262,10 @@ function Teams() {
         <img src={index === 0 ? Logo1 : index === 1 ? Logo2 : Logo3} className='ml-4 mt-2 w-8 h-8' alt="team logo" />
         <input
           onClick={() => navigateToTeamDetails(team.team_code)}
-          placeholder={team.name}
+          placeholder={truncateText(team.name, maxLength)}
+          // placeholder={(team.name)}
           readOnly
-          className='bg-sh-cream-light cursor-pointer bg-opacity-10 ml-6  border-none outline-none h-12 text-black text-opacity-50 placeholder-opacity-100'
+          className='bg-sh-cream-light w-full cursor-pointer bg-opacity-10 ml-6  border-none outline-none h-12 text-black text-opacity-50 placeholder-opacity-100'
         />
       </div>
     </div>

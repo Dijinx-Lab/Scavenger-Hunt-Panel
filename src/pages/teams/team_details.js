@@ -274,7 +274,7 @@ function TeamDetails() {
 
 </div>
 <div className='xl:mt-0 mt-8'>
-<span className="text-left text-xl ml-[10%] font-bold">Leaderboards</span>
+<span className="text-left text-xl ml-[10%] font-bold">Rank</span>
 <div className="text-left text-xl mt-3 ml-[10%] font-bold">{teamData.leaderboard}</div>
 
 </div>

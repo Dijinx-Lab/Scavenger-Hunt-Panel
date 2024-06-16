@@ -317,7 +317,7 @@ window.location.pathname === '/challenges/create' ||
         <div
           className={`${
             isWindowHeightLessThan600 ? 'relative pb-8' : 'absolute bottom-5 left-0 w-full'
-          } text-center py-4 bg-sh-cream text-sm text-gray-500`}
+          } text-center py-4 bg-sh-cream text-xs text-gray-500`}
         >
         Powered By | <a className="underline transition-opacity hover:opacity-70" href="https://www.dijinx.com">D I J I N X</a>
       </div>
