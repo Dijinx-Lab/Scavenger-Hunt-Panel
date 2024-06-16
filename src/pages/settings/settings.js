@@ -17,6 +17,7 @@ function Settings() {
   const location = useLocation();
     const settingsManager = new SettingsManager();
     const utilityManager = new UtilityManager();
+    const [video, setVideo] = useState('');
 
   const [showLoading, setShowLoading] = useState(false);
   const [showSave1Loading, setShowSave1Loading] = useState(false);
@@ -113,6 +114,7 @@ function Settings() {
             setTermsEditorcontent2(response.data.terms_and_conditions);
             setRouteTime(response.data.total_time)
             setSettingsData(response.data);
+            // setVideo(response.data.challenge.intro_url);
             // setTotalTeams(response.data.total_teams);
             // setAllTeams(response.data.teams);
           } else {
@@ -146,7 +148,15 @@ function Settings() {
     
         setIsChange(false);
       };
-    
+      const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) {
+            return text;
+        } else {
+            const truncated = text.slice(0, maxLength);
+            const lastFour = text.slice(-5);
+            return `${truncated}......${lastFour}`;
+        }
+      };
       const openIsChange = (id,message,video) => {
         setVideoType(id);
         setMessage(message);
@@ -160,10 +170,28 @@ function Settings() {
             const file = e.target.files[0];
             if (file) {
               const fileName = file.name;
-              const allowedExtensions = [".mp4"];
-              const extension = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
-          
-              if (allowedExtensions.includes(extension)) {
+              const validTypes = [
+                "video/mp4",
+                "video/avi",
+                "video/mov",
+                "video/wmv",
+                "video/mkv",
+                "video/flv",
+                "video/webm",
+                "video/m4v",
+                "video/mpg",
+                "video/mpeg",
+                "video/3gp",
+                "video/quicktime",
+                "video/3gpp",
+                "video/x-msvideo",
+                "video/x-flv",
+                "video/x-matroska",
+                "video/x-ms-wmv",
+                "video/ogg",
+            ];
+    
+            if (validTypes.includes(file.type)) {
                 setSelectedFile(file); // Set the selected file if it has an allowed extension
                 const fileLabel = document.getElementById("fileLabel");
                 if (fileLabel) {
@@ -175,7 +203,7 @@ function Settings() {
                   {
                     type: "invalid",
                     title: "Invalid File",
-                    body: "Only .mp4 files are allowed",
+                    body: "This video format is not available.",
                   },
                 ]);
                 setSelectedFile(null); // Reset selected file
@@ -190,7 +218,7 @@ function Settings() {
           useEffect(() => {
             const fileLabel = document.getElementById("fileLabel");
             if (fileLabel) {
-              fileLabel.textContent = selectedFile ? selectedFile.name : "No File Chosen";
+              fileLabel.textContent = selectedFile ? truncateText(selectedFile.name,15) : "No File Chosen";
             }
           }, [selectedFile]);
           const handleRouteTimeChange = (event) => {
@@ -203,6 +231,17 @@ function Settings() {
           setMessage(e.target.value);
         }
     const handleSave = async (loader) =>{
+      if(!message){
+        setToastMessages([
+          ...toastMessages,
+          {
+            type: "invalid",
+            title: "Error",
+            body: "Message is required",
+          },
+        ]);
+        return;
+      }
       if(loader=="route"){
         setShowSave3Loading(true);
       }
@@ -215,8 +254,9 @@ function Settings() {
       if(loader=="change"){
         setShowSave4Loading(true);
       }
+     
       let videoUrl= initialVideo;
-            if(selectedFile){
+            if(selectedFile && typeof selectedFile !== 'string' ){
               // const compressedVideo = await compressVideo(introVideo);
               const params = {
                 folder: "assets",
@@ -290,7 +330,16 @@ function Settings() {
     }
 
 
-  
+    const [key, setKey] = useState(0);
+    const handleClearVideo = () => {
+      setInitialVideo(null);
+      setSelectedFile(null);
+      const fileLabel = document.getElementById("fileLabel");
+      fileLabel.textContent = "No File Chosen";
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput) fileInput.value = "";
+      setKey((prevKey) => prevKey + 1);
+    };
     return (
         <div className="flex-col w-full h-full overflow-x-hidden">
               {showLoading && (
@@ -299,9 +348,8 @@ function Settings() {
       </div>
     )}
             <PlainNavbar />
-
-            <div className="w-full">
-            {toastMessages.map((toast, index) => (
+            <div className="fixed top-0 right-0 w-full z-[9999] flex flex-col items-end p-4">
+      {toastMessages.map((toast, index) => (
         <Toast
           className="mb-0"
           key={index}
@@ -314,6 +362,9 @@ function Settings() {
           }}
         />
       ))}
+    </div>
+            <div className="w-full ">
+          
                 <div className="md:mt-20 xl:ml-[5%] ml-[8%] mt-16 flex items-start justify-start">
                     <span className="text-sa-maroon text-left font-bold text-2xl md:text-4xl">
                         Settings
@@ -499,6 +550,7 @@ function Settings() {
               className=" fixed inset-0 flex items-center justify-center z-50"
               onClick={closeIsChange}
             >
+              
               <div className=" bg-black opacity-50 absolute inset-0"></div>
               <div
                 className=" bg-white rounded-3xl md:w-[33rem] w-80  p-8 px-12 relative z-10"
@@ -520,15 +572,24 @@ function Settings() {
                         <label className="flex-col text-sm hover:scale-105 transition-all duration-200 ease-in-out hover:opacity-90 rounded-md font-medium cursor-pointer px-3 py-1.5 mt-3 border border-black custom-file-upload">
                             <input
                                 type="file"
-                                accept='.mp4'
+                                key={key}
+                                // accept='.mp4'
                                 className="hidden"
                                 onChange={handleFileChange}
-                                onClick={handleFileInputClick}
+                                // onClick={handleFileInputClick}
                             />
                             Choose File
                         </label>
+                        {initialVideo || selectedFile ? (
+                <button
+                    onClick={handleClearVideo}
+                    className=' mt-3 ml-3 rounded-md bg-sh-cream text text-center py-1.5 px-3 text-sm font-medium hover:scale-105 transition-all duration-300 ease-in-out hover:opacity-90 text-sh-red border border-sh-red cursor-pointer'
+                >
+                    Clear
+                </button>
+            ) : null}
                         <label id="fileLabel" className="ml-1 text-sm text-gray-500 rounded-md font-medium px-3 py-1.5 mt-3">
-                        {selectedFile ? selectedFile.name : "No File Chosen"}
+                        {initialVideo ? truncateText(initialVideo,15) : "No File Chosen"}
                         </label>
                     </div>
                     <div className="text-left  mt-8 lg:text-lg text-sm text-black font-bold">Update Message</div>
@@ -541,7 +602,7 @@ function Settings() {
                       value={message}
                       onChange={handleMessageChange}
                       className="bg-transparent border text-black border-gray-500 py-4  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pl-3 focus:outline-none focus:ring-0 focus:border-sh-blue peer " 
-                      placeholder="60 MINUTES" 
+                      placeholder="Type Here..." 
                       />
                         </div>
                 {/* <p className="text-black text-filter-heading md:w-auto mt-5 w-60 text-left">

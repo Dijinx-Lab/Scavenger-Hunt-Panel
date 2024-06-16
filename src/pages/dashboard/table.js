@@ -70,7 +70,9 @@ const RecentCreatedTeams = ({ currentPage, recordsPerPage,AllTeams  }) => {
   }
 
   const navigateToTeamDetails=(team_code)=>{
-    navigate("/teams/details?code="+team_code);
+    if(team_code){
+      navigate("/teams/details?code="+team_code);
+    }
   }
   return (
       <div className="relative  flex flex-col w-full h-full overflow-scroll text-gray-700 bg-sh-cream  rounded-sm ">

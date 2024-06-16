@@ -26,7 +26,9 @@ const CurrentChallenges = ({ currentPage, recordsPerPage, allChallenges }) => {
     //   ]);
     const [tableData, setTableData] = useState(allChallenges);
     const navigateToChallenge=(id)=>{
+    if(id){
       navigate("/challenges/manage?_id="+id);
+    }
     }
 
     useEffect(() => {
