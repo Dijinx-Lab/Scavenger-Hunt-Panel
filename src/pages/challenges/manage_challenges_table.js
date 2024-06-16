@@ -85,7 +85,27 @@ const ManageChallengesTable = ({ currentPage, recordsPerPage, allQuestions, newC
       setDeleteShowLoading(false);
     }
   };
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+        return text;
+    } else {
+        const truncated = text.slice(0, maxLength);
+        // const lastFour = text.slice(-5);
+        return `${truncated}......`;
+    }
+  };
 
+  
+  const getTruncatedMessage = (message, wordLimit) => {
+    if (!message) {
+        return '';
+    }
+    const words = message.split(' ');
+    if (words.length <= wordLimit) {
+        return message;
+    }
+    return words.slice(0, wordLimit).join(' ') + '...';
+};
 
   const startIndex = (currentPage - 1) * recordsPerPage;
   const endIndex = startIndex + recordsPerPage;
@@ -135,7 +155,7 @@ const ManageChallengesTable = ({ currentPage, recordsPerPage, allQuestions, newC
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[38%]`}>
 
                 <p className="block   text-base text-left font-normal leading-normal sh-graph-black">
-                  {row.question}
+                  {getTruncatedMessage(row.question,15)}
                 </p>
               </td>
               <td className={`p-${row.empty ? '6' : '4'} border border-gray-300 w-[15%]`}>
