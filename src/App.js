@@ -6,10 +6,12 @@ import Layout from "./routes/layout";
 import ScrollToTop from "./components/scroll";
 function App() {
   return (
-    <Router >
-          {/* <ScrollToTop /> */}
-      
+    
+    <Router  > 
+        <ScrollToTop />
+          {/* <ScrollToTop > */}
     <Layout />
+    {/* </ScrollToTop> */}
   </Router>
   );
 }

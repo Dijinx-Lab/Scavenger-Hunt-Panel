@@ -11,12 +11,15 @@ import Pagination from '../../components/pagination/pagination';
 import UsePagination from '../../components/pagination/handle_page_change';
 import DashboardManager from '../../models/admin/dashboard/dashboardhttp/http';
 import Spinner from '../../components/spinner/spinner';
-import { useNavigate,useLocation } from "react-router";
+import { useNavigate,useLocation,ScrollRestoration } from "react-router-dom";
 
 function DashBoard() {
   const navigate = useNavigate();
   const location = useLocation();
-
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
   const dashboardManager = new DashboardManager();
   const [showLoading, setShowLoading] = useState(true);
   const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  

@@ -10,7 +10,10 @@ const CreatedTeams = ({ currentPage, recordsPerPage, AllTeams,searchTerm }) => {
   }, [AllTeams]);
 
   const navigateToTeamDetails = (team_code) => {
+    if(team_code){
+
     navigate("/teams/details?code="+team_code);
+  }
   };
 
   const startIndex = (currentPage - 1) * recordsPerPage;

@@ -28,6 +28,7 @@ import Settings from "../pages/settings/settings";
 import TeamDetails from "../pages/teams/team_details";
 import Photo from "../pages/challenges/photo";
 import ScrollToTop from "../components/scroll";
+
 // function ResetPasswordRoute() {
 //   return <ResetPassword />;
 // }
@@ -106,7 +107,7 @@ function Layout() {
         {/* <div className="flex-col h-screen"> */}
           <div className="App-content w-full ">
        
-          {/* <ScrollToTop > */}
+          {/* <ScrollToTop /> */}
             <Routes>
             <Route 
             path="/" 
@@ -137,7 +138,7 @@ function Layout() {
               
 
             </Routes>
-            {/* </ScrollToTop> */}
+              {/* </ScrollToTop> */}
           </div>
         {/* </div> */}
       {/* </div> */}

@@ -6,6 +6,8 @@ import UsePagination from '../../components/pagination/handle_page_change';
 import Pagination from '../../components/pagination/pagination';
 import TeamsManager from '../../models/admin/teams/teamshttp/http';
 import Spinner from "../../components/spinner/spinner";
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import Tooltip from '@mui/material/Tooltip';
 function TeamDetails() {  
   const [showLoading, setShowLoading] = useState(true);
   const [toastMessages, setToastMessages] = useState([]); // Set initial toastMessages from location state  
@@ -149,7 +151,19 @@ function TeamDetails() {
       setDeleteShowLoading(false);
     }
   };
-  
+  const [tooltipText, setTooltipText] = useState('Copy Code');
+  let timeoutId;
+  const copyCodeToClipboard = () => {
+    navigator.clipboard.writeText(teamData.team_code);
+    setTooltipText('Copied');
+    // Optionally, show a toast message or tooltip indicating successful copy
+  };
+  const handleMouseLeave = () => {
+    clearTimeout(timeoutId); // Clear the previous timeout if it exists
+    timeoutId = setTimeout(() => {
+      setTooltipText('Copy Code');
+    }, 1500);
+  };
     return (
     <div className="flex-col w-full overflow-x-hidden ">
       {showLoading && (
@@ -170,6 +184,12 @@ function TeamDetails() {
           <div className="md:mt-4  mt-5  flex items-start justify-start">
             <span className=" text-left font-bold text-lg md:text-xl">
               <span>Code: </span><span className="text-sh-blue">{teamData.team_code}</span>
+              <Tooltip title={tooltipText} placement="top" arrow>
+              <span  
+              onMouseLeave={handleMouseLeave}
+              onClick={copyCodeToClipboard}
+               className="ml-2 cursor-pointer  hover:opacity-70 text-sh-blue" ><ContentCopyOutlinedIcon/></span>  
+              </Tooltip>
             </span>
           </div>
           {/* <div className="md:mt-4  mt-5  flex items-start justify-start">
