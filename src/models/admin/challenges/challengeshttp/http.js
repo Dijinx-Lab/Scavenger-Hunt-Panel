@@ -64,8 +64,8 @@ class ChallengesManager {
       description: params.description,
      
     };
-    if (params.intro_url) {
-      requestParams.answer = params.intro_url;
+    if (params.videoUrl) {
+      requestParams.intro_url = params.videoUrl;
     }
 
     try {
